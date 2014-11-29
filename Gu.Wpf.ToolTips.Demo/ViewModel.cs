@@ -1,5 +1,6 @@
 ﻿namespace Gu.Wpf.ToolTips.Demo
 {
+    using System;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
@@ -9,6 +10,12 @@
     {
         private string _value = "Value from viewmodel";
 
+        public ViewModel()
+        {
+            throw new NotImplementedException("Change color of i");
+            throw new NotImplementedException("Template text/button");
+            
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string Value

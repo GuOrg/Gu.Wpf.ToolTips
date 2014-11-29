@@ -6,60 +6,72 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:toolTips="clr-namespace:Gu.Wpf.ToolTips;assembly=Gu.Wpf.ToolTips"
              d:DataContext="{d:DesignInstance demo:ViewModel}"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
-             mc:Ignorable="d">
+             d:DesignHeight="300" d:DesignWidth="300"
+             mc:Ignorable="d"
+             >
     <UserControl.Resources>
         <Style x:Key="ContainerStyle" TargetType="{x:Type GroupBox}">
-            <Setter Property="Width" Value="150" />
-            <Setter Property="Height" Value="50" />
+            <Setter Property="Width" Value="250" />
+            <Setter Property="Height" Value="60" />
             <Setter Property="Margin" Value="20" />
             <Setter Property="BorderBrush" Value="CornflowerBlue" />
             <Setter Property="BorderThickness" Value="1" />
         </Style>
-        <Style x:Key="LocalPopupStyle"
-               BasedOn="{StaticResource {x:Type toolTips:PopupButton}}"
-               TargetType="{x:Type toolTips:PopupButton}">
-            <Setter Property="BorderBrush" Value="IndianRed" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Width" Value="150" />
-            <Setter Property="Height" Value="50" />
-            <Setter Property="Margin" Value="20" />
-        </Style>
+        <ControlTemplate x:Key="CustomTemplate" TargetType="{x:Type toolTips:PopupButton}">
+            <Border Background="Gray" BorderBrush="HotPink"
+                    BorderThickness="2"
+                    />
+        </ControlTemplate>
     </UserControl.Resources>
-    <StackPanel>
-        <TextBlock Text="Clicking shows/hides the tooltip" />
-        <TextBlock Text="Default style + border" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Clicking shows/hides the tooltip" />
+            <TextBlock Text="Default style + border" />
+        </StackPanel>
+        <WrapPanel Grid.Row="1">
+            <GroupBox Header="Default style, wpf ToolTip" Style="{StaticResource ContainerStyle}">
+                <toolTips:PopupButton>
+                    <toolTips:PopupButton.TouchToolTip>
+                        <ToolTip>
+                            <TextBlock Text="Tooltip text" />
+                        </ToolTip>
+                    </toolTips:PopupButton.TouchToolTip>
+                </toolTips:PopupButton>
+            </GroupBox>
 
-        <GroupBox Header="Default style"
-                  Style="{StaticResource ContainerStyle}">
-            <toolTips:PopupButton>
-                <toolTips:PopupButton.TouchToolTip>
-                    <ToolTip>
-                        <TextBlock Text="Tooltip text" />
-                    </ToolTip>
-                </toolTips:PopupButton.TouchToolTip>
-            </toolTips:PopupButton>
-        </GroupBox>
+            <!--<GroupBox Header="Default style, wpf ToolTip text from vm" Style="{StaticResource ContainerStyle}">
+                <toolTips:PopupButton>
+                    <toolTips:PopupButton.TouchToolTip>
+                        <ToolTip>
+                            <TextBlock Text="{Binding Value}" />
+                        </ToolTip>
+                    </toolTips:PopupButton.TouchToolTip>
+                </toolTips:PopupButton>
+            </GroupBox>
 
-        <GroupBox Header="Default style, text from vm"
-                  Style="{StaticResource ContainerStyle}">
-            <toolTips:PopupButton>
-                <toolTips:PopupButton.TouchToolTip>
-                    <ToolTip>
-                        <TextBlock Text="{Binding Value}" />
-                    </ToolTip>
-                </toolTips:PopupButton.TouchToolTip>
-            </toolTips:PopupButton>
-        </GroupBox>
+            <GroupBox Header="Default style, TouchToolTip text from vm" Style="{StaticResource ContainerStyle}">
+                <toolTips:PopupButton>
+                    <toolTips:PopupButton.TouchToolTip>
+                        <toolTips:TouchToolTip d:DataContext="{d:DesignInstance toolTips:BindingProxy}">
+                            <TextBlock Text="{Binding DataContext.Value}" />
+                        </toolTips:TouchToolTip>
+                    </toolTips:PopupButton.TouchToolTip>
+                </toolTips:PopupButton>
+            </GroupBox>-->
 
-        <toolTips:PopupButton Content="Viewmodel binding"
-                              Style="{StaticResource LocalPopupStyle}">
-            <toolTips:PopupButton.TouchToolTip>
-                <ToolTip>
-                    <TextBlock Text="{Binding DataContext.Value}" />
-                </ToolTip>
-            </toolTips:PopupButton.TouchToolTip>
-        </toolTips:PopupButton>
-    </StackPanel>
+            <GroupBox Header="Custom style" Style="{StaticResource ContainerStyle}">
+                <toolTips:PopupButton Template="{StaticResource CustomTemplate}">
+                    <toolTips:PopupButton.TouchToolTip>
+                        <ToolTip>
+                            <TextBlock Text="Tooltip text" />
+                        </ToolTip>
+                    </toolTips:PopupButton.TouchToolTip>
+                </toolTips:PopupButton>
+            </GroupBox>
+        </WrapPanel>
+    </Grid>
 </UserControl>

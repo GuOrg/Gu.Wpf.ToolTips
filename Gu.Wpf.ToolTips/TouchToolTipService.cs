@@ -48,6 +48,19 @@
             new PropertyMetadata(default(ToolTip), OnToolTipChanged));
 
         /// <summary>
+        /// Dummy property to get notificatins on when Visibility should toggle if Visibility is set to null
+        /// </summary>
+        private static readonly DependencyProperty DefaultVisibleProxyProperty =
+            DependencyProperty.RegisterAttached(
+                "DefaultVisibleProxy",
+                typeof(object),
+                typeof(TouchToolTipService),
+                new FrameworkPropertyMetadata(
+                    null,
+                    FrameworkPropertyMetadataOptions.None,
+                    OnDefaultVisibleProxChanged));
+
+        /// <summary>
         ///     Reference to the ValidationAdorner
         /// </summary>
         private static readonly DependencyProperty ToolTipAdornerProperty =
@@ -157,7 +170,17 @@
             var toolTip = GetToolTip(o);
             if (toolTip != null)
             {
-                ShowAdorner(o, (bool)e.NewValue, true);
+                var visible = (bool?)o.GetValue(IsVisibleProperty) ?? GetDefaultVisible(o);
+                ShowAdorner(o, visible, true);
+            }
+        }
+        private static void OnDefaultVisibleProxChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            var toolTip = GetToolTip(o);
+            if (toolTip != null)
+            {
+                var visible = (bool?)o.GetValue(IsVisibleProperty) ?? GetDefaultVisible(o);
+                ShowAdorner(o, visible, true);
             }
         }
 
@@ -170,52 +193,28 @@
 
         private static void OnToolTipChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            var newTip = e.NewValue as ToolTip;
-            if (newTip != null)
-            {
-                if (newTip.DataContext == null)
-                {
-                    var binding = new Binding(FrameworkElement.DataContextProperty.Name)
-                                      {
-                                          Source = o,
-                                          Mode = BindingMode.OneWay
-                                      };
-                    BindingOperations.SetBinding(newTip, FrameworkElement.DataContextProperty, binding);
-                }
-            }
             var target = o as UIElement;
-            var touchToolTip = newTip as ITouchToolTip;
+            var touchToolTip = e.NewValue as ITouchToolTip;
             if (touchToolTip != null && target != null)
             {
                 touchToolTip.OnToolTipChanged(target);
             }
-            //throw new NotImplementedException("Fix broken for commandtooltip");
-            
-            //var commandToolTip = newTip as CommandToolTip;
-            //if (commandToolTip != null)
-            //{
-            //    var binding = new Binding()
-            //    {
-            //        Source = o,
-            //        Mode = BindingMode.OneWay
-            //    };
-            //    BindingOperations.SetBinding(commandToolTip, TouchToolTip.AdornedElementProperty, binding);
-            //    var buttonBase = o as ButtonBase;
-            //    if (buttonBase != null)
-            //    {
-            //        var visibleBinding = new Binding(UIElement.IsEnabledProperty.Name)
-            //        {
-            //            Mode = BindingMode.OneWay,
-            //            Source = o,
-            //            Converter = new NegatingConverter()
-            //        };
-            //        BindingOperations.SetBinding(o, TouchToolTipService.IsVisibleProperty, visibleBinding);
-            //    }
-            //    else if( o is TextBlock || o is Label)
-            //    {
-            //        o.SetCurrentValue(TouchToolTipService.IsVisibleProperty, true);
-            //    }
-            //}
+            else
+            {
+                var newTip = e.NewValue as ToolTip;
+                if (newTip != null)
+                {
+                    if (newTip.DataContext == null)
+                    {
+                        var binding = new Binding(FrameworkElement.DataContextProperty.Name)
+                        {
+                            Source = o,
+                            Mode = BindingMode.OneWay
+                        };
+                        BindingOperations.SetBinding(newTip, FrameworkElement.DataContextProperty, binding);
+                    }
+                }
+            }
             var visible = (bool?)o.GetValue(IsVisibleProperty) ?? GetDefaultVisible(o);
             ShowAdorner(o, visible, true);
         }
@@ -226,9 +225,16 @@
             {
                 return true;
             }
-            if (o is ButtonBase)
+            var buttonBase = o as ButtonBase;
+            if (buttonBase != null)
             {
-                throw new NotImplementedException("Subscribe to enabled");
+                var binding = new Binding(UIElement.IsEnabledProperty.Name)
+                                  {
+                                      Source = buttonBase, 
+                                      Mode = BindingMode.OneWay
+                                  };
+                BindingOperations.SetBinding(o, DefaultVisibleProxyProperty, binding);
+                return buttonBase.IsEnabled != true;
             }
             return false;
         }

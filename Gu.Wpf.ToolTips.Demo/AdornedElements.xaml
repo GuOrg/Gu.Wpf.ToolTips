@@ -6,116 +6,125 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:toolTips="clr-namespace:Gu.Wpf.ToolTips;assembly=Gu.Wpf.ToolTips"
              d:DataContext="{d:DesignInstance demo:ViewModel}"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
-             mc:Ignorable="d">
+             d:DesignHeight="300" d:DesignWidth="300"
+             mc:Ignorable="d"
+             >
     <UserControl.Resources>
         <Style x:Key="BaseStyle" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="200" />
             <Setter Property="Margin" Value="20" />
+            <Setter Property="IsEnabled" Value="{Binding IsChecked, ElementName=Enabled}" />
+            <Setter Property="toolTips:TouchToolTipService.IsVisible" Value="{Binding IsChecked, ElementName=Visible}" />
         </Style>
 
-        <Style x:Key="ToolTipStyle"
-               BasedOn="{StaticResource BaseStyle}"
-               TargetType="{x:Type Button}">
+        <!--
+            <Style x:Key="TouchToolTipStyle"
+            BasedOn="{StaticResource BaseStyle}"
+            TargetType="{x:Type Button}"
+            x:Shared="False">
             <Setter Property="toolTips:TouchToolTipService.IsVisible" Value="True" />
             <Setter Property="toolTips:TouchToolTipService.ToolTip">
-                <Setter.Value>
-                    <toolTips:TouchToolTip d:DataContext="{d:DesignInstance toolTips:BindingProxy}">
-                        <StackPanel>
-                            <ToggleButton Height="20" Content="Toggle" />
-                            <TextBlock Text="{Binding ActualHeight, ElementName=Button, StringFormat='Height: {0} (ElementName)'}" />
-                            <TextBlock Text="{Binding AdornedElement.ActualWidth, StringFormat='Width: {0}'}" />
-                            <TextBlock Text="{Binding DataContext.Value, StringFormat='From vm: {0}'}" />
-                        </StackPanel>
-                    </toolTips:TouchToolTip>
-                </Setter.Value>
+            <Setter.Value>
+            <ToolTip>
+            <StackPanel>
+            <ToggleButton Height="20" Content="Toggle" />
+            <TextBlock Text="{Binding ActualHeight, ElementName=Button, StringFormat='Height: {0} (ElementName)'}" />
+            <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Button}}, StringFormat='Width: {0} (RelativeSource={RelativeSource AncestorType={x:Type Button}})'}" />
+            <TextBlock Text="{Binding Condition1.Name, StringFormat='From vm: {0}'}" />
+            </StackPanel>
+            </ToolTip>
+            </Setter.Value>
             </Setter>
-
-            <!--
-                <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="reactive:TouchToolTipService.IsVisible" Value="True" />
-                </Trigger>
-                </Style.Triggers>
-            -->
-        </Style>
-
-        <Style x:Key="TouchToolTipStyle"
-               BasedOn="{StaticResource BaseStyle}"
-               TargetType="{x:Type Button}"
-               x:Shared="False">
-            <Setter Property="toolTips:TouchToolTipService.IsVisible" Value="True" />
-            <Setter Property="toolTips:TouchToolTipService.ToolTip">
-                <Setter.Value>
-                    <ToolTip>
-                        <StackPanel>
-                            <ToggleButton Height="20" Content="Toggle" />
-                            <TextBlock Text="{Binding ActualHeight, ElementName=Button, StringFormat='Height: {0} (ElementName)'}" />
-                            <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Button}}, StringFormat='Width: {0} (RelativeSource={RelativeSource AncestorType={x:Type Button}})'}" />
-                            <TextBlock Text="{Binding Condition1.Name, StringFormat='From vm: {0}'}" />
-                        </StackPanel>
-                    </ToolTip>
-                </Setter.Value>
-            </Setter>
-
+            
             <Setter Property="toolTips:TouchToolTipService.OverlayTemplate">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Border Background="Transparent"
-                                BorderBrush="Teal"
-                                BorderThickness="2" />
-                    </ControlTemplate>
-                </Setter.Value>
+            <Setter.Value>
+            <ControlTemplate>
+            <Border Background="Transparent"
+            BorderBrush="Teal"
+            BorderThickness="2" />
+            </ControlTemplate>
+            </Setter.Value>
             </Setter>
-        </Style>
+            </Style>
+        -->
     </UserControl.Resources>
     <AdornerDecorator>
-        <StackPanel>
-            <Button x:Name="Button"
-                    IsEnabled="False"
-                    Style="{StaticResource TouchToolTipStyle}">
-                <StackPanel>
-                    <TextBlock Text="Explicit style, custom overlay (always visible)" />
-                    <TextBlock Text="Tooltip bound to command condition" />
-                </StackPanel>
-            </Button>
-            <Button IsEnabled="False" Style="{StaticResource TouchToolTipStyle}">
-                <StackPanel>
-                    <TextBlock Text="Explicit style, custom overlay (always visible)" />
-                    <TextBlock Text="Tooltip bound to command condition (copy)" />
-                </StackPanel>
-            </Button>
-            <Button IsEnabled="False" Style="{StaticResource ToolTipStyle}">
-                <StackPanel>
-                    <TextBlock Text="Explicit style (always visible)" />
-                    <TextBlock Text="TouchToolTip" />
-                </StackPanel>
-            </Button>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <CheckBox x:Name="Enabled" Content="Enabled" />
+                <CheckBox x:Name="Visible" Content="Visible (null uses default behavior)"
+                          IsThreeState="True"
+                          />
+            </StackPanel>
 
-            <Button x:Name="StandardButton" Style="{StaticResource BaseStyle}">
-                <StackPanel>
-                    <TextBlock Text="Ordinary button" />
-                    <TextBlock Text="Standard tooltip" />
-                </StackPanel>
-                <Button.ToolTip>
-                    <ToolTip>
-                        <StackPanel>
-                            <TextBlock Text="{Binding ActualHeight, ElementName=Button, StringFormat='Height: {0} (ElementName)'}" />
-                            <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Button}}, StringFormat='Width: {0} (RelativeSource={RelativeSource AncestorType={x:Type Button}})'}" />
-                            <TextBlock Text="{Binding Condition1.Name, StringFormat='From vm: {0}'}" />
-                        </StackPanel>
-                    </ToolTip>
-                </Button.ToolTip>
-            </Button>
+            <WrapPanel Grid.Row="1">
+                <Button x:Name="Button" Style="{StaticResource BaseStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Default style" />
+                        <TextBlock Text="WPF tooltip" />
+                    </StackPanel>
+                    <toolTips:TouchToolTipService.ToolTip>
+                        <ToolTip>
+                            <TextBlock Text="ToolTip text" />
+                        </ToolTip>
+                    </toolTips:TouchToolTipService.ToolTip>
+                </Button>
+                
+                <Button Style="{StaticResource BaseStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Default style" />
+                        <TextBlock Text="TouchToolTip" />
+                    </StackPanel>
+                    <toolTips:TouchToolTipService.ToolTip>
+                        <toolTips:TouchToolTip>
+                            <TextBlock Text="ToolTip text" />
+                        </toolTips:TouchToolTip>
+                    </toolTips:TouchToolTipService.ToolTip>
+                </Button>
 
-            <TextBlock Width="150"
-                       Padding="0,10,20,0"
-                       Text="Text with TouchTooltip">
-                <toolTips:TouchToolTipService.ToolTip>
-                    <toolTips:TouchToolTip>Tooltip text</toolTips:TouchToolTip>
-                </toolTips:TouchToolTipService.ToolTip>
-            </TextBlock>
-        </StackPanel>
+                <Button Style="{StaticResource BaseStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Default style" />
+                        <TextBlock Text="TouchToolTip bindings" />
+                    </StackPanel>
+                    <toolTips:TouchToolTipService.ToolTip>
+                        <toolTips:TouchToolTip d:DataContext="{d:DesignInstance toolTips:BindingProxy}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding AdornedElement.ActualHeight, StringFormat='AdornedElement.ActualHeight: {0}'}" />
+                                <TextBlock Text="{Binding DataContext.Value}" />
+                            </StackPanel>
+                        </toolTips:TouchToolTip>
+                    </toolTips:TouchToolTipService.ToolTip>
+                </Button>
+
+                <Button x:Name="StandardButton" Style="{StaticResource BaseStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Ordinary button" />
+                        <TextBlock Text="Standard tooltip" />
+                    </StackPanel>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock Text="{Binding ActualHeight, ElementName=Button, StringFormat='Height: {0} (ElementName)'}" />
+                                <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Button}}, StringFormat='Width: {0} (RelativeSource={RelativeSource AncestorType={x:Type Button}})'}" />
+                                <TextBlock Text="{Binding Value, StringFormat='From vm: {0}'}" />
+                            </StackPanel>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+
+                <TextBlock Width="150" Padding="0,10,20,0"
+                           Text="Text with TouchTooltip"
+                           >
+                    <toolTips:TouchToolTipService.ToolTip>
+                        <toolTips:TouchToolTip>Tooltip text</toolTips:TouchToolTip>
+                    </toolTips:TouchToolTipService.ToolTip>
+                </TextBlock>
+            </WrapPanel>
+        </Grid>
     </AdornerDecorator>
 </UserControl>
