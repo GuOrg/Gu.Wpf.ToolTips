@@ -5,5 +5,6 @@
     public interface ITouchToolTip
     {
         void OnToolTipChanged(UIElement adornedElement);
+        UIElement PlacementTarget { get; set; }
     }
 }

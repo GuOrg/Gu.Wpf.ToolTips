@@ -14,20 +14,8 @@
         public static readonly DependencyProperty DataContextProperty = FrameworkElement.DataContextProperty.AddOwner(
             typeof(BindingProxy),
             new PropertyMetadata(null));
-        private WeakReference _adornedElementRef = new WeakReference(null);
-        public UIElement AdornedElement
-        {
-            get
-            {
-                return (UIElement) _adornedElementRef.Target;
-            }
-        }
 
-        public object DataContext
-        {
-            get { return (object)this.GetValue(DataContextProperty); }
-            set { this.SetValue(DataContextProperty, value); }
-        }
+        private readonly WeakReference _adornedElementRef = new WeakReference(null);
 
         /// <summary>
         /// Binds AdornedElement to adornedElement;
@@ -47,6 +35,20 @@
                 };
                 BindingOperations.SetBinding(adornedElement, DataContextProperty, binding);
             }
+        }
+
+        public UIElement AdornedElement
+        {
+            get
+            {
+                return (UIElement)_adornedElementRef.Target;
+            }
+        }
+
+        public object DataContext
+        {
+            get { return (object)this.GetValue(DataContextProperty); }
+            set { this.SetValue(DataContextProperty, value); }
         }
     }
 }

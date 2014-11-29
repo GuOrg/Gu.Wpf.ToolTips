@@ -11,14 +11,6 @@
     {
         private PopupButton _popupButton;
 
-        private static readonly DependencyPropertyKey AdornedElementTypePropertyKey = DependencyProperty.RegisterReadOnly(
-                "AdornedElementType",
-                typeof(Type),
-                typeof(TouchToolTip),
-                new PropertyMetadata(default(Type)));
-
-        public static readonly DependencyProperty AdornedElementTypeProperty = AdornedElementTypePropertyKey.DependencyProperty;
-
         static TouchToolTipAdorner()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TouchToolTipAdorner), new FrameworkPropertyMetadata(typeof(TouchToolTipAdorner)));
@@ -33,7 +25,6 @@
             : base(adornedElement)
         {
             Debug.Assert(adornedElement != null, "adornedElement should not be null");
-            //Debug.Assert(overlayTemplate != null, "adornerTemplate should not be null");
             _popupButton = new PopupButton
                           {
                               IsTabStop = false,
@@ -45,29 +36,8 @@
             if (toolTip != null)
             {
                 _popupButton.TouchToolTip = toolTip;
-
-                //toolTip.DataContext = adornedElement;
-                // Not sure we want ^, check bindings for DataContext and DataContext == null first 
-            }
-            else
-            {
-                _popupButton.BorderBrush = Brushes.HotPink;
-                _popupButton.BorderThickness = new Thickness(2);
             }
             AddVisualChild(_popupButton);
-            AdornedElementType = adornedElement.GetType();
-        }
-
-        public Type AdornedElementType
-        {
-            get
-            {
-                return (Type)GetValue(AdornedElementTypeProperty);
-            }
-            protected set
-            {
-                SetValue(AdornedElementTypePropertyKey, value);
-            }
         }
 
         /// <summary>
@@ -119,14 +89,12 @@
 
         protected override Size ArrangeOverride(Size size)
         {
-            Size finalSize;
-
-            finalSize = base.ArrangeOverride(size);
-
+            var finalSize = base.ArrangeOverride(size);
             if (_popupButton != null)
             {
                 _popupButton.Arrange(new Rect(new Point(), finalSize));
             }
+
             return finalSize;
         }
     }

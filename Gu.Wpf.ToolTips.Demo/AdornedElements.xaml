@@ -117,9 +117,7 @@
                     </Button.ToolTip>
                 </Button>
 
-                <TextBlock Width="150" Padding="0,10,20,0"
-                           Text="Text with TouchTooltip"
-                           >
+                <TextBlock Text="Text with TouchTooltip">
                     <toolTips:TouchToolTipService.ToolTip>
                         <toolTips:TouchToolTip>Tooltip text</toolTips:TouchToolTip>
                     </toolTips:TouchToolTipService.ToolTip>

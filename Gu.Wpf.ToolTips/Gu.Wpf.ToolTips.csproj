@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingProxy.cs" />
+    <Compile Include="AdornedElementProxy.cs" />
     <Compile Include="ITouchToolTip.cs" />
     <Compile Include="NegatingConverter.cs" />
     <Compile Include="PopupButton.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="TouchToolTip.cs" />
     <Compile Include="TouchToolTipAdorner.cs" />
     <Compile Include="TouchToolTipService.cs" />
+    <Compile Include="VisualTreeHelperEx.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

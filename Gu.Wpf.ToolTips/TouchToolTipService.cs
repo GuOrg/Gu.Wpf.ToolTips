@@ -174,6 +174,7 @@
                 ShowAdorner(o, visible, true);
             }
         }
+        
         private static void OnDefaultVisibleProxChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             var toolTip = GetToolTip(o);
