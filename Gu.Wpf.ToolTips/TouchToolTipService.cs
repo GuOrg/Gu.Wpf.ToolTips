@@ -142,6 +142,13 @@
                 if (show && adorner == null)
                 {
                     var overlayTemplate = GetOverlayTemplate(uiElement);
+                    if (overlayTemplate == null)
+                    {
+                        if (uiElement is TextBlock || uiElement is Label)
+                        {
+                            overlayTemplate = (ControlTemplate) Application.Current.FindResource(PopupButton.TextOverlayTemplateKey);
+                        }
+                    }
                     var toolTip = GetToolTip(uiElement);
                     adorner = new TouchToolTipAdorner(uiElement, toolTip, overlayTemplate);
                     adornerLayer.Add(adorner);

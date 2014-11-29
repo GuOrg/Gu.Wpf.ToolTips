@@ -13,6 +13,7 @@
     {
         private UIElement _child;
         private Adorner _adorner;
+        private bool _checkedAdorner;
 
         ///<summary>
         /// Element for which the AdornedElementProxy is reserving space.
@@ -123,20 +124,20 @@
             return arrangeBounds;
         }
 
-
         private Adorner Adorner
         {
             get
             {
-                if (_adorner == null)
+                if (_adorner == null && !_checkedAdorner)
                 {
-                    throw new NotImplementedException("This is not right");
                     var templateParent = TemplatedParent as FrameworkElement;
 
                     if (templateParent != null)
                     {
-                        _adorner = (Adorner) templateParent.VisualAncestors().FirstOrDefault(x => (x is Adorner));
+                        _adorner = (Adorner)templateParent.VisualAncestors().FirstOrDefault(x => (x is Adorner));
                     }
+
+                    _checkedAdorner = true;
                 }
                 return _adorner;
             }

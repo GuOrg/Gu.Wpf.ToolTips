@@ -6,9 +6,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:toolTips="clr-namespace:Gu.Wpf.ToolTips;assembly=Gu.Wpf.ToolTips"
              d:DataContext="{d:DesignInstance demo:ViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300"
-             mc:Ignorable="d"
-             >
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="BaseStyle" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="200" />
@@ -56,9 +56,10 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
                 <CheckBox x:Name="Enabled" Content="Enabled" />
-                <CheckBox x:Name="Visible" Content="Visible (null uses default behavior)"
-                          IsThreeState="True"
-                          />
+                <CheckBox x:Name="Visible"
+                          Content="Visible (null uses default behavior)"
+                          IsChecked="{x:Null}"
+                          IsThreeState="True" />
             </StackPanel>
 
             <WrapPanel Grid.Row="1">
@@ -73,7 +74,7 @@
                         </ToolTip>
                     </toolTips:TouchToolTipService.ToolTip>
                 </Button>
-                
+
                 <Button Style="{StaticResource BaseStyle}">
                     <StackPanel>
                         <TextBlock Text="Default style" />

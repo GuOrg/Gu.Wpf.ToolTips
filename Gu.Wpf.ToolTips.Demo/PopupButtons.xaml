@@ -54,7 +54,7 @@
                                                            ElementName=TextBlock}"
                                           HorizontalAlignment="Left"
                                           VerticalAlignment="Top"
-                                          Template="{StaticResource {x:Static toolTips:PopupButton.TextOverlayTemplateKey}}">
+                                          Template="{DynamicResource {x:Static toolTips:PopupButton.TextOverlayTemplateKey}}">
                         <toolTips:PopupButton.TouchToolTip>
                             <ToolTip>
                                 <TextBlock Text="Tooltip text" />

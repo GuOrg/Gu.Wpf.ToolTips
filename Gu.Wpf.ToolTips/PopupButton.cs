@@ -6,12 +6,11 @@
 
     public class PopupButton : Button
     {
-        public static readonly string InfoBrushKey = "InfoBrushKey";
-        public static readonly string TextOverlayTemplateKey = "TextOverlayTemplateKey";
-        public static readonly string DefaultOverlayTemplateKey = "DefaultOverlayTemplateKey";
-        public static readonly string MissingToolTipKey = "MissingToolTipKey";
+        public const string InfoBrushKey = "InfoBrushKey"; // { get { return "InfoBrushKey"; } }
+        public const string TextOverlayTemplateKey = "TextOverlayTemplateKey"; // { get { return "TextOverlayTemplateKey"; } }
+        public const string DefaultOverlayTemplateKey = "DefaultOverlayTemplateKey"; // { get { return "DefaultOverlayTemplateKey"; } }
+        public const string MissingToolTipKey = "MissingToolTipKey"; // { get { return "MissingToolTipKey"; } }
 
-        
         public static readonly DependencyProperty TouchToolTipProperty = DependencyProperty.Register(
             "TouchToolTip",
             typeof(ToolTip),

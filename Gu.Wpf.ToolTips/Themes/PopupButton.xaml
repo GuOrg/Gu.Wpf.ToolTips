@@ -10,7 +10,7 @@
                 BorderThickness="{TemplateBinding BorderThickness}"
                 SnapsToDevicePixels="True">
             <Grid>
-                <!--  <toolTips:AdornedElementProxy />  -->
+                <toolTips:AdornedElementProxy />
                 <Grid x:Name="Grid"
                       Width="20"
                       Height="20"
@@ -47,11 +47,11 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="{Binding ActualHeight, ElementName=RowDefinition}" />
                 </Grid.ColumnDefinitions>
-                <!--
-                    <toolTips:AdornedElementProxy Grid.Row="0"
-                    Grid.RowSpan="2"
-                    Grid.Column="0" />
-                -->
+
+                <toolTips:AdornedElementProxy Grid.Row="0"
+                                              Grid.RowSpan="2"
+                                              Grid.Column="0" />
+
                 <Grid Grid.Row="0" Grid.Column="1">
                     <Ellipse Width="{Binding ActualHeight,
                                              ElementName=RowDefinition}"
@@ -71,7 +71,10 @@
         <Border Background="{x:Null}"
                 BorderBrush="HotPink"
                 BorderThickness="1">
-            <!--  <toolTips:AdornedElementProxy />  -->
+            <Grid>
+                <toolTips:AdornedElementProxy />
+                <ContentPresenter Content="{Binding}" />
+            </Grid>
         </Border>
     </ControlTemplate>
 
