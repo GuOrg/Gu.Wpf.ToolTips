@@ -16,37 +16,6 @@
             <Setter Property="IsEnabled" Value="{Binding IsChecked, ElementName=Enabled}" />
             <Setter Property="toolTips:TouchToolTipService.IsVisible" Value="{Binding IsChecked, ElementName=Visible}" />
         </Style>
-
-        <!--
-            <Style x:Key="TouchToolTipStyle"
-            BasedOn="{StaticResource BaseStyle}"
-            TargetType="{x:Type Button}"
-            x:Shared="False">
-            <Setter Property="toolTips:TouchToolTipService.IsVisible" Value="True" />
-            <Setter Property="toolTips:TouchToolTipService.ToolTip">
-            <Setter.Value>
-            <ToolTip>
-            <StackPanel>
-            <ToggleButton Height="20" Content="Toggle" />
-            <TextBlock Text="{Binding ActualHeight, ElementName=Button, StringFormat='Height: {0} (ElementName)'}" />
-            <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Button}}, StringFormat='Width: {0} (RelativeSource={RelativeSource AncestorType={x:Type Button}})'}" />
-            <TextBlock Text="{Binding Condition1.Name, StringFormat='From vm: {0}'}" />
-            </StackPanel>
-            </ToolTip>
-            </Setter.Value>
-            </Setter>
-            
-            <Setter Property="toolTips:TouchToolTipService.OverlayTemplate">
-            <Setter.Value>
-            <ControlTemplate>
-            <Border Background="Transparent"
-            BorderBrush="Teal"
-            BorderThickness="2" />
-            </ControlTemplate>
-            </Setter.Value>
-            </Setter>
-            </Style>
-        -->
     </UserControl.Resources>
     <AdornerDecorator>
         <Grid>
@@ -64,6 +33,16 @@
                         Maximum="250"
                         Minimum="150"
                         Value="200" />
+                <StackPanel Orientation="Horizontal">
+                    <Button Width="50"
+                            Height="20"
+                            Background="HotPink"
+                            Click="OnColorClick" />
+                    <Button Width="50"
+                            Height="20"
+                            Background="CornflowerBlue"
+                            Click="OnColorClick" />
+                </StackPanel>
             </StackPanel>
 
             <WrapPanel Grid.Row="1">
@@ -91,16 +70,17 @@
                     </toolTips:TouchToolTipService.ToolTip>
                 </Button>
 
-                <Button Style="{StaticResource BaseStyle}">
+                <Button x:Name="BindingButton" Style="{StaticResource BaseStyle}">
                     <StackPanel>
                         <TextBlock Text="Default style" />
                         <TextBlock Text="TouchToolTip bindings" />
                     </StackPanel>
                     <toolTips:TouchToolTipService.ToolTip>
-                        <toolTips:TouchToolTip d:DataContext="{d:DesignInstance toolTips:BindingProxy}">
+                        <toolTips:TouchToolTip>
                             <StackPanel>
-                                <TextBlock Text="{Binding AdornedElement.ActualHeight, StringFormat='AdornedElement.ActualHeight: {0}'}" />
-                                <TextBlock Text="{Binding DataContext.Value}" />
+                                <TextBlock Text="{Binding AdornedElement.AllowDrop, RelativeSource={RelativeSource AncestorType=toolTips:TouchToolTipAdorner}, StringFormat='AdornedElement.ActualHeight: {0}'}" />
+                                <TextBlock Text="{Binding Value}" />
+                                <TextBlock Text="{Binding ActualHeight, ElementName=BindingButton}" />
                             </StackPanel>
                         </toolTips:TouchToolTip>
                     </toolTips:TouchToolTipService.ToolTip>
@@ -114,7 +94,7 @@
                     <Button.ToolTip>
                         <ToolTip>
                             <StackPanel>
-                                <TextBlock Text="{Binding ActualHeight, ElementName=Button, StringFormat='Height: {0} (ElementName)'}" />
+                                <TextBlock Text="{Binding ActualHeight, ElementName=StandardButton, StringFormat='ActualHeight, ElementName=StandardButton: {0}'}" />
                                 <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Button}}, StringFormat='Width: {0} (RelativeSource={RelativeSource AncestorType={x:Type Button}})'}" />
                                 <TextBlock Text="{Binding Value, StringFormat='From vm: {0}'}" />
                             </StackPanel>

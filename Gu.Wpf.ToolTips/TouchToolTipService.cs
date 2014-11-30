@@ -38,7 +38,7 @@
             typeof(bool?),
             typeof(TouchToolTipService),
             new PropertyMetadata(
-                null, 
+                null,
                 OnIsVisibleChanged));
 
         public static readonly DependencyProperty ToolTipProperty = DependencyProperty.RegisterAttached(
@@ -142,14 +142,14 @@
                 if (show && adorner == null)
                 {
                     var overlayTemplate = GetOverlayTemplate(uiElement);
-                    if (overlayTemplate == null)
+                    var toolTip = GetToolTip(uiElement);
+                    if (overlayTemplate == null && toolTip != null)
                     {
                         if (uiElement is TextBlock || uiElement is Label)
                         {
-                            overlayTemplate = (ControlTemplate) Application.Current.FindResource(PopupButton.TextOverlayTemplateKey);
+                            overlayTemplate = (ControlTemplate)Application.Current.FindResource(PopupButton.TextOverlayTemplateKey);
                         }
                     }
-                    var toolTip = GetToolTip(uiElement);
                     adorner = new TouchToolTipAdorner(uiElement, toolTip, overlayTemplate);
                     adornerLayer.Add(adorner);
                     uiElement.SetValue(ToolTipAdornerProperty, adorner);
@@ -181,7 +181,7 @@
                 ShowAdorner(o, visible, true);
             }
         }
-        
+
         private static void OnDefaultVisibleProxChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             var toolTip = GetToolTip(o);
@@ -238,7 +238,7 @@
             {
                 var binding = new Binding(UIElement.IsEnabledProperty.Name)
                                   {
-                                      Source = buttonBase, 
+                                      Source = buttonBase,
                                       Mode = BindingMode.OneWay
                                   };
                 BindingOperations.SetBinding(o, DefaultVisibleProxyProperty, binding);

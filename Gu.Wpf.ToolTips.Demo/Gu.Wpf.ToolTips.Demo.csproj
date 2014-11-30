@@ -54,9 +54,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Temp.xaml.cs">
-      <DependentUpon>Temp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel.cs" />
     <Page Include="AdornedElements.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -80,10 +77,6 @@
     <Page Include="PopupButtons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Temp.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -42,13 +42,21 @@
                     </toolTips:PopupButton.TouchToolTip>
                 </toolTips:PopupButton>
             </GroupBox>
+
             <GroupBox Header="Textoverlay template, wpf ToolTip" Style="{StaticResource ContainerStyle}">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="20" />
+                    </Grid.ColumnDefinitions>
                     <TextBlock x:Name="TextBlock"
+                               Grid.Column="0"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                Text="Background text" />
-                    <toolTips:PopupButton Width="{Binding ActualWidth,
+                    <toolTips:PopupButton Grid.Column="0"
+                                          Grid.ColumnSpan="2"
+                                          Width="{Binding ActualWidth,
                                                           ElementName=TextBlock}"
                                           Height="{Binding ActualHeight,
                                                            ElementName=TextBlock}"

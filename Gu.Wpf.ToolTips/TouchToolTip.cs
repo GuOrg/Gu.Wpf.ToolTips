@@ -2,9 +2,10 @@
 {
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Data;
 
     /// <summary>
-    /// Exposes AdornedElement and sets DataContext to the DataContext of the adorned element
+    /// Sets DataContext to the DataContext of the adorned element
     /// </summary>
     public class TouchToolTip : ToolTip, ITouchToolTip
     {
@@ -15,7 +16,12 @@
 
         public void OnToolTipChanged(UIElement adornedElement)
         {
-            DataContext = new BindingProxy(adornedElement);
+            var dataContextBinding = new Binding(DataContextProperty.Name)
+            {
+                Source = adornedElement,
+                Mode = BindingMode.OneWay
+            };
+            BindingOperations.SetBinding(this, DataContextProperty, dataContextBinding);
         }
     }
 }

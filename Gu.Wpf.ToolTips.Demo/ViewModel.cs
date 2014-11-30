@@ -1,9 +1,12 @@
 ﻿namespace Gu.Wpf.ToolTips.Demo
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Net.Mime;
     using System.Runtime.CompilerServices;
-
+    using System.Windows;
+    using System.Windows.Media;
     using Gu.Wpf.ToolTips.Demo.Annotations;
 
     public class ViewModel : INotifyPropertyChanged
@@ -12,10 +15,8 @@
 
         public ViewModel()
         {
-            throw new NotImplementedException("Change color of i");
-            throw new NotImplementedException("Template text/button");
-            
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string Value

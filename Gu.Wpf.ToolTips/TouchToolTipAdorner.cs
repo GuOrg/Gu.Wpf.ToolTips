@@ -7,7 +7,7 @@
     using System.Windows.Documents;
     using System.Windows.Media;
 
-    internal sealed class TouchToolTipAdorner : Adorner
+    public sealed class TouchToolTipAdorner : Adorner
     {
         private PopupButton _popupButton;
 
