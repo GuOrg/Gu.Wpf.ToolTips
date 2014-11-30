@@ -19,7 +19,7 @@
                 new FrameworkPropertyMetadata(typeof(TouchToolTip)));
         }
 
-        public void OnToolTipChanged(UIElement adornedElement)
+        public virtual void OnToolTipChanged(UIElement adornedElement)
         {
             _nameScope = adornedElement.NameScope();
             var dataContextBinding = new Binding(DataContextProperty.Name)
