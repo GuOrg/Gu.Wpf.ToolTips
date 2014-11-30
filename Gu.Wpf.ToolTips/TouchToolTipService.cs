@@ -231,38 +231,6 @@
             ShowAdorner(o, visible, true);
         }
 
-        /// <summary>
-        /// https://agsmith.wordpress.com/2008/07/17/elementname-binding-in-tooltips-borrowing-a-namescope/
-        /// </summary>
-        /// <param name="o"></param>
-        /// <param name="e"></param>
-        private static void SetNameScope(DependencyObject o, DependencyPropertyChangedEventArgs e)
-        {
-            var old = e.OldValue as FrameworkElement;
-            if (old != null)
-            {
-                NameScope.SetNameScope(old, null);
-                old.Initialized -= OnToolTipInitialized;
-            }
-            var @new = e.NewValue as FrameworkElement;
-            if (@new != null)
-            {
-                var nameScope = o.NameScope();
-                NameScope.SetNameScope(@new, nameScope);
-                @new.Initialized += OnToolTipInitialized;
-            }
-        }
-
-        private static void OnToolTipInitialized(object sender, EventArgs eventArgs)
-        {
-            var old = sender as FrameworkElement;
-            if (old != null)
-            {
-                NameScope.SetNameScope(old, null);
-                old.Initialized -= OnToolTipInitialized;
-            }
-        }
-
         private static bool GetDefaultVisible(DependencyObject o)
         {
             if (o is TextBlock || o is Label)
