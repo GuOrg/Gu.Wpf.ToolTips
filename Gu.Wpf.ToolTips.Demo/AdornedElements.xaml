@@ -78,9 +78,9 @@
                     <toolTips:TouchToolTipService.ToolTip>
                         <toolTips:TouchToolTip>
                             <StackPanel>
-                                <TextBlock Text="{Binding AdornedElement.AllowDrop, RelativeSource={RelativeSource AncestorType=toolTips:TouchToolTipAdorner}, StringFormat='AdornedElement.ActualHeight: {0}'}" />
-                                <TextBlock Text="{Binding Value}" />
+                                <TextBlock Text="{Binding PlacementTarget.ActualHeight, RelativeSource={RelativeSource AncestorType=toolTips:TouchToolTip}, StringFormat='ActualHeight: {0}'}" />
                                 <TextBlock Text="{Binding ActualHeight, ElementName=BindingButton}" />
+                                <TextBlock Text="{Binding Value}" />
                             </StackPanel>
                         </toolTips:TouchToolTip>
                     </toolTips:TouchToolTipService.ToolTip>
@@ -94,9 +94,8 @@
                     <Button.ToolTip>
                         <ToolTip>
                             <StackPanel>
-                                <TextBlock Text="{Binding ActualHeight, ElementName=StandardButton, StringFormat='ActualHeight, ElementName=StandardButton: {0}'}" />
-                                <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Button}}, StringFormat='Width: {0} (RelativeSource={RelativeSource AncestorType={x:Type Button}})'}" />
-                                <TextBlock Text="{Binding Value, StringFormat='From vm: {0}'}" />
+                                <TextBlock Text="{Binding PlacementTarget.ActualHeight, RelativeSource={RelativeSource AncestorType=ToolTip}, StringFormat='ActualHeight: {0}'}" />
+                                <TextBlock Text="{Binding Value}" />
                             </StackPanel>
                         </ToolTip>
                     </Button.ToolTip>

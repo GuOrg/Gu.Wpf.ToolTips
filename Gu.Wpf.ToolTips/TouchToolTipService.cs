@@ -1,6 +1,7 @@
 ﻿namespace Gu.Wpf.ToolTips
 {
     using System;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -151,6 +152,7 @@
                         }
                     }
                     adorner = new TouchToolTipAdorner(uiElement, toolTip, overlayTemplate);
+
                     adornerLayer.Add(adorner);
                     uiElement.SetValue(ToolTipAdornerProperty, adorner);
                 }
@@ -201,8 +203,10 @@
 
         private static void OnToolTipChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
+            //SetNameScope(o, e);
             var target = o as UIElement;
             var touchToolTip = e.NewValue as ITouchToolTip;
+
             if (touchToolTip != null && target != null)
             {
                 touchToolTip.OnToolTipChanged(target);
@@ -225,6 +229,38 @@
             }
             var visible = (bool?)o.GetValue(IsVisibleProperty) ?? GetDefaultVisible(o);
             ShowAdorner(o, visible, true);
+        }
+
+        /// <summary>
+        /// https://agsmith.wordpress.com/2008/07/17/elementname-binding-in-tooltips-borrowing-a-namescope/
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
+        private static void SetNameScope(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            var old = e.OldValue as FrameworkElement;
+            if (old != null)
+            {
+                NameScope.SetNameScope(old, null);
+                old.Initialized -= OnToolTipInitialized;
+            }
+            var @new = e.NewValue as FrameworkElement;
+            if (@new != null)
+            {
+                var nameScope = o.NameScope();
+                NameScope.SetNameScope(@new, nameScope);
+                @new.Initialized += OnToolTipInitialized;
+            }
+        }
+
+        private static void OnToolTipInitialized(object sender, EventArgs eventArgs)
+        {
+            var old = sender as FrameworkElement;
+            if (old != null)
+            {
+                NameScope.SetNameScope(old, null);
+                old.Initialized -= OnToolTipInitialized;
+            }
         }
 
         private static bool GetDefaultVisible(DependencyObject o)

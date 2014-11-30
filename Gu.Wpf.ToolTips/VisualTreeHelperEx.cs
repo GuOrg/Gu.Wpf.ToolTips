@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Windows;
+    using System.Windows.Markup;
     using System.Windows.Media;
 
     public static class VisualTreeHelperEx
@@ -60,6 +61,23 @@
                 child = parent;
                 yield return parent;
             }
+        }
+
+        public static INameScope NameScope(this DependencyObject element)
+        {
+            while (null != element)
+            {
+                INameScope nameScope =System.Windows.NameScope.GetNameScope(element);
+
+                if (null != nameScope)
+                {
+                    return nameScope;
+                }
+
+                element = LogicalTreeHelper.GetParent(element) ?? VisualTreeHelper.GetParent(element);
+            }
+
+            return null;
         }
     }
 }
