@@ -4,6 +4,7 @@
     using System.ComponentModel;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Data;
     using System.Windows.Documents;
     using System.Windows.Markup;
     using System.Windows.Media;
@@ -73,6 +74,26 @@
             }
 
             base.OnInitialized(e);
+            var adorner = Adorner;
+            if (adorner != null )
+            {
+                var adornedElement = adorner.AdornedElement;
+                if (adornedElement != null)
+                {
+                    var widthBinding = new Binding(ActualWidthProperty.Name)
+                    {
+                        Source = adornedElement,
+                        Mode = BindingMode.OneWay
+                    };
+                    BindingOperations.SetBinding(this, WidthProperty, widthBinding);
+                    var heightBinding = new Binding(ActualHeightProperty.Name)
+                    {
+                        Source = adornedElement,
+                        Mode = BindingMode.OneWay
+                    };
+                    BindingOperations.SetBinding(this, HeightProperty, heightBinding);
+                }
+            }
         }
 
         /// <summary>
@@ -95,7 +116,6 @@
             {
                 return new Size(0, 0);
             }
-
             Size desiredSize = AdornedElement.RenderSize;
             UIElement child = Child;
 
@@ -136,7 +156,6 @@
                     {
                         _adorner = (Adorner)templateParent.VisualAncestors().FirstOrDefault(x => (x is Adorner));
                     }
-
                     _checkedAdorner = true;
                 }
                 return _adorner;

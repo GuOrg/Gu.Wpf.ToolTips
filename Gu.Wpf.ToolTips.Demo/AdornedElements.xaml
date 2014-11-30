@@ -11,7 +11,7 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="BaseStyle" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="200" />
+            <Setter Property="Width" Value="{Binding Value, ElementName=Slider}" />
             <Setter Property="Margin" Value="20" />
             <Setter Property="IsEnabled" Value="{Binding IsChecked, ElementName=Enabled}" />
             <Setter Property="toolTips:TouchToolTipService.IsVisible" Value="{Binding IsChecked, ElementName=Visible}" />
@@ -60,6 +60,10 @@
                           Content="Visible (null uses default behavior)"
                           IsChecked="{x:Null}"
                           IsThreeState="True" />
+                <Slider x:Name="Slider"
+                        Maximum="250"
+                        Minimum="150"
+                        Value="200" />
             </StackPanel>
 
             <WrapPanel Grid.Row="1">
@@ -118,7 +122,7 @@
                     </Button.ToolTip>
                 </Button>
 
-                <TextBlock Text="Text with TouchTooltip">
+                <TextBlock Text="Text with TouchTooltip" toolTips:TouchToolTipService.IsVisible="{Binding IsChecked, ElementName=Visible}">
                     <toolTips:TouchToolTipService.ToolTip>
                         <toolTips:TouchToolTip>Tooltip text</toolTips:TouchToolTip>
                     </toolTips:TouchToolTipService.ToolTip>

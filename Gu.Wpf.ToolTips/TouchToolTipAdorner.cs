@@ -19,7 +19,8 @@
         /// <summary>
         /// Be sure to call the base class constructor. 
         /// </summary>
-        /// <param name="adornedElement"></param>
+        /// <param name="adornedElement">The ui element to adorn</param>
+        /// <param name="toolTip">The tooltip to show on click</param>
         /// <param name="overlayTemplate">A style for a PopupButton</param>
         public TouchToolTipAdorner(UIElement adornedElement, ToolTip toolTip, ControlTemplate overlayTemplate)
             : base(adornedElement)
@@ -76,15 +77,15 @@
         protected override Size MeasureOverride(Size constraint)
         {
             Debug.Assert(_popupButton != null, "_child should not be null");
-            _popupButton.Measure(constraint);
+            //_popupButton.Measure(constraint);
             if (AdornedElement != null)
             {
                 AdornedElement.InvalidateMeasure();
-                AdornedElement.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-                return AdornedElement.RenderSize;
+                //AdornedElement.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                //return AdornedElement.RenderSize;
             }
             _popupButton.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-            return (_popupButton).DesiredSize;
+            return _popupButton.DesiredSize;
         }
 
         protected override Size ArrangeOverride(Size size)
