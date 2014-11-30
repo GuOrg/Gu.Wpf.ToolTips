@@ -1,5 +1,6 @@
 ﻿namespace Gu.Wpf.ToolTips
 {
+    using System;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
@@ -13,7 +14,9 @@
         private INameScope _nameScope;
         static TouchToolTip()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(TouchToolTip), new FrameworkPropertyMetadata(typeof(TouchToolTip)));
+            DefaultStyleKeyProperty.OverrideMetadata(
+                typeof(TouchToolTip),
+                new FrameworkPropertyMetadata(typeof(TouchToolTip)));
         }
 
         public void OnToolTipChanged(UIElement adornedElement)
@@ -44,6 +47,11 @@
             }
         }
 
+        /// <summary>
+        /// Enables ElementName bindings
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         void System.Windows.Markup.INameScope.RegisterName(string name, object scopedElement)
         {
             if (_nameScope != null)
@@ -52,6 +60,11 @@
             }
         }
 
+        /// <summary>
+        /// Enables ElementName bindings
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         void System.Windows.Markup.INameScope.UnregisterName(string name)
         {
             if (_nameScope != null)

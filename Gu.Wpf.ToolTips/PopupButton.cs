@@ -29,7 +29,7 @@
         public PopupButton()
         {
             AddHandler(PreviewMouseLeftButtonDownEvent, new RoutedEventHandler(OnClick), true);
-            LostFocus += OnLostFocus;
+            AddHandler(LostFocusEvent, new RoutedEventHandler(OnLostFocus), true);
         }
 
         public ToolTip TouchToolTip
@@ -81,7 +81,7 @@
                 return;
             }
             toolTip.IsOpen = !toolTip.IsOpen;
-            //Debug.WriteLine("Clicked: {0}, IsOpen: {1}", ((PopupButton)sender).Name, toolTip.IsOpen);
+            Debug.WriteLine("Clicked: {0}, IsOpen: {1}", ((PopupButton)sender).Name, toolTip.IsOpen);
         }
 
         private void OnLostFocus(object sender, RoutedEventArgs routedEventArgs)
@@ -94,13 +94,13 @@
                 return;
             }
             var close = toolTip.IsOpen && !(this.IsKeyboardFocusWithin || toolTip.IsKeyboardFocusWithin);
-            //Debug.Print(
-            //    "{0}.LostFocus toolTip.IsOpen: {1} && (this.IsKeyboardFocusWithin: {2} || toolTip.IsKeyboardFocusWithin: {3}): {4}",
-            //    ((PopupButton)sender).Name,
-            //    toolTip.IsOpen,
-            //    this.IsKeyboardFocusWithin,
-            //    toolTip.IsKeyboardFocusWithin,
-            //    close);
+            Debug.Print(
+                "{0}.LostFocus toolTip.IsOpen: {1} && (this.IsKeyboardFocusWithin: {2} || toolTip.IsKeyboardFocusWithin: {3}): {4}",
+                ((PopupButton)sender).Name,
+                toolTip.IsOpen,
+                this.IsKeyboardFocusWithin,
+                toolTip.IsKeyboardFocusWithin,
+                close);
 
             if (close)
             {
