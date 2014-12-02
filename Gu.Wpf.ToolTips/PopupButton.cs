@@ -8,7 +8,7 @@
     {
         public const string InfoBrushKey = "InfoBrushKey"; // { get { return "InfoBrushKey"; } }
         public const string TextOverlayTemplateKey = "TextOverlayTemplateKey"; // { get { return "TextOverlayTemplateKey"; } }
-        public const string DefaultOverlayTemplateKey = "DefaultOverlayTemplateKey"; // { get { return "DefaultOverlayTemplateKey"; } }
+        public const string DefaultOverlayTemplateKey = "DefaultOverlayTemplateKey"; //{ get { return "DefaultOverlayTemplateKey"; } }
         public const string MissingToolTipKey = "MissingToolTipKey"; // { get { return "MissingToolTipKey"; } }
 
         public static readonly DependencyProperty TouchToolTipProperty = DependencyProperty.Register(

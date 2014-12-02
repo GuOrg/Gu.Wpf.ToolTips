@@ -203,7 +203,6 @@
 
         private static void OnToolTipChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            //SetNameScope(o, e);
             var target = o as UIElement;
             var touchToolTip = e.NewValue as ITouchToolTip;
 

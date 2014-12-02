@@ -71,7 +71,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BindingProxy.cs" />
     <Compile Include="AdornedElementProxy.cs" />
     <Compile Include="ITouchToolTip.cs" />
     <Compile Include="NegatingConverter.cs" />

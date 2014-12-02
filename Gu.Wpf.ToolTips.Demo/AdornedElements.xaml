@@ -61,7 +61,11 @@
                     </StackPanel>
                     <toolTips:TouchToolTipService.ToolTip>
                         <ToolTip>
-                            <TextBlock Text="ToolTip text" />
+                            <StackPanel>
+                                <TextBlock Text="{Binding PlacementTarget.ActualHeight, RelativeSource={RelativeSource AncestorType=toolTips:TouchToolTip}, StringFormat='ActualHeight: {0}'}" />
+                                <TextBlock Text="ToolTip text" />
+                                <TextBlock Text="{Binding ActualHeight, ElementName=BindingButton}" />
+                            </StackPanel>
                         </ToolTip>
                     </toolTips:TouchToolTipService.ToolTip>
                 </Button>
