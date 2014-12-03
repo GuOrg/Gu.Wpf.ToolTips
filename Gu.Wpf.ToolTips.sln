@@ -18,6 +18,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9C50E9
 	EndProjectSection
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://tfshub.sandvik.com:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Gu.Wpf.ToolTips.Demo\\Gu.Wpf.ToolTips.Demo.csproj
+		SccProjectName1 = Gu.Wpf.ToolTips.Demo
+		SccLocalPath1 = Gu.Wpf.ToolTips.Demo
+		SccProjectUniqueName2 = Gu.Wpf.ToolTips.Tests\\Gu.Wpf.ToolTips.Tests.csproj
+		SccProjectName2 = Gu.Wpf.ToolTips.Tests
+		SccLocalPath2 = Gu.Wpf.ToolTips.Tests
+		SccProjectUniqueName3 = Gu.Wpf.ToolTips\\Gu.Wpf.ToolTips.csproj
+		SccProjectName3 = Gu.Wpf.ToolTips
+		SccLocalPath3 = Gu.Wpf.ToolTips
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateNugetPackage|Any CPU = CreateNugetPackage|Any CPU
 		Debug|Any CPU = Debug|Any CPU
