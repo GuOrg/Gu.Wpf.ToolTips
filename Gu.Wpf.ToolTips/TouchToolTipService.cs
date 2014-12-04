@@ -61,6 +61,12 @@
                     FrameworkPropertyMetadataOptions.None,
                     OnDefaultVisibleProxChanged));
 
+        private static readonly DependencyProperty IsAdornedElementVisibleProperty = DependencyProperty.RegisterAttached(
+            "IsAdornedElementVisible",
+            typeof(bool),
+            typeof(TouchToolTipService),
+            new PropertyMetadata(default(bool), OnAdornedElementVisibleChanged));
+
         /// <summary>
         ///     Reference to the ValidationAdorner
         /// </summary>
@@ -116,6 +122,16 @@
         public static bool? GetIsVisible(DependencyObject element)
         {
             return (bool?)element.GetValue(IsVisibleProperty);
+        }
+
+        private static void SetIsAdornedElementVisible(DependencyObject element, bool value)
+        {
+            element.SetValue(IsAdornedElementVisibleProperty, value);
+        }
+
+        private static bool GetIsAdornedElementVisible(DependencyObject element)
+        {
+            return (bool)element.GetValue(IsAdornedElementVisibleProperty);
         }
 
         private static void ShowAdorner(DependencyObject targetElement, bool show, bool tryAgain)
@@ -176,6 +192,16 @@
 
         private static void OnIsVisibleChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
+            UpdateVisibility(o);
+        }
+        private static void UpdateVisibility(DependencyObject o)
+        {
+            var isAdornedElementVisible = GetIsAdornedElementVisible(o);
+            if (!isAdornedElementVisible)
+            {
+                ShowAdorner(o, false, true);
+                return;
+            }
             var toolTip = GetToolTip(o);
             if (toolTip != null)
             {
@@ -186,12 +212,12 @@
 
         private static void OnDefaultVisibleProxChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            var toolTip = GetToolTip(o);
-            if (toolTip != null)
-            {
-                var visible = (bool?)o.GetValue(IsVisibleProperty) ?? GetDefaultVisible(o);
-                ShowAdorner(o, visible, true);
-            }
+            UpdateVisibility(o);
+        }
+
+        private static void OnAdornedElementVisibleChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            UpdateVisibility(o);
         }
 
         private static void OnAdornerTemplateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -204,9 +230,19 @@
         private static void OnToolTipChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             var target = o as UIElement;
+            if (target == null || e.NewValue == null)
+            {
+                return;
+            }
+            var isVisibleBinding = new Binding(UIElement.IsVisibleProperty.Name)
+            {
+                Source = target,
+                Mode = BindingMode.OneWay
+            };
+            BindingOperations.SetBinding(target, IsAdornedElementVisibleProperty, isVisibleBinding);
             var touchToolTip = e.NewValue as ITouchToolTip;
 
-            if (touchToolTip != null && target != null)
+            if (touchToolTip != null)
             {
                 touchToolTip.OnToolTipChanged(target);
             }
@@ -226,8 +262,7 @@
                     }
                 }
             }
-            var visible = (bool?)o.GetValue(IsVisibleProperty) ?? GetDefaultVisible(o);
-            ShowAdorner(o, visible, true);
+            UpdateVisibility(o);
         }
 
         private static bool GetDefaultVisible(DependencyObject o)
