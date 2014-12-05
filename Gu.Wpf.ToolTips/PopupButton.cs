@@ -1,5 +1,6 @@
 ﻿namespace Gu.Wpf.ToolTips
 {
+    using System;
     using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
@@ -30,6 +31,7 @@
         {
             AddHandler(PreviewMouseLeftButtonDownEvent, new RoutedEventHandler(OnClick), true);
             AddHandler(LostFocusEvent, new RoutedEventHandler(OnLostFocus), true);
+           IsVisibleChanged += OnIsVisibleChanged;
         }
 
         public ToolTip TouchToolTip
@@ -106,6 +108,18 @@
             {
                 toolTip.IsOpen = false;
                 Debug.WriteLine(toolTip.IsOpen);
+            }
+        }
+
+        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            if (IsVisible)
+            {
+                return;
+            }
+            if (TouchToolTip != null && TouchToolTip.IsOpen)
+            {
+                TouchToolTip.IsOpen = false;
             }
         }
     }
