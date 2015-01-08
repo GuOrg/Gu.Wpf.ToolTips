@@ -48,6 +48,16 @@
             typeof(TouchToolTipService),
             new PropertyMetadata(default(ToolTip), OnToolTipChanged));
 
+        public static readonly DependencyProperty UseTouchToolTipAsMouseOverToolTipProperty =
+            DependencyProperty.RegisterAttached(
+                "UseTouchToolTipAsMouseOverToolTip",
+                typeof(bool),
+                typeof(TouchToolTipService),
+                new FrameworkPropertyMetadata(
+                    false,
+                    FrameworkPropertyMetadataOptions.Inherits,
+                    OnUseTouchToolTipAsToolTipChanged));
+
         /// <summary>
         /// Dummy property to get notificatins on when Visibility should toggle if Visibility is set to null
         /// </summary>
@@ -114,6 +124,16 @@
             return (ToolTip)element.GetValue(ToolTipProperty);
         }
 
+        public static void SetUseTouchToolTipAsMouseOverToolTip(DependencyObject element, bool value)
+        {
+            element.SetValue(UseTouchToolTipAsMouseOverToolTipProperty, value);
+        }
+
+        public static bool GetUseTouchToolTipAsMouseOverToolTip(DependencyObject element)
+        {
+            return (bool)element.GetValue(UseTouchToolTipAsMouseOverToolTipProperty);
+        }
+
         public static void SetIsVisible(DependencyObject element, bool? value)
         {
             element.SetValue(IsVisibleProperty, value);
@@ -168,7 +188,11 @@
                         }
                     }
                     adorner = new TouchToolTipAdorner(uiElement, toolTip, overlayTemplate);
-
+                    if (GetUseTouchToolTipAsMouseOverToolTip(uiElement))
+                    {
+                        ToolTipService.SetToolTip(adorner, toolTip);
+                        ToolTipService.SetShowOnDisabled(adorner, true);
+                    }
                     adornerLayer.Add(adorner);
                     uiElement.SetValue(ToolTipAdornerProperty, adorner);
                 }
@@ -263,6 +287,59 @@
                 }
             }
             UpdateVisibility(o);
+        }
+
+        private static void OnUseTouchToolTipAsToolTipChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            var uiElement = o as UIElement;
+            if (uiElement == null)
+            {
+                return;
+            }
+            var touchToolTip = GetToolTip(o);
+            var toolTip = ToolTipService.GetToolTip(o);
+            if (Equals(e.NewValue, true) && touchToolTip != null && toolTip == null)
+            {
+                ToolTipService.SetToolTip(o, touchToolTip);
+                var adornerLayer = AdornerLayer.GetAdornerLayer(uiElement);
+                if (adornerLayer != null)
+                {
+                    var adorners = adornerLayer.GetAdorners(uiElement);
+                    if (adorners != null)
+                    {
+                        var touchToolTipAdorner = adorners.OfType<TouchToolTipAdorner>()
+                                      .FirstOrDefault();
+                        if (touchToolTipAdorner != null)
+                        {
+                            ToolTipService.SetToolTip(touchToolTipAdorner, touchToolTip);
+                            ToolTipService.SetShowOnDisabled(touchToolTipAdorner, true);
+                        }
+                    }
+                }
+            }
+
+            if (Equals(e.NewValue, false))
+            {
+                if (ReferenceEquals(touchToolTip, toolTip))
+                {
+                    ToolTipService.SetToolTip(o, null);
+                }
+                var adornerLayer = AdornerLayer.GetAdornerLayer(uiElement);
+                if (adornerLayer != null)
+                {
+                    var adorners = adornerLayer.GetAdorners(uiElement);
+                    if (adorners != null)
+                    {
+                        var touchToolTipAdorner = adorners
+                                      .OfType<TouchToolTipAdorner>()
+                                      .FirstOrDefault();
+                        if (touchToolTipAdorner != null)
+                        {
+                            ToolTipService.SetToolTip(touchToolTipAdorner, null);
+                        }
+                    }
+                }
+            }
         }
 
         private static bool GetDefaultVisible(DependencyObject o)

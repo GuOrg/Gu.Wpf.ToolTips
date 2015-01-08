@@ -25,12 +25,15 @@
         </ControlTemplate>
     </UserControl.Resources>
     <AdornerDecorator>
-        <Grid>
+        <Grid toolTips:TouchToolTipService.UseTouchToolTipAsMouseOverToolTip="{Binding IsChecked, ElementName=UseAsMouseover}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
+                <CheckBox x:Name="UseAsMouseover"
+                          Content="Use TouchToolTip as mouseover ToolTip"
+                          IsChecked="True" />
                 <CheckBox x:Name="Enabled" Content="Enabled" />
                 <CheckBox x:Name="AdornedVisible"
                           Content="Adorned element vissible"

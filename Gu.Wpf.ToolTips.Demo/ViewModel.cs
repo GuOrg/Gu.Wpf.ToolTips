@@ -9,10 +9,6 @@
     {
         private string _value = "Value from viewmodel";
 
-        public ViewModel()
-        {
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string Value
