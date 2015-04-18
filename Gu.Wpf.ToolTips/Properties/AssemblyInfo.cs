@@ -3,6 +3,7 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Markup;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -55,3 +56,5 @@ using System.Windows;
 [assembly: AssemblyFileVersion("0.1.4.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
 [assembly: GuidAttribute("12DC3603-3E01-4180-B7FE-32C5BD5B5217")]
+[assembly: XmlnsDefinition("http://Gu.com/ToolTips", "Gu.Wpf.ToolTips")]
+[assembly: XmlnsPrefix("http://Gu.com/ToolTips", "toolTips")]
