@@ -42,12 +42,18 @@
                 null,
                 OnIsVisibleChanged));
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static readonly DependencyProperty ToolTipProperty = DependencyProperty.RegisterAttached(
             "ToolTip",
             typeof(ToolTip),
             typeof(TouchToolTipService),
             new PropertyMetadata(default(ToolTip), OnToolTipChanged));
 
+        /// <summary>
+        /// Gets or sets if the touch tooltip should also be used as mouseover tooltip
+        /// </summary>
         public static readonly DependencyProperty UseTouchToolTipAsMouseOverToolTipProperty =
             DependencyProperty.RegisterAttached(
                 "UseTouchToolTipAsMouseOverToolTip",

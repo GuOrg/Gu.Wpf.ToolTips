@@ -6,8 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:toolTips="clr-namespace:Gu.Wpf.ToolTips;assembly=Gu.Wpf.ToolTips"
              d:DataContext="{d:DesignInstance demo:ViewModel}"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignWidth="600"
              mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="BaseStyle" TargetType="{x:Type Button}">
@@ -28,9 +27,11 @@
         <Grid toolTips:TouchToolTipService.UseTouchToolTipAsMouseOverToolTip="{Binding IsChecked, ElementName=UseAsMouseover}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0">
+            <TextBlock Grid.Row="0">For tooltips to work an &lt;AdornerDecorator&gt; must be present. The tooltips draws on the adornerlayer</TextBlock>
+            <StackPanel Grid.Row="1">
                 <CheckBox x:Name="UseAsMouseover"
                           Content="Use TouchToolTip as mouseover ToolTip"
                           IsChecked="True" />
@@ -60,7 +61,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <WrapPanel Grid.Row="1">
+            <WrapPanel Grid.Row="2">
                 <Button x:Name="Button" Style="{StaticResource BaseStyle}">
                     <StackPanel>
                         <TextBlock Text="Default style" />

@@ -82,7 +82,7 @@
                 </toolTips:PopupButton.TouchToolTip>
                 </toolTips:PopupButton>
                 </GroupBox>
-                
+
                 <GroupBox Header="Default style, TouchToolTip text from vm" Style="{StaticResource ContainerStyle}">
                 <toolTips:PopupButton>
                 <toolTips:PopupButton.TouchToolTip>
