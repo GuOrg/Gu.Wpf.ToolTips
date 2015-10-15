@@ -53,8 +53,8 @@ using System.Windows.Markup;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: InternalsVisibleTo("Gu.Wpf.ToolTips.Tests", AllInternalsVisible = true)]
-[assembly: AssemblyVersion("0.1.4.0")]
-[assembly: AssemblyFileVersion("0.1.4.0")]
+[assembly: AssemblyVersion("0.2.0.0")]
+[assembly: AssemblyFileVersion("0.2.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
 [assembly: GuidAttribute("12DC3603-3E01-4180-B7FE-32C5BD5B5217")]
 [assembly: XmlnsDefinition("http://Gu.com/ToolTips", "Gu.Wpf.ToolTips")]

@@ -1,6 +1,5 @@
 ﻿namespace Gu.Wpf.ToolTips.Demo
 {
-    using System.Windows;
     using System.Windows.Controls;
 
     /// <summary>
