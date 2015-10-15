@@ -14,6 +14,12 @@
             typeof(TouchToolTip),
             new PropertyMetadata(default(UIElement)));
 
+        public static readonly DependencyProperty UseTouchToolTipAsMouseOverToolTipProperty = TouchToolTipService.UseTouchToolTipAsMouseOverToolTipProperty.AddOwner(
+            typeof(TouchToolTip),
+            new FrameworkPropertyMetadata(
+                true,
+                FrameworkPropertyMetadataOptions.Inherits));
+
         static TouchToolTip()
         {
             DefaultStyleKeyProperty.OverrideMetadata(
@@ -25,6 +31,12 @@
         {
             get { return (UIElement)GetValue(ToolTipForProperty); }
             set { SetValue(ToolTipForProperty, value); }
+        }
+
+        public bool UseTouchToolTipAsMouseOverToolTip
+        {
+            get { return (bool)this.GetValue(UseTouchToolTipAsMouseOverToolTipProperty); }
+            set { this.SetValue(UseTouchToolTipAsMouseOverToolTipProperty, value); }
         }
     }
 }

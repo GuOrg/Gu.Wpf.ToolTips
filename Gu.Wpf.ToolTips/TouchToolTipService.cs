@@ -54,10 +54,10 @@
         public static readonly DependencyProperty UseTouchToolTipAsMouseOverToolTipProperty =
             DependencyProperty.RegisterAttached(
                 "UseTouchToolTipAsMouseOverToolTip",
-                typeof(bool),
+                typeof(bool?),
                 typeof(TouchToolTipService),
                 new FrameworkPropertyMetadata(
-                    false,
+                    true,
                     FrameworkPropertyMetadataOptions.Inherits,
                     OnUseTouchToolTipAsToolTipChanged));
 
