@@ -72,6 +72,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdornedElementProxy.cs" />
+    <Compile Include="Internals\BindingHelper.cs" />
+    <Compile Include="Internals\BoolBoxes.cs" />
+    <Compile Include="Internals\MultiValueToMultiValueConverter.cs" />
+    <Compile Include="Internals\IsAnyTrueConverter.cs" />
+    <Compile Include="Internals\RoutedEventHandlerExt.cs" />
     <Compile Include="PopupButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -33,6 +33,7 @@
             <TextBlock Text="Default style + border" />
         </StackPanel>
         <WrapPanel Grid.Row="1">
+            
             <GroupBox Header="Default style, wpf ToolTip" Style="{StaticResource ContainerStyle}">
                 <toolTips:PopupButton>
                     <toolTips:PopupButton.TouchToolTip>
