@@ -80,18 +80,8 @@
                 var adornedElement = adorner.AdornedElement;
                 if (adornedElement != null)
                 {
-                    var widthBinding = new Binding(ActualWidthProperty.Name)
-                    {
-                        Source = adornedElement,
-                        Mode = BindingMode.OneWay
-                    };
-                    BindingOperations.SetBinding(this, WidthProperty, widthBinding);
-                    var heightBinding = new Binding(ActualHeightProperty.Name)
-                    {
-                        Source = adornedElement,
-                        Mode = BindingMode.OneWay
-                    };
-                    BindingOperations.SetBinding(this, HeightProperty, heightBinding);
+                    BindingOperations.SetBinding(this, WidthProperty, adornedElement.CreateOneWayBinding(ActualWidthProperty));
+                    BindingOperations.SetBinding(this, HeightProperty, adornedElement.CreateOneWayBinding(ActualHeightProperty));
                 }
             }
         }

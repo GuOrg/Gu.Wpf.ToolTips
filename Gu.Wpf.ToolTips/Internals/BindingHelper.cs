@@ -8,13 +8,13 @@
     {
         private static readonly Dictionary<string, PropertyPath> PropertyPaths = new Dictionary<string, PropertyPath>();
 
-        internal static Binding CreateBinding(this DependencyObject source, DependencyProperty sourceProperty)
+        internal static Binding CreateOneWayBinding(this DependencyObject source, DependencyProperty sourceProperty)
         {
             var propertyPath = AsPropertyPath(sourceProperty);
             return new Binding { Path = propertyPath, Source = source, Mode = BindingMode.OneWay };
         }
 
-        internal static Binding CreateBinding(this DependencyObject source, DependencyProperty sourceProperty1, DependencyProperty sourceProperty2)
+        internal static Binding CreateOneWayBinding(this DependencyObject source, DependencyProperty sourceProperty1, DependencyProperty sourceProperty2)
         {
             var propertyPath = GetPath(sourceProperty1, sourceProperty2);
             return new Binding

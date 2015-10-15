@@ -4,6 +4,7 @@
     using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Media;
 
     public class PopupButton : Button
     {
@@ -22,11 +23,7 @@
             EventManager.RegisterClassHandler(typeof(PopupButton), ToolTipService.ToolTipClosingEvent, new ToolTipEventHandler(OnToolTipChanged), true);
             EventManager.RegisterClassHandler(typeof(PopupButton), MouseLeaveEvent, new RoutedEventHandler(OnMouseLeave), true);
             EventManager.RegisterClassHandler(typeof(PopupButton), PreviewMouseLeftButtonDownEvent, new RoutedEventHandler(OnPreviewMouseLeftButtonDown), true);
-        }
-
-        public PopupButton()
-        {
-            IsVisibleChanged += OnIsVisibleChanged;
+            EventManager.RegisterClassHandler(typeof(PopupButton),Button.UnloadedEvent, new RoutedEventHandler(OnUnloaded));
         }
 
         private static void OnPreviewMouseLeftButtonDown(object sender, RoutedEventArgs e)
@@ -45,6 +42,12 @@
         {
             var popupButton = sender as PopupButton;
             popupButton?.OnToolTipChanged();
+        }
+
+        private static void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            var popupButton = sender as PopupButton;
+            popupButton?.OnUnloaded();
         }
 
         private void OnPreviewMouseLeftButtonDown()
@@ -84,7 +87,7 @@
             LastChangeTime = DateTimeOffset.Now;
         }
 
-        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        private void OnUnloaded()
         {
             var toolTip = ToolTipService.GetToolTip(this) as ToolTip;
             if (toolTip != null)

@@ -24,7 +24,7 @@
         </ControlTemplate>
     </UserControl.Resources>
     <AdornerDecorator>
-        <Grid toolTips:TouchToolTipService.UseTouchToolTipAsMouseOverToolTip="{Binding IsChecked, ElementName=UseAsMouseover}">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -32,9 +32,6 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0">For tooltips to work an &lt;AdornerDecorator&gt; must be present. The tooltips draws on the adornerlayer</TextBlock>
             <StackPanel Grid.Row="1">
-                <CheckBox x:Name="UseAsMouseover"
-                          Content="Use TouchToolTip as mouseover ToolTip"
-                          IsChecked="True" />
                 <CheckBox x:Name="Enabled" Content="Enabled" />
                 <CheckBox x:Name="AdornedVisible"
                           Content="Adorned element visible"
