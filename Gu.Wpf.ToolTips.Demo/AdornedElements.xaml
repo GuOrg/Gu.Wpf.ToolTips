@@ -47,18 +47,6 @@
                         Maximum="250"
                         Minimum="150"
                         Value="200" />
-                <StackPanel Orientation="Horizontal">
-                    <Button Width="20"
-                            Height="20"
-                            Background="HotPink"
-                            Click="OnColorClick"
-                            Template="{StaticResource ColorButton}" />
-                    <Button Width="20"
-                            Height="20"
-                            Background="CornflowerBlue"
-                            Click="OnColorClick"
-                            Template="{StaticResource ColorButton}" />
-                </StackPanel>
             </StackPanel>
 
             <WrapPanel Grid.Row="2">

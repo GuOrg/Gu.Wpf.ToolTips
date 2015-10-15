@@ -12,10 +12,5 @@
         {
             InitializeComponent();
         }
-
-        private void OnColorClick(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Resources[PopupButton.InfoBrushKey] = ((System.Windows.Controls.Button)sender).Background;
-        }
     }
 }
