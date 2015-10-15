@@ -1,6 +1,5 @@
 ﻿namespace Gu.Wpf.ToolTips
 {
-    using System;
     using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
@@ -28,49 +27,32 @@
 
         public PopupButton()
         {
-            AddHandler(PreviewMouseLeftButtonDownEvent, new RoutedEventHandler(OnClick), true);
+            AddHandler(ClickEvent, new RoutedEventHandler(OnClick), true);
             AddHandler(LostFocusEvent, new RoutedEventHandler(OnLostFocus), true);
            IsVisibleChanged += OnIsVisibleChanged;
         }
 
         public ToolTip TouchToolTip
         {
-            get
+            get { return (ToolTip)GetValue(TouchToolTipProperty); }
+            set { SetValue(TouchToolTipProperty, value); }
+        }
+
+        protected virtual void OnTouchToolTipChanged(ToolTip oldToolTip, ToolTip newToolTip)
+        {
+            if (oldToolTip != null)
             {
-                return (ToolTip)GetValue(TouchToolTipProperty);
+                oldToolTip.PlacementTarget = null;
             }
-            set
+            if (newToolTip != null)
             {
-                SetValue(TouchToolTipProperty, value);
+                newToolTip.PlacementTarget = this;
             }
         }
 
         private static void OnTouchToolTipChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            var oldTip = e.OldValue as ToolTip;
-            if (oldTip != null)
-            {
-                oldTip.PlacementTarget = null;
-            }
-            var uiElement = o as UIElement;
-            if (uiElement == null)
-            {
-                return;
-            }
-
-            var toolTip = e.NewValue as ToolTip;
-            if (toolTip != null)
-            {
-                toolTip.PlacementTarget = uiElement;
-            }
-            else
-            {
-                var touchToolTip = e.NewValue as ITouchToolTip;
-                if (touchToolTip != null)
-                {
-                    touchToolTip.PlacementTarget = uiElement;
-                }
-            }
+            ((PopupButton)o).OnTouchToolTipChanged((ToolTip)e.OldValue, (ToolTip)e.NewValue);
         }
 
         private void OnClick(object sender, RoutedEventArgs routedEventArgs)
@@ -94,7 +76,7 @@
                 Debug.WriteLine("toolTip == null");
                 return;
             }
-            var close = toolTip.IsOpen && !(this.IsKeyboardFocusWithin || toolTip.IsKeyboardFocusWithin);
+            var close = toolTip.IsOpen && !(IsKeyboardFocusWithin || toolTip.IsKeyboardFocusWithin);
             Debug.Print(
                 "{0}.LostFocus toolTip.IsOpen: {1} && (this.IsKeyboardFocusWithin: {2} || toolTip.IsKeyboardFocusWithin: {3}): {4}",
                 ((PopupButton)sender).Name,
@@ -112,14 +94,7 @@
 
         private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            if (IsVisible)
-            {
-                return;
-            }
-            if (TouchToolTip != null && TouchToolTip.IsOpen)
-            {
-                TouchToolTip.IsOpen = false;
-            }
+            TouchToolTip.IsOpen = false;
         }
     }
 }

@@ -14,7 +14,7 @@
             <Setter Property="Margin" Value="20" />
             <Setter Property="IsEnabled" Value="{Binding IsChecked, ElementName=Enabled}" />
             <Setter Property="Visibility" Value="{Binding IsChecked, ElementName=AdornedVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <Setter Property="toolTips:TouchToolTipService.IsVisible" Value="{Binding IsChecked, ElementName=Visible}" />
+            <Setter Property="toolTips:TouchToolTipService.IsOverlayVisible" Value="{Binding IsChecked, ElementName=Visible}" />
         </Style>
 
         <ControlTemplate x:Key="ColorButton" TargetType="{x:Type Button}">
@@ -128,7 +128,7 @@
                            Visibility="{Binding IsChecked,
                                                 ElementName=AdornedVisible,
                                                 Converter={StaticResource BooleanToVisibilityConverter}}"
-                           toolTips:TouchToolTipService.IsVisible="{Binding IsChecked,
+                           toolTips:TouchToolTipService.IsOverlayVisible="{Binding IsChecked,
                                                                             ElementName=Visible}">
                     <toolTips:TouchToolTipService.ToolTip>
                         <toolTips:TouchToolTip>Tooltip text</toolTips:TouchToolTip>

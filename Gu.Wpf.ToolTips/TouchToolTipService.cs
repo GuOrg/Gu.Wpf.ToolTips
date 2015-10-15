@@ -1,6 +1,5 @@
 ﻿namespace Gu.Wpf.ToolTips
 {
-    using System;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
@@ -16,8 +15,8 @@
     public static class TouchToolTipService
     {
         /// <summary>
-        ///     Style used to overlay the control on the AdornerLayer.
-        ///     Must be TargetType popupbutton
+        /// Style used to overlay the control on the AdornerLayer.
+        /// Must be TargetType= popupbutton
         /// </summary>
         public static readonly DependencyProperty OverlayTemplateProperty =
             DependencyProperty.RegisterAttached(
@@ -26,25 +25,23 @@
                 typeof(TouchToolTipService),
                 new FrameworkPropertyMetadata(
                     null,
-                    FrameworkPropertyMetadataOptions.NotDataBindable)
-                    {
-                        PropertyChangedCallback = OnAdornerTemplateChanged
-                    });
+                    FrameworkPropertyMetadataOptions.Inherits | FrameworkPropertyMetadataOptions.NotDataBindable)
+                {
+                    PropertyChangedCallback = OnAdornerTemplateChanged
+                });
 
         /// <summary>
-        ///     Control when the adorner should be visible
+        /// Control when the adorner should be visible
         /// </summary>
-        public static readonly DependencyProperty IsVisibleProperty = DependencyProperty.RegisterAttached(
-            "IsVisible",
+        public static readonly DependencyProperty IsOverlayVisibleProperty = DependencyProperty.RegisterAttached(
+            "IsOverlayVisible",
             typeof(bool?),
             typeof(TouchToolTipService),
-            new PropertyMetadata(
+            new FrameworkPropertyMetadata(
                 null,
+                FrameworkPropertyMetadataOptions.Inherits,
                 OnIsVisibleChanged));
 
-        /// <summary>
-        /// 
-        /// </summary>
         public static readonly DependencyProperty ToolTipProperty = DependencyProperty.RegisterAttached(
             "ToolTip",
             typeof(ToolTip),
@@ -95,29 +92,16 @@
                     null,
                     FrameworkPropertyMetadataOptions.NotDataBindable));
 
-        /// <summary> Static accessor for AdornerTemplate property </summary>
-        /// <exception cref="ArgumentNullException"> DependencyObject element cannot be null </exception>
-        public static ControlTemplate GetOverlayTemplate(DependencyObject element)
+        [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
+        [AttachedPropertyBrowsableForType(typeof(UIElement))]
+        public static ControlTemplate GetOverlayTemplate(UIElement element)
         {
-            if (element == null)
-                throw new ArgumentNullException("element");
-
-            return element.GetValue(OverlayTemplateProperty) as ControlTemplate;
+            return (ControlTemplate)element.GetValue(OverlayTemplateProperty);
         }
 
-        /// <summary> Static modifier for AdornerTemplate property </summary>
-        /// <exception cref="ArgumentNullException"> DependencyObject element cannot be null </exception>
-        public static void SetOverlayTemplate(DependencyObject element, ControlTemplate value)
+        public static void SetOverlayTemplate(UIElement element, ControlTemplate value)
         {
-            if (element == null)
-            {
-                throw new ArgumentNullException("element");
-            }
-            var oldValue = element.ReadLocalValue(OverlayTemplateProperty);
-            if (!Equals(oldValue, value))
-            {
-                element.SetValue(OverlayTemplateProperty, value);
-            }
+            element.SetValue(OverlayTemplateProperty, value);
         }
 
         public static void SetToolTip(DependencyObject element, ToolTip value)
@@ -140,14 +124,14 @@
             return (bool)element.GetValue(UseTouchToolTipAsMouseOverToolTipProperty);
         }
 
-        public static void SetIsVisible(DependencyObject element, bool? value)
+        public static void SetIsOverlayVisible(DependencyObject element, bool? value)
         {
-            element.SetValue(IsVisibleProperty, value);
+            element.SetValue(IsOverlayVisibleProperty, value);
         }
 
-        public static bool? GetIsVisible(DependencyObject element)
+        public static bool? GetIsOverlayVisible(DependencyObject element)
         {
-            return (bool?)element.GetValue(IsVisibleProperty);
+            return (bool?)element.GetValue(IsOverlayVisibleProperty);
         }
 
         private static void SetIsAdornedElementVisible(DependencyObject element, bool value)
@@ -235,7 +219,7 @@
             var toolTip = GetToolTip(o);
             if (toolTip != null)
             {
-                var visible = (bool?)o.GetValue(IsVisibleProperty) ?? GetDefaultVisible(o);
+                var visible = (bool?)o.GetValue(IsOverlayVisibleProperty) ?? GetDefaultVisible(o);
                 ShowAdorner(o, visible, true);
             }
         }
@@ -253,7 +237,7 @@
         private static void OnAdornerTemplateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ShowAdorner(d, false, true);
-            var visible = (bool?)d.GetValue(IsVisibleProperty) ?? GetDefaultVisible(d);
+            var visible = (bool?)d.GetValue(IsOverlayVisibleProperty) ?? GetDefaultVisible(d);
             ShowAdorner(d, visible, true);
         }
 
@@ -270,11 +254,11 @@
                 Mode = BindingMode.OneWay
             };
             BindingOperations.SetBinding(target, IsAdornedElementVisibleProperty, isVisibleBinding);
-            var touchToolTip = e.NewValue as ITouchToolTip;
+            var touchToolTip = e.NewValue as TouchToolTip;
 
             if (touchToolTip != null)
             {
-                touchToolTip.OnToolTipChanged(target);
+                touchToolTip.ToolTipFor = target;
             }
             else
             {
@@ -358,10 +342,10 @@
             if (buttonBase != null)
             {
                 var binding = new Binding(UIElement.IsEnabledProperty.Name)
-                                  {
-                                      Source = buttonBase,
-                                      Mode = BindingMode.OneWay
-                                  };
+                {
+                    Source = buttonBase,
+                    Mode = BindingMode.OneWay
+                };
                 BindingOperations.SetBinding(o, DefaultVisibleProxyProperty, binding);
                 return buttonBase.IsEnabled != true;
             }
