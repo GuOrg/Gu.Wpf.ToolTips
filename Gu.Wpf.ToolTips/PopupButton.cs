@@ -12,6 +12,7 @@
         public const string DefaultOverlayTemplateKey = "DefaultOverlayTemplateKey"; //{ get { return "DefaultOverlayTemplateKey"; } }
         public const string MissingToolTipKey = "MissingToolTipKey"; // { get { return "MissingToolTipKey"; } }
 
+        internal UIElement AdornedElement;
         internal DateTimeOffset LastChangeTime { get; private set; } = DateTimeOffset.Now;
 
         static PopupButton()
@@ -19,8 +20,8 @@
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(PopupButton),
                 new FrameworkPropertyMetadata(typeof(PopupButton)));
-            EventManager.RegisterClassHandler(typeof(PopupButton), ToolTipService.ToolTipOpeningEvent, new ToolTipEventHandler(OnToolTipChanged), true);
-            EventManager.RegisterClassHandler(typeof(PopupButton), ToolTipService.ToolTipClosingEvent, new ToolTipEventHandler(OnToolTipChanged), true);
+            EventManager.RegisterClassHandler(typeof(PopupButton), ToolTipService.ToolTipOpeningEvent, new ToolTipEventHandler(OnToolTipOpening), true);
+            EventManager.RegisterClassHandler(typeof(PopupButton), ToolTipService.ToolTipClosingEvent, new ToolTipEventHandler(OnToolTipClosing), true);
             EventManager.RegisterClassHandler(typeof(PopupButton), MouseLeaveEvent, new RoutedEventHandler(OnMouseLeave), true);
             EventManager.RegisterClassHandler(typeof(PopupButton), PreviewMouseLeftButtonDownEvent, new RoutedEventHandler(OnPreviewMouseLeftButtonDown), true);
             EventManager.RegisterClassHandler(typeof(PopupButton),Button.UnloadedEvent, new RoutedEventHandler(OnUnloaded));
@@ -38,7 +39,13 @@
             popupButton?.OnMouseLeave();
         }
 
-        private static void OnToolTipChanged(object sender, ToolTipEventArgs e)
+        private static void OnToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+            var popupButton = sender as PopupButton;
+            popupButton?.OnToolTipOpening();
+        }
+
+        private static void OnToolTipClosing(object sender, ToolTipEventArgs e)
         {
             var popupButton = sender as PopupButton;
             popupButton?.OnToolTipChanged();
@@ -80,6 +87,16 @@
             }
             toolTip.IsOpen = false;
             Debug.WriteLine("OnMouseLeave: {0}", toolTip.IsOpen);
+        }
+
+        private void OnToolTipOpening()
+        {
+            var toolTip = ToolTipService.GetToolTip(this) as ToolTip;
+            if (toolTip != null && AdornedElement != null)
+            {
+                toolTip.PlacementTarget = AdornedElement;
+            }
+            OnToolTipChanged();
         }
 
         private void OnToolTipChanged()

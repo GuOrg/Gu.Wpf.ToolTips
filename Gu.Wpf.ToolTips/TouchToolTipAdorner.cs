@@ -27,9 +27,10 @@
         {
             Debug.Assert(adornedElement != null, "adornedElement should not be null");
             _popupButton = new PopupButton
-                          {
-                              IsTabStop = false,
-                          };
+            {
+                IsTabStop = false,
+                AdornedElement = adornedElement
+            };
             if (overlayTemplate != null)
             {
                 _popupButton.Template = overlayTemplate;

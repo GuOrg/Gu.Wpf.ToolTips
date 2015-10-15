@@ -9,14 +9,36 @@
              d:DesignWidth="600"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <Style x:Key="BaseStyle" TargetType="{x:Type Button}">
+        <DataTemplate x:Key="ToolTipContentTemplate" DataType="{x:Type demo:ViewModel}">
+            <StackPanel>
+                <TextBlock Text="{Binding Value}" />
+                <TextBlock Text="{Binding PlacementTarget.Content, RelativeSource={RelativeSource AncestorType={x:Type ToolTip}}}" />
+                <TextBlock Text="Tool tip text" />
+            </StackPanel>
+        </DataTemplate>
+
+        <Style x:Key="BaseButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="{Binding Value, ElementName=Slider}" />
+            <Setter Property="Height" Value="50" />
             <Setter Property="Margin" Value="20" />
             <Setter Property="IsEnabled" Value="{Binding IsChecked, ElementName=Enabled}" />
             <Setter Property="Visibility" Value="{Binding IsChecked, ElementName=AdornedVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <Setter Property="toolTips:TouchToolTipService.IsOverlayVisible" Value="{Binding IsChecked, ElementName=Visible}" />
+            <Setter Property="toolTips:TouchToolTipService.IsOverlayVisible" Value="{Binding IsChecked, ElementName=IsOverlayVisible}" />
         </Style>
 
+        <Style x:Key="ButtonStyleWithTouchToolTip"
+               BasedOn="{StaticResource BaseButtonStyle}"
+               TargetType="{x:Type Button}">
+            <Setter Property="toolTips:TouchToolTipService.ToolTip">
+                <Setter.Value>
+                    <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                        <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
+                    </ToolTip>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+   
         <ControlTemplate x:Key="ColorButton" TargetType="{x:Type Button}">
             <Ellipse Width="{TemplateBinding Width}"
                      Height="{TemplateBinding Height}"
@@ -36,8 +58,8 @@
                 <CheckBox x:Name="AdornedVisible"
                           Content="Adorned element visible"
                           IsChecked="True" />
-                <CheckBox x:Name="Visible"
-                          Content="Visible (null uses default behavior)"
+                <CheckBox x:Name="IsOverlayVisible"
+                          Content="IsOverlayVisible (null uses default behavior)"
                           IsChecked="{x:Null}"
                           IsThreeState="True" />
                 <Slider x:Name="Slider"
@@ -47,90 +69,38 @@
             </StackPanel>
 
             <WrapPanel Grid.Row="2">
-                <Button x:Name="Button" Style="{StaticResource BaseStyle}">
-                    <StackPanel>
-                        <TextBlock Text="Default style" />
-                        <TextBlock Text="WPF tooltip" />
-                    </StackPanel>
+                <Button Content="Button with touch tooltip" Style="{StaticResource BaseButtonStyle}">
                     <toolTips:TouchToolTipService.ToolTip>
-                        <ToolTip>
-                            <StackPanel>
-                                <TextBlock Text="{Binding PlacementTarget.ActualHeight, RelativeSource={RelativeSource AncestorType=toolTips:TouchToolTip}, StringFormat='ActualHeight: {0}'}" />
-                                <TextBlock Text="ToolTip text" />
-                                <TextBlock Text="{Binding ActualHeight, ElementName=BindingButton}" />
-                            </StackPanel>
+                        <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
                         </ToolTip>
                     </toolTips:TouchToolTipService.ToolTip>
                 </Button>
 
-                <Button Style="{StaticResource BaseStyle}">
-                    <StackPanel>
-                        <TextBlock Text="Default style" />
-                        <TextBlock Text="TouchToolTip" />
-                    </StackPanel>
-                    <toolTips:TouchToolTipService.ToolTip>
-                        <toolTips:TouchToolTip>
-                            <TextBlock Text="ToolTip text" />
-                        </toolTips:TouchToolTip>
-                    </toolTips:TouchToolTipService.ToolTip>
-                </Button>
+                <Button Content="Button with touch tooltip from style" Style="{StaticResource ButtonStyleWithTouchToolTip}" />
 
-                <Button x:Name="BindingButton" Style="{StaticResource BaseStyle}">
-                    <StackPanel>
-                        <TextBlock Text="Default style" />
-                        <TextBlock Text="TouchToolTip bindings" />
-                    </StackPanel>
-                    <toolTips:TouchToolTipService.ToolTip>
-                        <toolTips:TouchToolTip>
-                            <StackPanel>
-                                <TextBlock Text="{Binding PlacementTarget.ActualHeight, RelativeSource={RelativeSource AncestorType=toolTips:TouchToolTip}, StringFormat='ActualHeight: {0}'}" />
-                                <TextBlock Text="{Binding ActualHeight, ElementName=BindingButton}" />
-                                <TextBlock Text="{Binding Value}" />
-                            </StackPanel>
-                        </toolTips:TouchToolTip>
-                    </toolTips:TouchToolTipService.ToolTip>
-                </Button>
-
-                <Button Style="{StaticResource BaseStyle}">
-                    <StackPanel>
-                        <TextBlock Text="Ordinary button" />
-                        <TextBlock Text="Standard tooltip" />
-                    </StackPanel>
+                <Button x:Name="StandardButton"
+                        Content="Standard button"
+                        Style="{StaticResource BaseButtonStyle}">
                     <Button.ToolTip>
-                        <ToolTip>
-                            <StackPanel>
-                                <TextBlock Text="{Binding PlacementTarget.ActualHeight, RelativeSource={RelativeSource AncestorType=ToolTip}, StringFormat='ActualHeight: {0}'}" />
-                                <TextBlock Text="{Binding Value}" />
-                            </StackPanel>
+                        <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
                         </ToolTip>
                     </Button.ToolTip>
                 </Button>
 
-                <Button x:Name="StandardButton" Style="{StaticResource BaseStyle}">
-                    <StackPanel>
-                        <TextBlock Text="Ordinary button" />
-                        <TextBlock Text="TouchTooltip" />
-                    </StackPanel>
-                    <Button.ToolTip>
-                        <ToolTip>
-                            <StackPanel>
-                                <TextBlock Text="{Binding ActualHeight, ElementName=StandardButton, StringFormat='ActualHeight: {0}'}" />
-                                <TextBlock Text="{Binding Value}" />
-                            </StackPanel>
-                        </ToolTip>
-                    </Button.ToolTip>
-                </Button>
-
-                <TextBlock Text="Text with TouchTooltip"
+                <Label Content="Text with TouchTooltip"
                            Visibility="{Binding IsChecked,
                                                 ElementName=AdornedVisible,
                                                 Converter={StaticResource BooleanToVisibilityConverter}}"
                            toolTips:TouchToolTipService.IsOverlayVisible="{Binding IsChecked,
-                                                                            ElementName=Visible}">
+                                                                                   ElementName=IsOverlayVisible}">
                     <toolTips:TouchToolTipService.ToolTip>
-                        <toolTips:TouchToolTip>Tooltip text</toolTips:TouchToolTip>
+                        <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
+                        </ToolTip>
                     </toolTips:TouchToolTipService.ToolTip>
-                </TextBlock>
+                </Label>
             </WrapPanel>
         </Grid>
     </AdornerDecorator>
