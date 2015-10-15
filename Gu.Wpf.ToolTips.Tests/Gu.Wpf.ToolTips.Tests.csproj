@@ -71,7 +71,6 @@
   <ItemGroup>
     <Compile Include="PopupButtonTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TouchToolTipTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

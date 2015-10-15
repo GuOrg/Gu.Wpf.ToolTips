@@ -6,8 +6,4 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type local:TouchToolTipAdorner}" />
-
-    <Style BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="{x:Type local:TouchToolTip}">
-        <Setter Property="StaysOpen" Value="True" />
-    </Style>
 </ResourceDictionary>

@@ -1,4 +1,6 @@
-﻿namespace Gu.Wpf.ToolTips
+﻿using System.Windows.Data;
+
+namespace Gu.Wpf.ToolTips
 {
     using System;
     using System.Diagnostics;
@@ -24,7 +26,7 @@
             EventManager.RegisterClassHandler(typeof(PopupButton), ToolTipService.ToolTipClosingEvent, new ToolTipEventHandler(OnToolTipClosing), true);
             EventManager.RegisterClassHandler(typeof(PopupButton), MouseLeaveEvent, new RoutedEventHandler(OnMouseLeave), true);
             EventManager.RegisterClassHandler(typeof(PopupButton), PreviewMouseLeftButtonDownEvent, new RoutedEventHandler(OnPreviewMouseLeftButtonDown), true);
-            EventManager.RegisterClassHandler(typeof(PopupButton),Button.UnloadedEvent, new RoutedEventHandler(OnUnloaded));
+            EventManager.RegisterClassHandler(typeof(PopupButton), Button.UnloadedEvent, new RoutedEventHandler(OnUnloaded));
         }
 
         private static void OnPreviewMouseLeftButtonDown(object sender, RoutedEventArgs e)
@@ -42,7 +44,7 @@
         private static void OnToolTipOpening(object sender, ToolTipEventArgs e)
         {
             var popupButton = sender as PopupButton;
-            popupButton?.OnToolTipOpening();
+            popupButton?.OnToolTipOpening(e);
         }
 
         private static void OnToolTipClosing(object sender, ToolTipEventArgs e)
@@ -89,12 +91,15 @@
             Debug.WriteLine("OnMouseLeave: {0}", toolTip.IsOpen);
         }
 
-        private void OnToolTipOpening()
+        private void OnToolTipOpening(ToolTipEventArgs e)
         {
             var toolTip = ToolTipService.GetToolTip(this) as ToolTip;
             if (toolTip != null && AdornedElement != null)
             {
                 toolTip.PlacementTarget = AdornedElement;
+                Debug.Print("Set placement target: {0}", AdornedElement?.GetType().Name ?? "null");
+                e.Handled = true;
+                toolTip.IsOpen = true;
             }
             OnToolTipChanged();
         }

@@ -6,7 +6,7 @@
     using System.Windows.Markup;
     using System.Windows.Media;
 
-    public static class VisualTreeHelperEx
+    internal static class VisualTreeHelperEx
     {
         private static readonly PropertyInfo InheritanceContextProp = typeof(DependencyObject).GetProperty(
             "InheritanceContext",

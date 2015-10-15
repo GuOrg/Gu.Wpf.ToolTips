@@ -38,7 +38,7 @@
             </Setter>
 
         </Style>
-   
+
         <ControlTemplate x:Key="ColorButton" TargetType="{x:Type Button}">
             <Ellipse Width="{TemplateBinding Width}"
                      Height="{TemplateBinding Height}"
@@ -89,12 +89,13 @@
                     </Button.ToolTip>
                 </Button>
 
-                <Label Content="Text with TouchTooltip"
-                           Visibility="{Binding IsChecked,
-                                                ElementName=AdornedVisible,
-                                                Converter={StaticResource BooleanToVisibilityConverter}}"
-                           toolTips:TouchToolTipService.IsOverlayVisible="{Binding IsChecked,
-                                                                                   ElementName=IsOverlayVisible}">
+                <Label VerticalAlignment="Top"
+                       Content="Text with TouchTooltip"
+                       Visibility="{Binding IsChecked,
+                                            ElementName=AdornedVisible,
+                                            Converter={StaticResource BooleanToVisibilityConverter}}"
+                       toolTips:TouchToolTipService.IsOverlayVisible="{Binding IsChecked,
+                                                                               ElementName=IsOverlayVisible}">
                     <toolTips:TouchToolTipService.ToolTip>
                         <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
                             <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
