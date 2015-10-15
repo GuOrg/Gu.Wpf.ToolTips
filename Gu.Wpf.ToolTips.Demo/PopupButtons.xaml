@@ -36,11 +36,11 @@
             
             <GroupBox Header="Default style, wpf ToolTip" Style="{StaticResource ContainerStyle}">
                 <toolTips:PopupButton>
-                    <toolTips:PopupButton.TouchToolTip>
+                    <ToolTipService.ToolTip>
                         <ToolTip>
                             <TextBlock Text="Tooltip text" />
                         </ToolTip>
-                    </toolTips:PopupButton.TouchToolTip>
+                    </ToolTipService.ToolTip>
                 </toolTips:PopupButton>
             </GroupBox>
 
@@ -64,11 +64,11 @@
                                           HorizontalAlignment="Left"
                                           VerticalAlignment="Top"
                                           Template="{DynamicResource {x:Static toolTips:PopupButton.TextOverlayTemplateKey}}">
-                        <toolTips:PopupButton.TouchToolTip>
+                        <ToolTipService.ToolTip>
                             <ToolTip>
                                 <TextBlock Text="Tooltip text" />
                             </ToolTip>
-                        </toolTips:PopupButton.TouchToolTip>
+                        </ToolTipService.ToolTip>
                     </toolTips:PopupButton>
                 </Grid>
 
@@ -99,11 +99,11 @@
             </GroupBox>
             <GroupBox Header="Custom style" Style="{StaticResource ContainerStyle}">
                 <toolTips:PopupButton Template="{StaticResource CustomTemplate}">
-                    <toolTips:PopupButton.TouchToolTip>
+                    <ToolTipService.ToolTip>
                         <ToolTip>
                             <TextBlock Text="Tooltip text" />
                         </ToolTip>
-                    </toolTips:PopupButton.TouchToolTip>
+                    </ToolTipService.ToolTip>
                 </toolTips:PopupButton>
             </GroupBox>
         </WrapPanel>

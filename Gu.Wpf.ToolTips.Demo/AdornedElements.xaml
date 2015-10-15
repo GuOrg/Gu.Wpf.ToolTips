@@ -37,7 +37,7 @@
                           IsChecked="True" />
                 <CheckBox x:Name="Enabled" Content="Enabled" />
                 <CheckBox x:Name="AdornedVisible"
-                          Content="Adorned element vissible"
+                          Content="Adorned element visible"
                           IsChecked="True" />
                 <CheckBox x:Name="Visible"
                           Content="Visible (null uses default behavior)"

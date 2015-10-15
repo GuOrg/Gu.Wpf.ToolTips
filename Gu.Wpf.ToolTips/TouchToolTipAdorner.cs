@@ -36,7 +36,7 @@
             }
             if (toolTip != null)
             {
-                _popupButton.TouchToolTip = toolTip;
+                _popupButton.ToolTip = toolTip;
             }
             AddVisualChild(_popupButton);
         }
