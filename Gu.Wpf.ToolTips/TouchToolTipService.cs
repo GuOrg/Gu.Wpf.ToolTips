@@ -39,7 +39,7 @@
             new FrameworkPropertyMetadata(
                 null,
                 FrameworkPropertyMetadataOptions.Inherits,
-                OnIsVisibleChanged));
+                OnIsOverlayVisibleChanged));
 
         public static readonly DependencyProperty ToolTipProperty = DependencyProperty.RegisterAttached(
             "ToolTip",
@@ -173,9 +173,13 @@
             return null;
         }
 
-        private static void OnIsVisibleChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        private static void OnIsOverlayVisibleChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            UpdateOverlayVisibility((UIElement)o);
+            var uiElement = o as UIElement;
+            if (uiElement != null)
+            {
+                UpdateOverlayVisibility(uiElement);
+            }
         }
 
         private static void UpdateOverlayVisibility(UIElement element)
