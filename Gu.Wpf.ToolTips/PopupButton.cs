@@ -153,12 +153,16 @@
         private void OpenToolTip()
         {
             var toolTip = ToolTipService.GetToolTip(this) as ToolTip;
-            if (toolTip != null && AdornedElement != null)
+            if (toolTip == null)
+            {
+                return;
+            }
+            if (AdornedElement != null)
             {
                 toolTip.PlacementTarget = AdornedElement;
                 Debug.Print("Set placement target: {0}", AdornedElement?.GetType().Name ?? "null");
-                toolTip.IsOpen = true;
             }
+            toolTip.IsOpen = true;
         }
 
         private void OnToolTipChanged()

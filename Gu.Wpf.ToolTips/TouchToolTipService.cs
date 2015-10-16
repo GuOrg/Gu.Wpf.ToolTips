@@ -50,16 +50,18 @@
         /// <summary>
         /// Dummy property to get notificatins on when Visibility should toggle if Visibility is set to null
         /// </summary>
-        private static readonly DependencyProperty DefaultVisibleProxyProperty =
-            DependencyProperty.RegisterAttached(
-                "DefaultVisibleProxy",
-                typeof(object),
-                typeof(TouchToolTipService),
-                new FrameworkPropertyMetadata(
-                    null,
-                    FrameworkPropertyMetadataOptions.None,
-                    OnDefaultVisibleProxChanged));
+        private static readonly DependencyProperty DefaultVisibleProxyProperty = DependencyProperty.RegisterAttached(
+            "DefaultVisibleProxy",
+            typeof(object),
+            typeof(TouchToolTipService),
+            new FrameworkPropertyMetadata(
+                null,
+                FrameworkPropertyMetadataOptions.None,
+                OnDefaultVisibleProxChanged));
 
+        /// <summary>
+        /// This is used to get notification on visibility changes of adornedelement
+        /// </summary>
         private static readonly DependencyProperty IsAdornedElementVisibleProperty = DependencyProperty.RegisterAttached(
             "IsAdornedElementVisible",
             typeof(bool),
@@ -67,16 +69,15 @@
             new PropertyMetadata(default(bool), OnAdornedElementVisibleChanged));
 
         /// <summary>
-        ///     Reference to the ValidationAdorner
+        /// Reference to the ToolTipAdorner
         /// </summary>
-        private static readonly DependencyProperty ToolTipAdornerProperty =
-            DependencyProperty.RegisterAttached(
-                "ToolTipAdorner",
-                typeof(OverlayAdorner),
-                typeof(TouchToolTipService),
-                new FrameworkPropertyMetadata(
-                    null,
-                    FrameworkPropertyMetadataOptions.NotDataBindable));
+        private static readonly DependencyProperty ToolTipAdornerProperty = DependencyProperty.RegisterAttached(
+            "ToolTipAdorner",
+            typeof(OverlayAdorner),
+            typeof(TouchToolTipService),
+            new FrameworkPropertyMetadata(
+                null,
+                FrameworkPropertyMetadataOptions.NotDataBindable));
 
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
@@ -90,12 +91,14 @@
             element.SetValue(OverlayTemplateProperty, value);
         }
 
-        public static void SetToolTip(DependencyObject element, ToolTip value)
+        public static void SetToolTip(UIElement element, ToolTip value)
         {
             element.SetValue(ToolTipProperty, value);
         }
 
-        public static ToolTip GetToolTip(DependencyObject element)
+        [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
+        [AttachedPropertyBrowsableForType(typeof(UIElement))]
+        public static ToolTip GetToolTip(UIElement element)
         {
             return (ToolTip)element.GetValue(ToolTipProperty);
         }
@@ -105,12 +108,14 @@
             element.SetValue(IsOverlayVisibleProperty, value);
         }
 
-        public static bool? GetIsOverlayVisible(DependencyObject element)
+        [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
+        [AttachedPropertyBrowsableForType(typeof(UIElement))]
+        public static bool? GetIsOverlayVisible(UIElement element)
         {
             return (bool?)element.GetValue(IsOverlayVisibleProperty);
         }
 
-        private static void SetIsAdornedElementVisible(DependencyObject element, bool value)
+        private static void SetIsAdornedElementVisible(UIElement element, bool value)
         {
             element.SetValue(IsAdornedElementVisibleProperty, value);
         }
@@ -127,45 +132,35 @@
             {
                 return;
             }
-            var toolTip = ToolTipService.GetToolTip(uiElement) as ToolTip;
-            if (toolTip != null)
+            var adornerLayer = AdornerLayer.GetAdornerLayer(uiElement);
+
+            if (adornerLayer == null)
             {
-                var adornerLayer = AdornerLayer.GetAdornerLayer(uiElement);
-
-                if (adornerLayer == null)
+                if (tryAgain)
                 {
-                    if (tryAgain)
-                    {
-                        // try again later, perhaps giving layout a chance to create the adorner layer
-                        targetElement.Dispatcher.BeginInvoke(DispatcherPriority.Loaded,
-                                    new DispatcherOperationCallback(ShowAdornerOperation),
-                                    new object[] { targetElement, show });
-                    }
-                    return;
+                    // try again later, perhaps giving layout a chance to create the adorner layer
+                    targetElement.Dispatcher.BeginInvoke(DispatcherPriority.Loaded,
+                                new DispatcherOperationCallback(ShowAdornerOperation),
+                                new object[] { targetElement, show });
                 }
+                return;
+            }
 
-                var adorner = uiElement.ReadLocalValue(ToolTipAdornerProperty) as OverlayAdorner;
+            var adorner = uiElement.ReadLocalValue(ToolTipAdornerProperty) as OverlayAdorner;
 
-                if (show && adorner == null)
-                {
-                    var overlayTemplate = GetOverlayTemplate(uiElement);
-                    if (overlayTemplate == null)
-                    {
-                        if (uiElement is TextBlock || uiElement is Label)
-                        {
-                            overlayTemplate = (ControlTemplate)Application.Current.FindResource(PopupButton.TextOverlayTemplateKey);
-                        }
-                    }
-                    adorner = new OverlayAdorner(uiElement, toolTip, overlayTemplate);
-                    adornerLayer.Add(adorner);
-                    uiElement.SetValue(ToolTipAdornerProperty, adorner);
-                }
-                else if (!show && adorner != null)
-                {
-                    adorner.ClearChild();
-                    adornerLayer.Remove(adorner);
-                    uiElement.ClearValue(ToolTipAdornerProperty);
-                }
+            if (show && adorner == null)
+            {
+                var overlayTemplate = GetOverlayTemplate(uiElement);
+                var toolTip = ToolTipService.GetToolTip(uiElement) as ToolTip;
+                adorner = new OverlayAdorner(uiElement, toolTip, overlayTemplate);
+                adornerLayer.Add(adorner);
+                uiElement.SetValue(ToolTipAdornerProperty, adorner);
+            }
+            else if (!show && adorner != null)
+            {
+                adorner.ClearChild();
+                adornerLayer.Remove(adorner);
+                uiElement.ClearValue(ToolTipAdornerProperty);
             }
         }
 
@@ -180,33 +175,33 @@
 
         private static void OnIsVisibleChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            UpdateVisibility(o);
+            UpdateOverlayVisibility((UIElement)o);
         }
 
-        private static void UpdateVisibility(DependencyObject o)
+        private static void UpdateOverlayVisibility(UIElement element)
         {
-            var isAdornedElementVisible = GetIsAdornedElementVisible(o);
+            var isAdornedElementVisible = GetIsAdornedElementVisible(element);
             if (!isAdornedElementVisible)
             {
-                ShowOverlayAdorner(o, false, true);
+                ShowOverlayAdorner(element, false, true);
                 return;
             }
-            var toolTip = GetToolTip(o);
+            var toolTip = GetToolTip(element);
             if (toolTip != null)
             {
-                var visible = (bool?)o.GetValue(IsOverlayVisibleProperty) ?? GetDefaultVisible(o);
-                ShowOverlayAdorner(o, visible, true);
+                var visible = (bool?)element.GetValue(IsOverlayVisibleProperty) ?? GetDefaultVisible(element);
+                ShowOverlayAdorner(element, visible, true);
             }
         }
 
         private static void OnDefaultVisibleProxChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            UpdateVisibility(o);
+            UpdateOverlayVisibility((UIElement)o);
         }
 
         private static void OnAdornedElementVisibleChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            UpdateVisibility(o);
+            UpdateOverlayVisibility((UIElement)o);
         }
 
         private static void OnAdornerTemplateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -225,7 +220,7 @@
             }
             ToolTipService.SetToolTip(target, e.NewValue);
             BindingOperations.SetBinding(target, IsAdornedElementVisibleProperty, target.CreateOneWayBinding(UIElement.IsVisibleProperty));
-            UpdateVisibility(o);
+            UpdateOverlayVisibility(target);
         }
 
         private static bool GetDefaultVisible(DependencyObject o)
