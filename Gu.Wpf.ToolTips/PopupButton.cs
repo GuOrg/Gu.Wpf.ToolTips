@@ -1,32 +1,39 @@
-﻿using System.Windows.Data;
-
-namespace Gu.Wpf.ToolTips
+﻿namespace Gu.Wpf.ToolTips
 {
     using System;
     using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Media;
 
-    public class PopupButton : Button
+    public partial class PopupButton : Button
     {
-        public const string TextOverlayTemplateKey = "TextOverlayTemplateKey"; // { get { return "TextOverlayTemplateKey"; } }
-        public const string DefaultOverlayTemplateKey = "DefaultOverlayTemplateKey"; //{ get { return "DefaultOverlayTemplateKey"; } }
-        public const string MissingToolTipKey = "MissingToolTipKey"; // { get { return "MissingToolTipKey"; } }
+        private static readonly DependencyPropertyKey AdornedElementPropertyKey = DependencyProperty.RegisterReadOnly(
+            "AdornedElement",
+            typeof(UIElement),
+            typeof(PopupButton),
+            new PropertyMetadata(default(UIElement)));
 
-        internal UIElement AdornedElement;
-        internal DateTimeOffset LastChangeTime { get; private set; } = DateTimeOffset.Now;
+        public static readonly DependencyProperty AdornedElementProperty = AdornedElementPropertyKey.DependencyProperty;
+
+        private DateTimeOffset _lastChangeTime = DateTimeOffset.Now;
 
         static PopupButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(PopupButton),
                 new FrameworkPropertyMetadata(typeof(PopupButton)));
+
             EventManager.RegisterClassHandler(typeof(PopupButton), ToolTipService.ToolTipOpeningEvent, new ToolTipEventHandler(OnToolTipOpening), true);
             EventManager.RegisterClassHandler(typeof(PopupButton), ToolTipService.ToolTipClosingEvent, new ToolTipEventHandler(OnToolTipClosing), true);
             EventManager.RegisterClassHandler(typeof(PopupButton), MouseLeaveEvent, new RoutedEventHandler(OnMouseLeave), true);
             EventManager.RegisterClassHandler(typeof(PopupButton), PreviewMouseLeftButtonDownEvent, new RoutedEventHandler(OnPreviewMouseLeftButtonDown), true);
             EventManager.RegisterClassHandler(typeof(PopupButton), Button.UnloadedEvent, new RoutedEventHandler(OnUnloaded));
+        }
+
+        public UIElement AdornedElement
+        {
+            get { return (UIElement)GetValue(AdornedElementProperty); }
+            internal set { SetValue(AdornedElementPropertyKey, value); }
         }
 
         private static void OnPreviewMouseLeftButtonDown(object sender, RoutedEventArgs e)
@@ -68,15 +75,21 @@ namespace Gu.Wpf.ToolTips
             }
 
             var betweenShowDelay = ToolTipService.GetBetweenShowDelay(toolTip);
-            var timeSpan = DateTimeOffset.Now - LastChangeTime;
+            var timeSpan = DateTimeOffset.Now - _lastChangeTime;
 
             if (timeSpan.TotalMilliseconds < betweenShowDelay)
             {
                 Debug.WriteLine("DateTimeOffset.Now - LastChangeTime < TimeSpan.FromMilliseconds(10)");
                 return;
             }
-
-            toolTip.IsOpen = !toolTip.IsOpen;
+            if (toolTip.IsOpen)
+            {
+                toolTip.IsOpen = false;
+            }
+            else
+            {
+                OpenToolTip();
+            }
             Debug.WriteLine("Clicked: {0}, IsOpen: {1}", Name, toolTip.IsOpen);
         }
 
@@ -93,20 +106,28 @@ namespace Gu.Wpf.ToolTips
 
         private void OnToolTipOpening(ToolTipEventArgs e)
         {
+            OpenToolTip();
+            OnToolTipChanged();
+            // the framework sets PlacementTarget to this
+            // We want it to be AdornedElement if any.
+            // e.Handled = true and toolTip.IsOpen = true; worked. Not very elegant.
+            e.Handled = true; 
+        }
+
+        private void OpenToolTip()
+        {
             var toolTip = ToolTipService.GetToolTip(this) as ToolTip;
             if (toolTip != null && AdornedElement != null)
             {
                 toolTip.PlacementTarget = AdornedElement;
                 Debug.Print("Set placement target: {0}", AdornedElement?.GetType().Name ?? "null");
-                e.Handled = true;
                 toolTip.IsOpen = true;
             }
-            OnToolTipChanged();
         }
 
         private void OnToolTipChanged()
         {
-            LastChangeTime = DateTimeOffset.Now;
+            _lastChangeTime = DateTimeOffset.Now;
         }
 
         private void OnUnloaded()

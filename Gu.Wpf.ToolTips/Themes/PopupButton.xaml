@@ -37,7 +37,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0"
-                    Margin="0,5,4,0"
+                    Margin="0,2,2,0"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
@@ -47,11 +47,12 @@
             </Border>
 
             <Grid Grid.Column="1" VerticalAlignment="Top">
-                <Ellipse Width="14"
-                         Height="14"
+                <Ellipse Width="12"
+                         Height="12"
                          Fill="CornflowerBlue" />
                 <TextBlock HorizontalAlignment="Center"
                            VerticalAlignment="Center"
+                           FontSize="9"
                            Foreground="White"
                            Text="i" />
             </Grid>
@@ -60,11 +61,13 @@
 
     <ControlTemplate x:Key="{x:Static toolTips:PopupButton.MissingToolTipKey}">
         <Border Background="{x:Null}"
-                BorderBrush="HotPink"
+                BorderBrush="Red"
                 BorderThickness="1">
             <Grid>
                 <toolTips:AdornedElementProxy />
-                <!--  <ContentPresenter Content="{Binding}" />  -->
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="No tooltip" />
             </Grid>
         </Border>
     </ControlTemplate>

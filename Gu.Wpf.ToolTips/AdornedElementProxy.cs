@@ -19,14 +19,7 @@
         ///<summary>
         /// Element for which the AdornedElementProxy is reserving space.
         ///</summary>
-        public UIElement AdornedElement
-        {
-            get
-            {
-                var adorner = Adorner;
-                return adorner == null ? null : adorner.AdornedElement;
-            }
-        }
+        public UIElement AdornedElement => Adorner?.AdornedElement;
 
         [DefaultValue(null)]
         public virtual UIElement Child
@@ -74,15 +67,10 @@
             }
 
             base.OnInitialized(e);
-            var adorner = Adorner;
-            if (adorner != null )
+            if (AdornedElement != null)
             {
-                var adornedElement = adorner.AdornedElement;
-                if (adornedElement != null)
-                {
-                    BindingOperations.SetBinding(this, WidthProperty, adornedElement.CreateOneWayBinding(ActualWidthProperty));
-                    BindingOperations.SetBinding(this, HeightProperty, adornedElement.CreateOneWayBinding(ActualHeightProperty));
-                }
+                BindingOperations.SetBinding(this, WidthProperty, AdornedElement.CreateOneWayBinding(ActualWidthProperty));
+                BindingOperations.SetBinding(this, HeightProperty, AdornedElement.CreateOneWayBinding(ActualHeightProperty));
             }
         }
 
@@ -107,12 +95,7 @@
                 return new Size(0, 0);
             }
             Size desiredSize = AdornedElement.RenderSize;
-            UIElement child = Child;
-
-            if (child != null)
-            {
-                child.Measure(desiredSize);
-            }
+            Child?.Measure(desiredSize);
 
             return desiredSize;
         }
@@ -124,13 +107,7 @@
         /// <param name="arrangeBounds">The computed size.</param>
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
-            UIElement child = Child;
-
-            if (child != null)
-            {
-                child.Arrange(new Rect(arrangeBounds));
-            }
-
+            Child?.Arrange(new Rect(arrangeBounds));
             return arrangeBounds;
         }
 
