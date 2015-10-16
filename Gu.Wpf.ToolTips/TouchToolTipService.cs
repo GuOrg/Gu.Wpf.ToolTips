@@ -72,7 +72,7 @@
         private static readonly DependencyProperty ToolTipAdornerProperty =
             DependencyProperty.RegisterAttached(
                 "ToolTipAdorner",
-                typeof(TouchToolTipAdorner),
+                typeof(OverlayAdorner),
                 typeof(TouchToolTipService),
                 new FrameworkPropertyMetadata(
                     null,
@@ -144,7 +144,7 @@
                     return;
                 }
 
-                var adorner = uiElement.ReadLocalValue(ToolTipAdornerProperty) as TouchToolTipAdorner;
+                var adorner = uiElement.ReadLocalValue(ToolTipAdornerProperty) as OverlayAdorner;
 
                 if (show && adorner == null)
                 {
@@ -156,7 +156,7 @@
                             overlayTemplate = (ControlTemplate)Application.Current.FindResource(PopupButton.TextOverlayTemplateKey);
                         }
                     }
-                    adorner = new TouchToolTipAdorner(uiElement, toolTip, overlayTemplate);
+                    adorner = new OverlayAdorner(uiElement, toolTip, overlayTemplate);
                     adornerLayer.Add(adorner);
                     uiElement.SetValue(ToolTipAdornerProperty, adorner);
                 }

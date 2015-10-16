@@ -5,5 +5,5 @@
         <ResourceDictionary Source="/Gu.Wpf.ToolTips;component/Themes/PopupButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type local:TouchToolTipAdorner}" />
+    <Style TargetType="{x:Type local:OverlayAdorner}" />
 </ResourceDictionary>

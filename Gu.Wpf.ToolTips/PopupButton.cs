@@ -4,6 +4,7 @@
     using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
 
     public partial class PopupButton : Button
     {
@@ -11,9 +12,17 @@
             "AdornedElement",
             typeof(UIElement),
             typeof(PopupButton),
-            new PropertyMetadata(default(UIElement)));
+            new PropertyMetadata(default(UIElement), OnAdornedElementChanged));
 
         public static readonly DependencyProperty AdornedElementProperty = AdornedElementPropertyKey.DependencyProperty;
+
+        private static readonly DependencyPropertyKey AdornedElementTypePropertyKey = DependencyProperty.RegisterReadOnly(
+            "AdornedElementType",
+            typeof(AdornedElementType?),
+            typeof(PopupButton),
+            new PropertyMetadata(null));
+
+        public static readonly DependencyProperty AdornedElementTypeProperty = AdornedElementTypePropertyKey.DependencyProperty;
 
         private DateTimeOffset _lastChangeTime = DateTimeOffset.Now;
 
@@ -34,6 +43,12 @@
         {
             get { return (UIElement)GetValue(AdornedElementProperty); }
             internal set { SetValue(AdornedElementPropertyKey, value); }
+        }
+
+        public AdornedElementType? AdornedElementType
+        {
+            get { return (AdornedElementType?)GetValue(AdornedElementTypeProperty); }
+            protected set { SetValue(AdornedElementTypePropertyKey, value); }
         }
 
         private static void OnPreviewMouseLeftButtonDown(object sender, RoutedEventArgs e)
@@ -64,6 +79,27 @@
         {
             var popupButton = sender as PopupButton;
             popupButton?.OnUnloaded();
+        }
+
+        private static void OnAdornedElementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var popupButton = (PopupButton)d;
+            if (e.NewValue == null)
+            {
+                popupButton.AdornedElementType = null;
+            }
+            else if(e.NewValue is ButtonBase)
+            {
+                popupButton.AdornedElementType = ToolTips.AdornedElementType.Button;
+            }
+            else if(e.NewValue is TextBoxBase || e.NewValue is Label || e.NewValue is TextBlock)
+            {
+                popupButton.AdornedElementType = ToolTips.AdornedElementType.Text;
+            }
+            else
+            {
+                popupButton.AdornedElementType = ToolTips.AdornedElementType.Other;
+            }
         }
 
         private void OnPreviewMouseLeftButtonDown()
@@ -108,7 +144,7 @@
         {
             OpenToolTip();
             OnToolTipChanged();
-            // the framework sets PlacementTarget to this
+            // the framework sets PlacementTarget to this when opened with mousover.
             // We want it to be AdornedElement if any.
             // e.Handled = true and toolTip.IsOpen = true; worked. Not very elegant.
             e.Handled = true; 

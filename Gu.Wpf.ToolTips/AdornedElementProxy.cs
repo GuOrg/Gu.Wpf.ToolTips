@@ -44,16 +44,13 @@
             }
         }
 
-        protected override int VisualChildrenCount
-        {
-            get { return (_child == null) ? 0 : 1; }
-        }
+        protected override int VisualChildrenCount => (_child == null) ? 0 : 1;
 
         protected override Visual GetVisualChild(int index)
         {
             if (_child == null || index != 0)
             {
-                throw new ArgumentOutOfRangeException("index");
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
 
             return _child;
