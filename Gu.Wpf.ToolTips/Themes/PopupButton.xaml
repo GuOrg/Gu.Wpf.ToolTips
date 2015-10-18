@@ -59,7 +59,7 @@
         </Grid>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="{x:Static toolTips:PopupButton.MissingToolTipKey}">
+    <ControlTemplate x:Key="{x:Static toolTips:PopupButton.MissingToolTipOverlayKey}">
         <Border Background="{x:Null}"
                 BorderBrush="Red"
                 BorderThickness="1">
@@ -84,7 +84,7 @@
                 <Setter Property="Template" Value="{DynamicResource {x:Static toolTips:PopupButton.TextOverlayTemplateKey}}" />
             </Trigger>
             <Trigger Property="ToolTip" Value="{x:Null}">
-                <Setter Property="Template" Value="{DynamicResource {x:Static toolTips:PopupButton.MissingToolTipKey}}" />
+                <Setter Property="Template" Value="{DynamicResource {x:Static toolTips:PopupButton.MissingToolTipOverlayKey}}" />
             </Trigger>
         </Style.Triggers>
     </Style>
