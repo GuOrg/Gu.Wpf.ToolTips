@@ -1,0 +1,5 @@
+FRAMEWORK: >= NET45
+NUGET
+  remote: http://packages.nuget.org/v1/FeedService.svc
+  specs:
+    NUnit (2.6.4)
