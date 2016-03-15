@@ -6,6 +6,10 @@
         Width="525"
         Height="350">
     <TabControl>
+        <TabItem Header="Simple">
+            <demo:SimpleView />
+        </TabItem>
+
         <TabItem Header="AdornedElements">
             <demo:AdornedElements />
         </TabItem>

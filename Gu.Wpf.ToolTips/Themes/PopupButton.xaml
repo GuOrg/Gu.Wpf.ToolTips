@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:toolTips="clr-namespace:Gu.Wpf.ToolTips">
 
-    <ControlTemplate x:Key="{x:Static toolTips:PopupButton.DefaultOverlayTemplateKey}" TargetType="{x:Type toolTips:PopupButton}">
+    <ControlTemplate x:Key="{x:Static toolTips:PopupButton.DefaultOverlayTemplateKey}"
+                     TargetType="{x:Type toolTips:PopupButton}">
         <Border Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -15,22 +16,19 @@
                       Margin="0,5,5,0"
                       HorizontalAlignment="Right"
                       VerticalAlignment="Top">
-                    <Ellipse Width="{Binding ActualHeight,
-                                             ElementName=Grid}"
-                             Height="{Binding ActualHeight,
-                                              ElementName=Grid}"
-                             Fill="CornflowerBlue" />
+                    <Ellipse Fill="CornflowerBlue"
+                             Stretch="Fill" />
                     <TextBlock HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                Foreground="White"
                                Text="i" />
                 </Grid>
-                <!--  <ContentPresenter Content="{Binding}" />  -->
             </Grid>
         </Border>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="{x:Static toolTips:PopupButton.TextOverlayTemplateKey}" TargetType="{x:Type toolTips:PopupButton}">
+    <ControlTemplate x:Key="{x:Static toolTips:PopupButton.TextOverlayTemplateKey}"
+                     TargetType="{x:Type toolTips:PopupButton}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -46,7 +44,8 @@
                 <toolTips:AdornedElementProxy />
             </Border>
 
-            <Grid Grid.Column="1" VerticalAlignment="Top">
+            <Grid Grid.Column="1"
+                  VerticalAlignment="Top">
                 <Ellipse Width="12"
                          Height="12"
                          Fill="CornflowerBlue" />
