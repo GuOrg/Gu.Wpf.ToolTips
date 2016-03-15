@@ -13,13 +13,10 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="20" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <CheckBox x:Name="IsOverlayVisible"
-                  Content="IsOverlayVisible (null uses default behavior)"
-                  IsChecked="True"
-                  IsThreeState="True" />
+                  Content="IsOverlayVisible"
+                  IsChecked="True" />
 
         <TextBlock Grid.Row="2"
                    HorizontalAlignment="Left"
