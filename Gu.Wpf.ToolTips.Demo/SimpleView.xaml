@@ -8,26 +8,28 @@
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <CheckBox x:Name="IsOverlayVisible"
-                  Content="IsOverlayVisible"
-                  IsChecked="True" />
+    <AdornerDecorator>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <CheckBox x:Name="IsOverlayVisible"
+                      Content="IsOverlayVisible"
+                      IsChecked="True" />
 
-        <TextBlock Grid.Row="2"
-                   HorizontalAlignment="Left"
-                   Text="Some text with toolip"
-                   toolTips:TouchToolTipService.IsOverlayVisible="{Binding IsChecked,
-                                                                           ElementName=IsOverlayVisible}">
-            <toolTips:TouchToolTipService.ToolTip>
-                <ToolTip>
-                    <TextBlock Text="Tooltip text" />
-                </ToolTip>
-            </toolTips:TouchToolTipService.ToolTip>
-        </TextBlock>
-    </Grid>
+            <TextBlock Grid.Row="2"
+                       HorizontalAlignment="Left"
+                       Text="Some text with toolip"
+                       toolTips:TouchToolTipService.IsOverlayVisible="{Binding IsChecked,
+                                                                               ElementName=IsOverlayVisible}">
+                <ToolTipService.ToolTip>
+                    <ToolTip>
+                        <TextBlock Text="Tooltip text" />
+                    </ToolTip>
+                </ToolTipService.ToolTip>
+            </TextBlock>
+        </Grid>
+    </AdornerDecorator>
 </UserControl>
