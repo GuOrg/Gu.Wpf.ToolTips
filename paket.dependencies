@@ -1,3 +1,4 @@
 source http://nuget.org/api/v2
 
+nuget Gu.Wpf.Adorners
 nuget NUnit 2.6.4

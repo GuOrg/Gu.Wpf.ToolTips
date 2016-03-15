@@ -9,7 +9,7 @@
 
     /// <summary>
     /// Helper class with attached properties for the TouchToolTipAdorner
-    /// Enables using it in syles
+    /// Enables using it in styles
     /// </summary>
     public static class TouchToolTipService
     {

@@ -1,4 +1,5 @@
 NUGET
   remote: http://www.nuget.org/api/v2
   specs:
+    Gu.Wpf.Adorners (1.1.1.2)
     NUnit (2.6.4)
