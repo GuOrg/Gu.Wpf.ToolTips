@@ -1,4 +1,6 @@
 # Gu.Wpf.ToolTips
+[![Build status](https://ci.appveyor.com/api/projects/status/j4myy99it0now2gv/branch/master?svg=true)](https://ci.appveyor.com/project/JohanLarsson/gu-wpf-tooltips/branch/master)
+
 Project for tooltips that works for touch users.
 
 ##### Simple sample:
