@@ -1,8 +1,23 @@
 # Gu.Wpf.ToolTips
 Project for tooltips that works for touch users.
 
-##### Sample:
+##### Simple sample:
+```xaml
+<AdornerDecorator>
+    <!-- more content here -->
+    <TextBlock HorizontalAlignment="Left"
+               Text="Some text with toolip">
+        <toolTips:TouchToolTipService.ToolTip>
+            <ToolTip>
+                <TextBlock Text="Tooltip text" />
+            </ToolTip>
+        </toolTips:TouchToolTipService.ToolTip>
+    </TextBlock>
+</AdornerDecorator>
 ```
+
+##### Sample toggle visibility:
+```xaml
 <Grid>
     <Grid.RowDefinitions>
         <RowDefinition Height="Auto" />
