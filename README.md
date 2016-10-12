@@ -1,4 +1,6 @@
 # Gu.Wpf.ToolTips
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) 
+[![NuGet](https://img.shields.io/nuget/v/Gu.Wpf.ToolTips.svg)](https://www.nuget.org/packages/Gu.Wpf.ToolTips/)
 [![Build status](https://ci.appveyor.com/api/projects/status/j4myy99it0now2gv/branch/master?svg=true)](https://ci.appveyor.com/project/JohanLarsson/gu-wpf-tooltips/branch/master)
 
 Project for tooltips that works for touch users.
