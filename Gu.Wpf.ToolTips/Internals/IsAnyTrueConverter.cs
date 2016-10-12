@@ -20,8 +20,8 @@
                 return false;
             }
 
-            var result = values.Any(x => Equals(x, BoolBoxes.True)) 
-                                ? BoolBoxes.True 
+            var result = values.Any(x => Equals(x, BoolBoxes.True))
+                                ? BoolBoxes.True
                                 : BoolBoxes.False;
             return result;
         }

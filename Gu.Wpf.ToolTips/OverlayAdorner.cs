@@ -9,7 +9,7 @@
 
     public sealed class OverlayAdorner : Adorner
     {
-        private PopupButton _popupButton;
+        private PopupButton popupButton;
 
         static OverlayAdorner()
         {
@@ -17,7 +17,8 @@
         }
 
         /// <summary>
-        /// Be sure to call the base class constructor. 
+        /// Initializes a new instance of the <see cref="OverlayAdorner"/> class.
+        /// Be sure to call the base class constructor.
         /// </summary>
         /// <param name="adornedElement">The ui element to adorn</param>
         /// <param name="toolTip">The tooltip to show on click</param>
@@ -26,32 +27,35 @@
             : base(adornedElement)
         {
             Debug.Assert(adornedElement != null, "adornedElement should not be null");
-            _popupButton = new PopupButton
+            this.popupButton = new PopupButton
             {
                 IsTabStop = false,
                 AdornedElement = adornedElement
             };
             if (overlayTemplate != null)
             {
-                _popupButton.Template = overlayTemplate;
+                this.popupButton.SetCurrentValue(Control.TemplateProperty, overlayTemplate);
             }
+
             if (toolTip != null)
             {
-                _popupButton.ToolTip = toolTip;
+                this.popupButton.SetCurrentValue(ToolTipProperty, toolTip);
             }
-            AddVisualChild(_popupButton);
+
+            this.AddVisualChild(this.popupButton);
         }
+
+        /// <inheritdoc/>
+        protected override int VisualChildrenCount => this.popupButton != null ? 1 : 0;
 
         /// <summary>
         /// The clear the single child of a TemplatedAdorner
         /// </summary>
         public void ClearChild()
         {
-            RemoveVisualChild(_popupButton);
-            _popupButton = null;
+            this.RemoveVisualChild(this.popupButton);
+            this.popupButton = null;
         }
-
-        protected override int VisualChildrenCount => _popupButton != null ? 1 : 0;
 
         /// <summary>
         ///   Derived class must implement to support Visual children. The method must return
@@ -64,26 +68,28 @@
         /// </summary>
         protected override Visual GetVisualChild(int index)
         {
-            if (_popupButton == null || index != 0)
+            if (this.popupButton == null || index != 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(index), index, "nope: _child == null || index != 0");
             }
 
-            return _popupButton;
+            return this.popupButton;
         }
 
+        /// <inheritdoc/>
         protected override Size MeasureOverride(Size constraint)
         {
-            Debug.Assert(_popupButton != null, "_child should not be null");
-            AdornedElement?.InvalidateMeasure();
-            _popupButton.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-            return _popupButton.DesiredSize;
+            Debug.Assert(this.popupButton != null, "_child should not be null");
+            this.AdornedElement?.InvalidateMeasure();
+            this.popupButton.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            return this.popupButton.DesiredSize;
         }
 
+        /// <inheritdoc/>
         protected override Size ArrangeOverride(Size size)
         {
             var finalSize = base.ArrangeOverride(size);
-            _popupButton?.Arrange(new Rect(new Point(), finalSize));
+            this.popupButton?.Arrange(new Rect(default(Point), finalSize));
             return finalSize;
         }
     }

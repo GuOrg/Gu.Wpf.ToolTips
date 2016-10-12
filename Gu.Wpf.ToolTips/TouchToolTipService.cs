@@ -9,7 +9,7 @@
 
     /// <summary>
     /// Helper class with attached properties for the TouchToolTipAdorner
-    /// Enables using it in syles
+    /// Enables using it in styles
     /// </summary>
     public static class TouchToolTipService
     {
@@ -24,10 +24,8 @@
                 typeof(TouchToolTipService),
                 new FrameworkPropertyMetadata(
                     null,
-                    FrameworkPropertyMetadataOptions.Inherits | FrameworkPropertyMetadataOptions.NotDataBindable)
-                {
-                    PropertyChangedCallback = OnAdornerTemplateChanged
-                });
+                    FrameworkPropertyMetadataOptions.Inherits | FrameworkPropertyMetadataOptions.NotDataBindable,
+                    OnAdornerTemplateChanged));
 
         /// <summary>
         /// Control when the adorner should be visible
@@ -45,10 +43,12 @@
             "ToolTip",
             typeof(ToolTip),
             typeof(TouchToolTipService),
-            new PropertyMetadata(default(ToolTip), OnToolTipChanged));
+            new PropertyMetadata(
+                default(ToolTip), 
+                OnToolTipChanged));
 
         /// <summary>
-        /// Dummy property to get notificatins on when Visibility should toggle if Visibility is set to null
+        /// Dummy property to get notifications on when Visibility should toggle if Visibility is set to null
         /// </summary>
         private static readonly DependencyProperty DefaultVisibleProxyProperty = DependencyProperty.RegisterAttached(
             "DefaultVisibleProxy",
@@ -66,7 +66,9 @@
             "IsAdornedElementVisible",
             typeof(bool),
             typeof(TouchToolTipService),
-            new PropertyMetadata(default(bool), OnAdornedElementVisibleChanged));
+            new PropertyMetadata(
+                default(bool),
+                OnAdornedElementVisibleChanged));
 
         /// <summary>
         /// Reference to the ToolTipAdorner
@@ -115,9 +117,12 @@
             return (bool?)element.GetValue(IsOverlayVisibleProperty);
         }
 
+        // ReSharper disable once UnusedMember.Local
         private static void SetIsAdornedElementVisible(UIElement element, bool value)
         {
-            element.SetValue(IsAdornedElementVisibleProperty, value);
+#pragma warning disable WPF0041 // Set mutable dependency properties using SetCurrentValue. Bug in WpfAnalyzers
+            element.SetValue(IsOverlayVisibleProperty, value);
+#pragma warning restore WPF0041 // Set mutable dependency properties using SetCurrentValue.
         }
 
         private static bool GetIsAdornedElementVisible(DependencyObject element)
@@ -132,6 +137,7 @@
             {
                 return;
             }
+
             var adornerLayer = AdornerLayer.GetAdornerLayer(uiElement);
 
             if (adornerLayer == null)
@@ -139,10 +145,12 @@
                 if (tryAgain)
                 {
                     // try again later, perhaps giving layout a chance to create the adorner layer
-                    targetElement.Dispatcher.BeginInvoke(DispatcherPriority.Loaded,
-                                new DispatcherOperationCallback(ShowAdornerOperation),
-                                new object[] { targetElement, show });
+                    targetElement.Dispatcher.BeginInvoke(
+                                     DispatcherPriority.Loaded,
+                                     new DispatcherOperationCallback(ShowAdornerOperation),
+                                     new object[] { targetElement, show });
                 }
+
                 return;
             }
 
@@ -154,7 +162,7 @@
                 var toolTip = ToolTipService.GetToolTip(uiElement) as ToolTip;
                 adorner = new OverlayAdorner(uiElement, toolTip, overlayTemplate);
                 adornerLayer.Add(adorner);
-                uiElement.SetValue(ToolTipAdornerProperty, adorner);
+                uiElement.SetCurrentValue(ToolTipAdornerProperty, adorner);
             }
             else if (!show && adorner != null)
             {
@@ -166,7 +174,7 @@
 
         private static object ShowAdornerOperation(object arg)
         {
-            object[] args = (object[])arg;
+            var args = (object[])arg;
             var targetElement = (DependencyObject)args[0];
             var show = (bool)args[1];
             ShowOverlayAdorner(targetElement, show, false);
@@ -190,6 +198,7 @@
                 ShowOverlayAdorner(element, false, true);
                 return;
             }
+
             var toolTip = GetToolTip(element);
             if (toolTip != null)
             {
@@ -222,6 +231,7 @@
             {
                 return;
             }
+
             ToolTipService.SetToolTip(target, e.NewValue);
             BindingOperations.SetBinding(target, IsAdornedElementVisibleProperty, target.CreateOneWayBinding(UIElement.IsVisibleProperty));
             UpdateOverlayVisibility(target);
@@ -235,6 +245,7 @@
                 BindingOperations.SetBinding(o, DefaultVisibleProxyProperty, buttonBase.CreateOneWayBinding(UIElement.IsEnabledProperty));
                 return buttonBase.IsEnabled != true;
             }
+
             return true;
         }
     }

@@ -1,3 +1,12 @@
 source http://nuget.org/api/v2
 
-nuget NUnit 2.6.4
+group Analyzers
+  source http://nuget.org/api/v2
+  framework >= net45
+  nuget StyleCop.Analyzers
+  nuget WpfAnalyzers
+
+group Test
+  source http://nuget.org/api/v2
+  framework >= net45
+  nuget NUnit

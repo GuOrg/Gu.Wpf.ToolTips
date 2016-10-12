@@ -12,62 +12,92 @@
     [ContentProperty("Child")]
     public class AdornedElementProxy : FrameworkElement
     {
-        private UIElement _child;
-        private Adorner _adorner;
-        private bool _checkedAdorner;
+        private UIElement child;
+        private Adorner adorner;
+        private bool checkedAdorner;
 
-        ///<summary>
+        /// <summary>
         /// Element for which the AdornedElementProxy is reserving space.
-        ///</summary>
-        public UIElement AdornedElement => Adorner?.AdornedElement;
+        /// </summary>
+        public UIElement AdornedElement => this.Adorner?.AdornedElement;
 
+        /// <inheritdoc/>
         [DefaultValue(null)]
         public virtual UIElement Child
         {
-            get { return _child; }
+            get
+            {
+                return this.child;
+            }
+
             set
             {
-                UIElement old = _child;
-
+                var old = this.child;
                 if (!ReferenceEquals(old, value))
                 {
-                    RemoveVisualChild(old);
-                    //need to remove old element from logical tree
-                    RemoveLogicalChild(old);
-                    _child = value;
+                    this.RemoveVisualChild(old);
 
-                    AddVisualChild(_child);
-                    AddLogicalChild(_child);
+                    // need to remove old element from logical tree
+                    this.RemoveLogicalChild(old);
+                    this.child = value;
 
-                    InvalidateMeasure();
+                    this.AddVisualChild(this.child);
+                    this.AddLogicalChild(this.child);
+
+                    this.InvalidateMeasure();
                 }
             }
         }
 
-        protected override int VisualChildrenCount => (_child == null) ? 0 : 1;
+        /// <inheritdoc/>
+        protected override int VisualChildrenCount => (this.child == null) ? 0 : 1;
 
+        private Adorner Adorner
+        {
+            get
+            {
+                if (this.adorner == null && !this.checkedAdorner)
+                {
+                    var templateParent = this.TemplatedParent as FrameworkElement;
+
+                    if (templateParent != null)
+                    {
+                        this.adorner = templateParent.VisualAncestors()
+                                                     .OfType<Adorner>()
+                                                     .FirstOrDefault();
+                    }
+
+                    this.checkedAdorner = true;
+                }
+
+                return this.adorner;
+            }
+        }
+
+        /// <inheritdoc/>
         protected override Visual GetVisualChild(int index)
         {
-            if (_child == null || index != 0)
+            if (this.child == null || index != 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
 
-            return _child;
+            return this.child;
         }
 
+        /// <inheritdoc/>
         protected override void OnInitialized(EventArgs e)
         {
-            if (TemplatedParent == null)
+            if (this.TemplatedParent == null)
             {
                 throw new InvalidOperationException("Must be in a template");
             }
 
             base.OnInitialized(e);
-            if (AdornedElement != null)
+            if (this.AdornedElement != null)
             {
-                BindingOperations.SetBinding(this, WidthProperty, AdornedElement.CreateOneWayBinding(ActualWidthProperty));
-                BindingOperations.SetBinding(this, HeightProperty, AdornedElement.CreateOneWayBinding(ActualHeightProperty));
+                BindingOperations.SetBinding(this, WidthProperty, this.AdornedElement.CreateOneWayBinding(ActualWidthProperty));
+                BindingOperations.SetBinding(this, HeightProperty, this.AdornedElement.CreateOneWayBinding(ActualHeightProperty));
             }
         }
 
@@ -82,17 +112,18 @@
         /// <returns>The desired size of the control.</returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            if (TemplatedParent == null)
+            if (this.TemplatedParent == null)
             {
                 throw new InvalidOperationException("Must be in a template");
             }
 
-            if (AdornedElement == null)
+            if (this.AdornedElement == null)
             {
                 return new Size(0, 0);
             }
-            Size desiredSize = AdornedElement.RenderSize;
-            Child?.Measure(desiredSize);
+
+            var desiredSize = this.AdornedElement.RenderSize;
+            this.Child?.Measure(desiredSize);
 
             return desiredSize;
         }
@@ -104,26 +135,8 @@
         /// <param name="arrangeBounds">The computed size.</param>
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
-            Child?.Arrange(new Rect(arrangeBounds));
+            this.Child?.Arrange(new Rect(arrangeBounds));
             return arrangeBounds;
-        }
-
-        private Adorner Adorner
-        {
-            get
-            {
-                if (_adorner == null && !_checkedAdorner)
-                {
-                    var templateParent = TemplatedParent as FrameworkElement;
-
-                    if (templateParent != null)
-                    {
-                        _adorner = (Adorner)templateParent.VisualAncestors().FirstOrDefault(x => (x is Adorner));
-                    }
-                    _checkedAdorner = true;
-                }
-                return _adorner;
-            }
         }
     }
 }

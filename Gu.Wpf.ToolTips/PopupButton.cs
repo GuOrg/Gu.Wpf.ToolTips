@@ -8,6 +8,8 @@
 
     public partial class PopupButton : Button
     {
+#pragma warning disable SA1202 // Elements must be ordered by access
+
         private static readonly DependencyPropertyKey AdornedElementPropertyKey = DependencyProperty.RegisterReadOnly(
             "AdornedElement",
             typeof(UIElement),
@@ -24,7 +26,9 @@
 
         public static readonly DependencyProperty AdornedElementTypeProperty = AdornedElementTypePropertyKey.DependencyProperty;
 
-        private DateTimeOffset _lastChangeTime = DateTimeOffset.Now;
+#pragma warning restore SA1202 // Elements must be ordered by access
+
+        private DateTimeOffset lastChangeTime = DateTimeOffset.Now;
 
         static PopupButton()
         {
@@ -41,14 +45,26 @@
 
         public UIElement AdornedElement
         {
-            get { return (UIElement)GetValue(AdornedElementProperty); }
-            internal set { SetValue(AdornedElementPropertyKey, value); }
+            get { return (UIElement)this.GetValue(AdornedElementProperty); }
+            internal set { this.SetValue(AdornedElementPropertyKey, value); }
         }
 
         public AdornedElementType? AdornedElementType
         {
-            get { return (AdornedElementType?)GetValue(AdornedElementTypeProperty); }
-            protected set { SetValue(AdornedElementTypePropertyKey, value); }
+            get { return (AdornedElementType?)this.GetValue(AdornedElementTypeProperty); }
+            protected set { this.SetValue(AdornedElementTypePropertyKey, value); }
+        }
+
+        /// <inheritdoc/>
+        protected override void OnToolTipOpening(ToolTipEventArgs e)
+        {
+            this.OpenToolTip();
+            this.OnToolTipChanged();
+
+            // the framework sets PlacementTarget to this when opened with mouseover.
+            // We want it to be AdornedElement if any.
+            // e.Handled = true and toolTip.IsOpen = true; worked. Not very elegant.
+            e.Handled = true;
         }
 
         private static void OnPreviewMouseLeftButtonDown(object sender, RoutedEventArgs e)
@@ -88,11 +104,11 @@
             {
                 popupButton.AdornedElementType = null;
             }
-            else if(e.NewValue is ButtonBase)
+            else if (e.NewValue is ButtonBase)
             {
                 popupButton.AdornedElementType = ToolTips.AdornedElementType.Button;
             }
-            else if(e.NewValue is TextBoxBase || e.NewValue is Label || e.NewValue is TextBlock)
+            else if (e.NewValue is TextBoxBase || e.NewValue is Label || e.NewValue is TextBlock)
             {
                 popupButton.AdornedElementType = ToolTips.AdornedElementType.Text;
             }
@@ -111,22 +127,24 @@
             }
 
             var betweenShowDelay = ToolTipService.GetBetweenShowDelay(toolTip);
-            var timeSpan = DateTimeOffset.Now - _lastChangeTime;
+            var timeSpan = DateTimeOffset.Now - this.lastChangeTime;
 
             if (timeSpan.TotalMilliseconds < betweenShowDelay)
             {
                 Debug.WriteLine("DateTimeOffset.Now - LastChangeTime < TimeSpan.FromMilliseconds(10)");
                 return;
             }
+
             if (toolTip.IsOpen)
             {
-                toolTip.IsOpen = false;
+                toolTip.SetCurrentValue(System.Windows.Controls.ToolTip.IsOpenProperty, false);
             }
             else
             {
-                OpenToolTip();
+                this.OpenToolTip();
             }
-            Debug.WriteLine("Clicked: {0}, IsOpen: {1}", Name, toolTip.IsOpen);
+
+            Debug.WriteLine("Clicked: {0}, IsOpen: {1}", this.Name, toolTip.IsOpen);
         }
 
         private void OnMouseLeave()
@@ -136,18 +154,9 @@
             {
                 return;
             }
-            toolTip.IsOpen = false;
-            Debug.WriteLine("OnMouseLeave: {0}", toolTip.IsOpen);
-        }
 
-        private void OnToolTipOpening(ToolTipEventArgs e)
-        {
-            OpenToolTip();
-            OnToolTipChanged();
-            // the framework sets PlacementTarget to this when opened with mousover.
-            // We want it to be AdornedElement if any.
-            // e.Handled = true and toolTip.IsOpen = true; worked. Not very elegant.
-            e.Handled = true; 
+            toolTip.SetCurrentValue(System.Windows.Controls.ToolTip.IsOpenProperty, false);
+            Debug.WriteLine("OnMouseLeave: {0}", toolTip.IsOpen);
         }
 
         private void OpenToolTip()
@@ -157,26 +166,25 @@
             {
                 return;
             }
-            if (AdornedElement != null)
+
+            if (this.AdornedElement != null)
             {
-                toolTip.PlacementTarget = AdornedElement;
-                Debug.Print("Set placement target: {0}", AdornedElement?.GetType().Name ?? "null");
+                toolTip.SetCurrentValue(System.Windows.Controls.ToolTip.PlacementTargetProperty, this.AdornedElement);
+                Debug.Print("Set placement target: {0}", this.AdornedElement?.GetType().Name ?? "null");
             }
-            toolTip.IsOpen = true;
+
+            toolTip.SetCurrentValue(System.Windows.Controls.ToolTip.IsOpenProperty, true);
         }
 
         private void OnToolTipChanged()
         {
-            _lastChangeTime = DateTimeOffset.Now;
+            this.lastChangeTime = DateTimeOffset.Now;
         }
 
         private void OnUnloaded()
         {
             var toolTip = ToolTipService.GetToolTip(this) as ToolTip;
-            if (toolTip != null)
-            {
-                toolTip.IsOpen = false;
-            }
+            toolTip?.SetCurrentValue(System.Windows.Controls.ToolTip.IsOpenProperty, false);
         }
     }
 }
