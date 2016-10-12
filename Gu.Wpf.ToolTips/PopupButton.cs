@@ -40,7 +40,7 @@
             EventManager.RegisterClassHandler(typeof(PopupButton), ToolTipService.ToolTipClosingEvent, new ToolTipEventHandler(OnToolTipClosing), true);
             EventManager.RegisterClassHandler(typeof(PopupButton), MouseLeaveEvent, new RoutedEventHandler(OnMouseLeave), true);
             EventManager.RegisterClassHandler(typeof(PopupButton), PreviewMouseLeftButtonDownEvent, new RoutedEventHandler(OnPreviewMouseLeftButtonDown), true);
-            EventManager.RegisterClassHandler(typeof(PopupButton), Button.UnloadedEvent, new RoutedEventHandler(OnUnloaded));
+            EventManager.RegisterClassHandler(typeof(PopupButton), UnloadedEvent, new RoutedEventHandler(OnUnloaded));
         }
 
         public UIElement AdornedElement

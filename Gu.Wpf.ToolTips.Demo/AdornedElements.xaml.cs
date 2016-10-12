@@ -9,7 +9,7 @@
     {
         public AdornedElements()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

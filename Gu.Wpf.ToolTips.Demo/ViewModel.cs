@@ -3,11 +3,11 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    using Gu.Wpf.ToolTips.Demo.Annotations;
+    using JetBrains.Annotations;
 
     public class ViewModel : INotifyPropertyChanged
     {
-        private string _value = "Value from viewmodel";
+        private string value = "Value from viewmodel";
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -15,23 +15,25 @@
         {
             get
             {
-                return _value;
+                return this.value;
             }
+
             set
             {
-                if (value == _value)
+                if (value == this.value)
                 {
                     return;
                 }
-                _value = value;
-                OnPropertyChanged();
+
+                this.value = value;
+                this.OnPropertyChanged();
             }
         }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

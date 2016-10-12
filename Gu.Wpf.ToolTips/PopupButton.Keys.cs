@@ -13,6 +13,7 @@
 
         private static ComponentResourceKey CreateKey([CallerMemberName] string caller = null)
         {
+            // ReSharper disable once AssignNullToNotNullAttribute
             return new ComponentResourceKey(typeof(PopupButton), caller);
         }
     }

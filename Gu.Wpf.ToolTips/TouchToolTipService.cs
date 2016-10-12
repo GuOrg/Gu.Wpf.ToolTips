@@ -44,7 +44,7 @@
             typeof(ToolTip),
             typeof(TouchToolTipService),
             new PropertyMetadata(
-                default(ToolTip), 
+                default(ToolTip),
                 OnToolTipChanged));
 
         /// <summary>

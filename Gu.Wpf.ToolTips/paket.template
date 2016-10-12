@@ -3,3 +3,8 @@ tags tooltips touch
 projectUrl https://github.com/JohanLarsson/Gu.Wpf.ToolTips
 licenseUrl http://opensource.org/licenses/MIT
 
+excludeddependencies
+  JetBrains.Annotations
+  StyleCop.Analyzers
+  WpfAnalyzers
+

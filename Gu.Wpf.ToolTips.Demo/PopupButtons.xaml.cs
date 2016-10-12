@@ -9,7 +9,7 @@
     {
         public PopupButtons()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

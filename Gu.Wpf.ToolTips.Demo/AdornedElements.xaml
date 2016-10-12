@@ -1,4 +1,6 @@
-﻿<UserControl x:Class="Gu.Wpf.ToolTips.Demo.AdornedElements"
+﻿<!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+
+<UserControl x:Class="Gu.Wpf.ToolTips.Demo.AdornedElements"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -41,13 +43,6 @@
             </Setter>
 
         </Style>
-
-        <ControlTemplate x:Key="ColorButton"
-                         TargetType="{x:Type Button}">
-            <Ellipse Width="{TemplateBinding Width}"
-                     Height="{TemplateBinding Height}"
-                     Fill="{TemplateBinding Background}" />
-        </ControlTemplate>
     </UserControl.Resources>
     <AdornerDecorator>
         <Grid>

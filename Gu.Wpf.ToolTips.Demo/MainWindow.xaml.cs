@@ -9,8 +9,8 @@
     {
         public MainWindow()
         {
-            InitializeComponent();
-            DataContext = new ViewModel();
+            this.InitializeComponent();
+            this.DataContext = new ViewModel();
         }
     }
 }

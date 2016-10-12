@@ -5,6 +5,7 @@ group Analyzers
   framework >= net45
   nuget StyleCop.Analyzers
   nuget WpfAnalyzers
+  nuget JetBrains.Annotations
 
 group Test
   source http://nuget.org/api/v2
