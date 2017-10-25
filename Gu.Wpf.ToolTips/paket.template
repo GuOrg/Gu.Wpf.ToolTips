@@ -1,5 +1,5 @@
 ﻿type project
-tags tooltips touch
+tags wpf tooltip touch
 projectUrl https://github.com/JohanLarsson/Gu.Wpf.ToolTips
 licenseUrl http://opensource.org/licenses/MIT
 
