@@ -8,7 +8,7 @@ NUGET
     Gu.Analyzers (0.1.11.25-dev)
     IDisposableAnalyzers (0.1.0.2-dev)
     JetBrains.Annotations (11.0)
-    PropertyChangedAnalyzers (2.1)
+    PropertyChangedAnalyzers (2.1.0.1)
     StyleCop.Analyzers (1.0.2)
     WpfAnalyzers (0.2.7.10)
 
