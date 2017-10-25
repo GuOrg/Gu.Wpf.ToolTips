@@ -193,7 +193,7 @@
             var isAdornedElementVisible = GetIsAdornedElementVisible(element);
             if (!isAdornedElementVisible)
             {
-                ShowOverlayAdorner(element, false, true);
+                ShowOverlayAdorner(element, show: false, tryAgain: true);
                 return;
             }
 
@@ -201,7 +201,11 @@
             if (toolTip != null)
             {
                 var visible = (bool?)element.GetValue(IsOverlayVisibleProperty) ?? GetDefaultVisible(element);
-                ShowOverlayAdorner(element, visible, true);
+                ShowOverlayAdorner(element, visible, tryAgain: true);
+            }
+            else
+            {
+                ShowOverlayAdorner(element, show: false, tryAgain: false);
             }
         }
 
@@ -217,28 +221,24 @@
 
         private static void OnOverlayTemplateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ShowOverlayAdorner(d, false, true);
+            ShowOverlayAdorner(d, show: false, tryAgain: true);
             var visible = (bool?)d.GetValue(IsOverlayVisibleProperty) ?? GetDefaultVisible(d);
-            ShowOverlayAdorner(d, visible, true);
+            ShowOverlayAdorner(d, visible, tryAgain: true);
         }
 
         private static void OnToolTipChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            var target = o as UIElement;
-            if (target == null || e.NewValue == null)
+            if (o is UIElement target)
             {
-                return;
+                ToolTipService.SetToolTip(target, e.NewValue);
+                BindingOperations.SetBinding(target, IsAdornedElementVisibleProperty, target.CreateOneWayBinding(UIElement.IsVisibleProperty));
+                UpdateOverlayVisibility(target);
             }
-
-            ToolTipService.SetToolTip(target, e.NewValue);
-            BindingOperations.SetBinding(target, IsAdornedElementVisibleProperty, target.CreateOneWayBinding(UIElement.IsVisibleProperty));
-            UpdateOverlayVisibility(target);
         }
 
         private static bool GetDefaultVisible(DependencyObject o)
         {
-            var buttonBase = o as ButtonBase;
-            if (buttonBase != null)
+            if (o is ButtonBase buttonBase)
             {
                 BindingOperations.SetBinding(o, DefaultVisibleProxyProperty, buttonBase.CreateOneWayBinding(UIElement.IsEnabledProperty));
                 return buttonBase.IsEnabled != true;

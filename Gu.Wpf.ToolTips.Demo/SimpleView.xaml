@@ -20,9 +20,8 @@
 
             <TextBlock Grid.Row="2"
                        HorizontalAlignment="Left"
-                       Text="Some text with toolip"
-                       toolTips:TouchToolTipService.IsOverlayVisible="{Binding IsChecked,
-                                                                               ElementName=IsOverlayVisible}">
+                       toolTips:TouchToolTipService.IsOverlayVisible="{Binding IsChecked, ElementName=IsOverlayVisible}"
+                       Text="Some text with toolip">
                 <ToolTipService.ToolTip>
                     <ToolTip>
                         <TextBlock Text="Tooltip text" />
