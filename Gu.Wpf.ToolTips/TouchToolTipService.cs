@@ -25,7 +25,7 @@
                 new FrameworkPropertyMetadata(
                     null,
                     FrameworkPropertyMetadataOptions.Inherits | FrameworkPropertyMetadataOptions.NotDataBindable,
-                    OnAdornerTemplateChanged));
+                    OnOverlayTemplateChanged));
 
         /// <summary>
         /// Control when the adorner should be visible
@@ -57,7 +57,7 @@
             new FrameworkPropertyMetadata(
                 null,
                 FrameworkPropertyMetadataOptions.None,
-                OnDefaultVisibleProxChanged));
+                OnDefaultVisibleProxyChanged));
 
         /// <summary>
         /// This is used to get notification on visibility changes of adornedelement
@@ -68,7 +68,7 @@
             typeof(TouchToolTipService),
             new PropertyMetadata(
                 default(bool),
-                OnAdornedElementVisibleChanged));
+                OnIsAdornedElementVisibleChanged));
 
         /// <summary>
         /// Reference to the ToolTipAdorner
@@ -120,9 +120,7 @@
         // ReSharper disable once UnusedMember.Local
         private static void SetIsAdornedElementVisible(UIElement element, bool value)
         {
-#pragma warning disable WPF0041 // Set mutable dependency properties using SetCurrentValue. Bug in WpfAnalyzers
-            element.SetValue(IsOverlayVisibleProperty, value);
-#pragma warning restore WPF0041 // Set mutable dependency properties using SetCurrentValue.
+            element.SetValue(IsAdornedElementVisibleProperty, value);
         }
 
         private static bool GetIsAdornedElementVisible(DependencyObject element)
@@ -207,17 +205,17 @@
             }
         }
 
-        private static void OnDefaultVisibleProxChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        private static void OnDefaultVisibleProxyChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             UpdateOverlayVisibility((UIElement)o);
         }
 
-        private static void OnAdornedElementVisibleChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        private static void OnIsAdornedElementVisibleChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             UpdateOverlayVisibility((UIElement)o);
         }
 
-        private static void OnAdornerTemplateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnOverlayTemplateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ShowOverlayAdorner(d, false, true);
             var visible = (bool?)d.GetValue(IsOverlayVisibleProperty) ?? GetDefaultVisible(d);

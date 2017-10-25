@@ -3,8 +3,6 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    using JetBrains.Annotations;
-
     public class ViewModel : INotifyPropertyChanged
     {
         private string value = "Value from viewmodel";
@@ -27,7 +25,6 @@
             }
         }
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
