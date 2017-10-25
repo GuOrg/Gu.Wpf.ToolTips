@@ -175,14 +175,13 @@
             var args = (object[])arg;
             var targetElement = (DependencyObject)args[0];
             var show = (bool)args[1];
-            ShowOverlayAdorner(targetElement, show, false);
+            ShowOverlayAdorner(targetElement, show, tryAgain: false);
             return null;
         }
 
         private static void OnIsOverlayVisibleChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            var uiElement = o as UIElement;
-            if (uiElement != null)
+            if (o is UIElement uiElement)
             {
                 UpdateOverlayVisibility(uiElement);
             }

@@ -11,7 +11,7 @@
 #pragma warning disable SA1202 // Elements must be ordered by access
 
         private static readonly DependencyPropertyKey AdornedElementPropertyKey = DependencyProperty.RegisterReadOnly(
-            "AdornedElement",
+            nameof(AdornedElement),
             typeof(UIElement),
             typeof(PopupButton),
             new PropertyMetadata(default(UIElement), OnAdornedElementChanged));
@@ -19,7 +19,7 @@
         public static readonly DependencyProperty AdornedElementProperty = AdornedElementPropertyKey.DependencyProperty;
 
         private static readonly DependencyPropertyKey AdornedElementTypePropertyKey = DependencyProperty.RegisterReadOnly(
-            "AdornedElementType",
+            nameof(AdornedElementType),
             typeof(AdornedElementType?),
             typeof(PopupButton),
             new PropertyMetadata(null));
