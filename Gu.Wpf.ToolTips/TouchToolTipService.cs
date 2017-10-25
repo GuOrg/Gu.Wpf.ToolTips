@@ -15,7 +15,7 @@
     {
         /// <summary>
         /// Style used to overlay the control on the AdornerLayer.
-        /// Must be TargetType= popupbutton
+        /// Must be TargetType <see cref="PopupButton"/>
         /// </summary>
         public static readonly DependencyProperty OverlayTemplateProperty =
             DependencyProperty.RegisterAttached(
