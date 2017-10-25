@@ -25,10 +25,7 @@
         [DefaultValue(null)]
         public virtual UIElement Child
         {
-            get
-            {
-                return this.child;
-            }
+            get => this.child;
 
             set
             {

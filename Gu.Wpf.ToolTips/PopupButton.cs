@@ -45,14 +45,14 @@
 
         public UIElement AdornedElement
         {
-            get { return (UIElement)this.GetValue(AdornedElementProperty); }
-            internal set { this.SetValue(AdornedElementPropertyKey, value); }
+            get => (UIElement)this.GetValue(AdornedElementProperty);
+            internal set => this.SetValue(AdornedElementPropertyKey, value);
         }
 
         public AdornedElementType? AdornedElementType
         {
-            get { return (AdornedElementType?)this.GetValue(AdornedElementTypeProperty); }
-            protected set { this.SetValue(AdornedElementTypePropertyKey, value); }
+            get => (AdornedElementType?)this.GetValue(AdornedElementTypeProperty);
+            protected set => this.SetValue(AdornedElementTypePropertyKey, value);
         }
 
         /// <inheritdoc/>
