@@ -31,3 +31,4 @@ $tf*/
 #Ignore files build by Visual Studio
 packages/*
 publish/*
+/.vs/*
