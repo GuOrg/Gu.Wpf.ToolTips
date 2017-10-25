@@ -1,15 +1,19 @@
 
 
 GROUP Analyzers
-FRAMEWORK: >= NET45
+RESTRICTION: >= net45
 NUGET
   remote: http://www.nuget.org/api/v2
-    JetBrains.Annotations (10.2.1)
-    StyleCop.Analyzers (1.0)
-    WpfAnalyzers (0.2.1-dev)
+    AsyncUsageAnalyzers (1.0.0-alpha003)
+    Gu.Analyzers (0.1.11.25-dev)
+    IDisposableAnalyzers (0.1.0.2-dev)
+    JetBrains.Annotations (11.0)
+    PropertyChangedAnalyzers (2.1)
+    StyleCop.Analyzers (1.0.2)
+    WpfAnalyzers (0.2.7.10)
 
 GROUP Test
-FRAMEWORK: >= NET45
+RESTRICTION: >= net45
 NUGET
   remote: http://www.nuget.org/api/v2
-    NUnit (3.5)
+    NUnit (3.8.1)
