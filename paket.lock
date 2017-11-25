@@ -5,16 +5,16 @@ RESTRICTION: >= net45
 NUGET
   remote: http://www.nuget.org/api/v2
     AsyncUsageAnalyzers (1.0.0-alpha003)
-    Gu.Analyzers (0.1.11.25-dev)
-    IDisposableAnalyzers (0.1.0.2-dev)
-    JetBrains.Annotations (11.0)
-    PropertyChangedAnalyzers (2.1.0.1)
+    Gu.Analyzers (1.1.0-dev)
+    IDisposableAnalyzers (0.1.3.1-dev)
+    JetBrains.Annotations (11.1)
+    PropertyChangedAnalyzers (2.5.1)
     StyleCop.Analyzers (1.0.2)
-    WpfAnalyzers (0.2.7.10)
+    WpfAnalyzers (0.3.3)
 
 GROUP Test
 RESTRICTION: >= net45
 NUGET
   remote: http://www.nuget.org/api/v2
     Gu.Wpf.UiAutomation (0.1.17)
-    NUnit (3.8.1)
+    NUnit (3.9)

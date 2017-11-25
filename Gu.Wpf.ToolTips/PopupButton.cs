@@ -6,6 +6,9 @@
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
 
+    /// <summary>
+    /// A button that is used in the tooltip overlay.
+    /// </summary>
     public partial class PopupButton : Button
     {
 #pragma warning disable SA1202 // Elements must be ordered by access
@@ -16,6 +19,7 @@
             typeof(PopupButton),
             new PropertyMetadata(default(UIElement), OnAdornedElementChanged));
 
+        /// <summary>Identifies the <see cref="AdornedElement"/> dependency property.</summary>
         public static readonly DependencyProperty AdornedElementProperty = AdornedElementPropertyKey.DependencyProperty;
 
         private static readonly DependencyPropertyKey AdornedElementTypePropertyKey = DependencyProperty.RegisterReadOnly(
@@ -24,6 +28,7 @@
             typeof(PopupButton),
             new PropertyMetadata(null));
 
+        /// <summary>Identifies the <see cref="AdornedElementType"/> dependency property.</summary>
         public static readonly DependencyProperty AdornedElementTypeProperty = AdornedElementTypePropertyKey.DependencyProperty;
 
 #pragma warning restore SA1202 // Elements must be ordered by access
@@ -43,12 +48,18 @@
             EventManager.RegisterClassHandler(typeof(PopupButton), UnloadedEvent, new RoutedEventHandler(OnUnloaded));
         }
 
+        /// <summary>
+        /// Element for which the AdornedElementPlaceholder is reserving space.
+        /// </summary>
         public UIElement AdornedElement
         {
             get => (UIElement)this.GetValue(AdornedElementProperty);
             internal set => this.SetValue(AdornedElementPropertyKey, value);
         }
 
+        /// <summary>
+        /// The type of <see cref="AdornedElement"/>
+        /// </summary>
         public AdornedElementType? AdornedElementType
         {
             get => (AdornedElementType?)this.GetValue(AdornedElementTypeProperty);
@@ -61,7 +72,7 @@
             this.OpenToolTip();
             this.OnToolTipChanged();
 
-            // the framework sets PlacementTarget to this when opened with mouseover.
+            // the framework sets PlacementTarget to this when opened with mouse over.
             // We want it to be AdornedElement if any.
             // e.Handled = true and toolTip.IsOpen = true; worked. Not very elegant.
             e.Handled = true;

@@ -39,6 +39,9 @@
                 FrameworkPropertyMetadataOptions.Inherits,
                 OnIsOverlayVisibleChanged));
 
+        /// <summary>
+        /// The tooltip contents
+        /// </summary>
         public static readonly DependencyProperty ToolTipProperty = DependencyProperty.RegisterAttached(
             "ToolTip",
             typeof(ToolTip),
@@ -60,7 +63,7 @@
                 OnDefaultVisibleProxyChanged));
 
         /// <summary>
-        /// This is used to get notification on visibility changes of adornedelement
+        /// This is used to get notification on visibility changes of adorned element
         /// </summary>
         private static readonly DependencyProperty IsAdornedElementVisibleProperty = DependencyProperty.RegisterAttached(
             "IsAdornedElementVisible",
@@ -81,6 +84,11 @@
                 null,
                 FrameworkPropertyMetadataOptions.NotDataBindable));
 
+        /// <summary>
+        /// Helper for reading OverlayTemplate property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read OverlayTemplate property from.</param>
+        /// <returns>OverlayTemplate property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static ControlTemplate GetOverlayTemplate(UIElement element)
@@ -88,16 +96,31 @@
             return (ControlTemplate)element.GetValue(OverlayTemplateProperty);
         }
 
+        /// <summary>
+        /// Helper for setting OverlayTemplate property on a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to set OverlayTemplate property on.</param>
+        /// <param name="value">OverlayTemplate property value.</param>
         public static void SetOverlayTemplate(UIElement element, ControlTemplate value)
         {
             element.SetValue(OverlayTemplateProperty, value);
         }
 
+        /// <summary>
+        /// Helper for setting ToolTip property on a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to set ToolTip property on.</param>
+        /// <param name="value">ToolTip property value.</param>
         public static void SetToolTip(UIElement element, ToolTip value)
         {
             element.SetValue(ToolTipProperty, value);
         }
 
+        /// <summary>
+        /// Helper for reading ToolTip property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read ToolTip property from.</param>
+        /// <returns>ToolTip property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static ToolTip GetToolTip(UIElement element)
@@ -105,11 +128,21 @@
             return (ToolTip)element.GetValue(ToolTipProperty);
         }
 
+        /// <summary>
+        /// Helper for setting IsOverlayVisible property on a DependencyObject.
+        /// </summary>
+        /// <param name="element">DependencyObject to set IsOverlayVisible property on.</param>
+        /// <param name="value">IsOverlayVisible property value.</param>
         public static void SetIsOverlayVisible(DependencyObject element, bool? value)
         {
             element.SetValue(IsOverlayVisibleProperty, value);
         }
 
+        /// <summary>
+        /// Helper for reading IsOverlayVisible property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read IsOverlayVisible property from.</param>
+        /// <returns>IsOverlayVisible property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool? GetIsOverlayVisible(UIElement element)
