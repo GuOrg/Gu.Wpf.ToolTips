@@ -2,7 +2,6 @@ source http://nuget.org/api/v2
 
 group Analyzers
   source http://nuget.org/api/v2
-  framework >= net45
   nuget AsyncUsageAnalyzers
   nuget IDisposableAnalyzers
   nuget StyleCop.Analyzers
@@ -13,6 +12,6 @@ group Analyzers
 
 group Test
   source http://nuget.org/api/v2
-  framework >= net45
+  storage: none
   nuget NUnit
   nuget Gu.Wpf.UiAutomation
