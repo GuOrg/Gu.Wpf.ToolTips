@@ -60,7 +60,7 @@ namespace Gu.Wpf.ToolTips
             new FrameworkPropertyMetadata(
                 null,
                 FrameworkPropertyMetadataOptions.None,
-                OnDefaultVisibleProxyChanged));
+                (o, e) => UpdateOverlayVisibility((UIElement)o)));
 
         /// <summary>
         /// This is used to get notification on visibility changes of adorned element.
@@ -71,7 +71,7 @@ namespace Gu.Wpf.ToolTips
             typeof(TouchToolTipService),
             new PropertyMetadata(
                 default(bool),
-                OnIsAdornedElementVisibleChanged));
+                (o, e) => UpdateOverlayVisibility((UIElement)o)));
 
         /// <summary>
         /// Reference to the ToolTipAdorner.
@@ -164,7 +164,7 @@ namespace Gu.Wpf.ToolTips
                 if (tryAgain)
                 {
                     // try again later, perhaps giving layout a chance to create the adorner layer
-                    targetElement.Dispatcher.BeginInvoke(
+                    _ = targetElement.Dispatcher.BeginInvoke(
                                      DispatcherPriority.Loaded,
                                      new DispatcherOperationCallback(ShowAdornerOperation),
                                      new object[] { targetElement, show });
@@ -229,16 +229,6 @@ namespace Gu.Wpf.ToolTips
             }
         }
 
-        private static void OnDefaultVisibleProxyChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
-        {
-            UpdateOverlayVisibility((UIElement)o);
-        }
-
-        private static void OnIsAdornedElementVisibleChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
-        {
-            UpdateOverlayVisibility((UIElement)o);
-        }
-
         private static void OnOverlayTemplateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ShowOverlayAdorner(d, show: false, tryAgain: true);
@@ -251,7 +241,7 @@ namespace Gu.Wpf.ToolTips
             if (o is UIElement target)
             {
                 ToolTipService.SetToolTip(target, e.NewValue);
-                BindingOperations.SetBinding(target, IsAdornedElementVisibleProperty, target.CreateOneWayBinding(UIElement.IsVisibleProperty));
+                _ = BindingOperations.SetBinding(target, IsAdornedElementVisibleProperty, target.CreateOneWayBinding(UIElement.IsVisibleProperty));
                 UpdateOverlayVisibility(target);
             }
         }
@@ -260,7 +250,7 @@ namespace Gu.Wpf.ToolTips
         {
             if (o is ButtonBase buttonBase)
             {
-                BindingOperations.SetBinding(o, DefaultVisibleProxyProperty, buttonBase.CreateOneWayBinding(UIElement.IsEnabledProperty));
+                _ = BindingOperations.SetBinding(o, DefaultVisibleProxyProperty, buttonBase.CreateOneWayBinding(UIElement.IsEnabledProperty));
                 return buttonBase.IsEnabled != true;
             }
 

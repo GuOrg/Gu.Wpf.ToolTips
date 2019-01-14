@@ -17,4 +17,5 @@ group Test
   source http://nuget.org/api/v2
   storage: none
   nuget NUnit
+  nuget NUnit3TestAdapter
   nuget Gu.Wpf.UiAutomation

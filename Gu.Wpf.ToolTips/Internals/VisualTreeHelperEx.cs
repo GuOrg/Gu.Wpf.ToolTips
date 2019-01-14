@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.ToolTips
+namespace Gu.Wpf.ToolTips
 {
     using System.Collections.Generic;
     using System.Reflection;
@@ -10,7 +10,7 @@
     {
         private static readonly PropertyInfo InheritanceContextProp = typeof(DependencyObject).GetProperty(
             "InheritanceContext",
-            BindingFlags.NonPublic | BindingFlags.Instance);
+            BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
 
         internal static IEnumerable<DependencyObject> LogicalAncestors(this DependencyObject dependencyObject)
         {
