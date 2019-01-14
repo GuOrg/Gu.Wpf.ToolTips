@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{BF1D6694-8AAD-4F49-9A1A-9EA345269916}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
+		azure-devops.yml = azure-devops.yml
 		paket.dependencies = paket.dependencies
 		paket.lock = paket.lock
 		.paket\paket.targets = .paket\paket.targets
@@ -19,6 +20,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{BF1D66
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gu.Wpf.ToolTips.UiTests", "Gu.Wpf.ToolTips.UiTests\Gu.Wpf.ToolTips.UiTests.csproj", "{B553A962-A81D-403D-A2AD-55AED77CCDA2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{6566813E-DA4C-4006-81C9-0558C488B626}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
