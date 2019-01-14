@@ -30,7 +30,7 @@
 
         /// <summary>
         /// Uses reflection and internal InheritanceContext, potentially fragile
-        /// http://stackoverflow.com/a/20988314/1069200
+        /// http://stackoverflow.com/a/20988314/1069200.
         /// </summary>
         internal static IEnumerable<DependencyObject> AllAncestors(this DependencyObject child)
         {

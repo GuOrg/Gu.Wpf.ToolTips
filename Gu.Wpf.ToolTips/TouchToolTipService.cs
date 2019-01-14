@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.ToolTips
+namespace Gu.Wpf.ToolTips
 {
     using System.Windows;
     using System.Windows.Controls;
@@ -9,13 +9,13 @@
 
     /// <summary>
     /// Helper class with attached properties for the TouchToolTipAdorner
-    /// Enables using it in styles
+    /// Enables using it in styles.
     /// </summary>
     public static class TouchToolTipService
     {
         /// <summary>
         /// Style used to overlay the control on the AdornerLayer.
-        /// Must be TargetType <see cref="PopupButton"/>
+        /// Must be TargetType <see cref="PopupButton"/>.
         /// </summary>
         public static readonly DependencyProperty OverlayTemplateProperty =
             DependencyProperty.RegisterAttached(
@@ -28,7 +28,7 @@
                     OnOverlayTemplateChanged));
 
         /// <summary>
-        /// Control when the adorner should be visible
+        /// Control when the adorner should be visible.
         /// </summary>
         public static readonly DependencyProperty IsOverlayVisibleProperty = DependencyProperty.RegisterAttached(
             "IsOverlayVisible",
@@ -40,7 +40,7 @@
                 OnIsOverlayVisibleChanged));
 
         /// <summary>
-        /// The tooltip contents
+        /// The tooltip contents.
         /// </summary>
         public static readonly DependencyProperty ToolTipProperty = DependencyProperty.RegisterAttached(
             "ToolTip",
@@ -51,7 +51,7 @@
                 OnToolTipChanged));
 
         /// <summary>
-        /// Dummy property to get notifications on when Visibility should toggle if Visibility is set to null
+        /// Dummy property to get notifications on when Visibility should toggle if Visibility is set to null.
         /// </summary>
         private static readonly DependencyProperty DefaultVisibleProxyProperty = DependencyProperty.RegisterAttached(
             "DefaultVisibleProxy",
@@ -63,7 +63,7 @@
                 OnDefaultVisibleProxyChanged));
 
         /// <summary>
-        /// This is used to get notification on visibility changes of adorned element
+        /// This is used to get notification on visibility changes of adorned element.
         /// </summary>
         private static readonly DependencyProperty IsAdornedElementVisibleProperty = DependencyProperty.RegisterAttached(
             "IsAdornedElementVisible",
@@ -74,7 +74,7 @@
                 OnIsAdornedElementVisibleChanged));
 
         /// <summary>
-        /// Reference to the ToolTipAdorner
+        /// Reference to the ToolTipAdorner.
         /// </summary>
         private static readonly DependencyProperty ToolTipAdornerProperty = DependencyProperty.RegisterAttached(
             "ToolTipAdorner",
@@ -84,10 +84,8 @@
                 null,
                 FrameworkPropertyMetadataOptions.NotDataBindable));
 
-        /// <summary>
-        /// Helper for reading OverlayTemplate property from a UIElement.
-        /// </summary>
-        /// <param name="element">UIElement to read OverlayTemplate property from.</param>
+        /// <summary>Helper for getting <see cref="OverlayTemplateProperty"/> from <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="UIElement"/> to read <see cref="OverlayTemplateProperty"/> from.</param>
         /// <returns>OverlayTemplate property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
@@ -96,30 +94,24 @@
             return (ControlTemplate)element.GetValue(OverlayTemplateProperty);
         }
 
-        /// <summary>
-        /// Helper for setting OverlayTemplate property on a UIElement.
-        /// </summary>
-        /// <param name="element">UIElement to set OverlayTemplate property on.</param>
+        /// <summary>Helper for setting <see cref="OverlayTemplateProperty"/> on <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="UIElement"/> to set <see cref="OverlayTemplateProperty"/> on.</param>
         /// <param name="value">OverlayTemplate property value.</param>
         public static void SetOverlayTemplate(UIElement element, ControlTemplate value)
         {
             element.SetValue(OverlayTemplateProperty, value);
         }
 
-        /// <summary>
-        /// Helper for setting ToolTip property on a UIElement.
-        /// </summary>
-        /// <param name="element">UIElement to set ToolTip property on.</param>
+        /// <summary>Helper for setting <see cref="ToolTipProperty"/> on <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="UIElement"/> to set <see cref="ToolTipProperty"/> on.</param>
         /// <param name="value">ToolTip property value.</param>
         public static void SetToolTip(UIElement element, ToolTip value)
         {
             element.SetValue(ToolTipProperty, value);
         }
 
-        /// <summary>
-        /// Helper for reading ToolTip property from a UIElement.
-        /// </summary>
-        /// <param name="element">UIElement to read ToolTip property from.</param>
+        /// <summary>Helper for getting <see cref="ToolTipProperty"/> from <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="UIElement"/> to read <see cref="ToolTipProperty"/> from.</param>
         /// <returns>ToolTip property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
@@ -128,20 +120,16 @@
             return (ToolTip)element.GetValue(ToolTipProperty);
         }
 
-        /// <summary>
-        /// Helper for setting IsOverlayVisible property on a DependencyObject.
-        /// </summary>
-        /// <param name="element">DependencyObject to set IsOverlayVisible property on.</param>
+        /// <summary>Helper for setting <see cref="IsOverlayVisibleProperty"/> on <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="DependencyObject"/> to set <see cref="IsOverlayVisibleProperty"/> on.</param>
         /// <param name="value">IsOverlayVisible property value.</param>
         public static void SetIsOverlayVisible(DependencyObject element, bool? value)
         {
             element.SetValue(IsOverlayVisibleProperty, value);
         }
 
-        /// <summary>
-        /// Helper for reading IsOverlayVisible property from a UIElement.
-        /// </summary>
-        /// <param name="element">UIElement to read IsOverlayVisible property from.</param>
+        /// <summary>Helper for getting <see cref="IsOverlayVisibleProperty"/> from <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="UIElement"/> to read <see cref="IsOverlayVisibleProperty"/> from.</param>
         /// <returns>IsOverlayVisible property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]

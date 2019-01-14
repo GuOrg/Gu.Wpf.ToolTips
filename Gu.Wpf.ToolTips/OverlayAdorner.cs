@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.ToolTips
+namespace Gu.Wpf.ToolTips
 {
     using System;
     using System.Diagnostics;
@@ -20,9 +20,9 @@
         /// Initializes a new instance of the <see cref="OverlayAdorner"/> class.
         /// Be sure to call the base class constructor.
         /// </summary>
-        /// <param name="adornedElement">The ui element to adorn</param>
-        /// <param name="toolTip">The tooltip to show on click</param>
-        /// <param name="overlayTemplate">A style for a PopupButton</param>
+        /// <param name="adornedElement">The ui element to adorn.</param>
+        /// <param name="toolTip">The tooltip to show on click.</param>
+        /// <param name="overlayTemplate">A style for a PopupButton.</param>
         public OverlayAdorner(UIElement adornedElement, ToolTip toolTip, ControlTemplate overlayTemplate)
             : base(adornedElement)
         {
@@ -30,7 +30,7 @@
             this.popupButton = new PopupButton
             {
                 IsTabStop = false,
-                AdornedElement = adornedElement
+                AdornedElement = adornedElement,
             };
             if (overlayTemplate != null)
             {
@@ -49,7 +49,7 @@
         protected override int VisualChildrenCount => this.popupButton != null ? 1 : 0;
 
         /// <summary>
-        /// The clear the single child of a TemplatedAdorner
+        /// The clear the single child of a TemplatedAdorner.
         /// </summary>
         public void ClearChild()
         {

@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.ToolTips
+namespace Gu.Wpf.ToolTips
 {
     using System;
     using System.Diagnostics;
@@ -58,7 +58,7 @@
         }
 
         /// <summary>
-        /// The type of <see cref="AdornedElement"/>
+        /// The type of <see cref="AdornedElement"/>.
         /// </summary>
         public AdornedElementType? AdornedElementType
         {

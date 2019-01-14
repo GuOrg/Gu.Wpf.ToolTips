@@ -5,6 +5,6 @@ namespace Gu.Wpf.ToolTips
         None,
         Text,
         Button,
-        Other
+        Other,
     }
 }

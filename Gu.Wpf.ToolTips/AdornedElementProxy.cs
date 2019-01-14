@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.ToolTips
+namespace Gu.Wpf.ToolTips
 {
     using System;
     using System.ComponentModel;
@@ -93,8 +93,8 @@
             base.OnInitialized(e);
             if (this.AdornedElement != null)
             {
-                BindingOperations.SetBinding(this, WidthProperty, this.AdornedElement.CreateOneWayBinding(ActualWidthProperty));
-                BindingOperations.SetBinding(this, HeightProperty, this.AdornedElement.CreateOneWayBinding(ActualHeightProperty));
+                _ = BindingOperations.SetBinding(this, WidthProperty, this.AdornedElement.CreateOneWayBinding(ActualWidthProperty));
+                _ = BindingOperations.SetBinding(this, HeightProperty, this.AdornedElement.CreateOneWayBinding(ActualHeightProperty));
             }
         }
 
