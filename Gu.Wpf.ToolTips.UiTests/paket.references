@@ -1,8 +1,13 @@
 group Analyzers
-  JetBrains.Annotations
+  AsyncUsageAnalyzers
+  Gu.Analyzers
+  IDisposableAnalyzers
+  Microsoft.CodeAnalysis.FxCopAnalyzers
+  PropertyChangedAnalyzers
+  ReflectionAnalyzers
   StyleCop.Analyzers
   WpfAnalyzers
-  Gu.Analyzers
+  JetBrains.Annotations
 
 group Test
   NUnit
