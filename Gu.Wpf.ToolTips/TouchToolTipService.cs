@@ -144,6 +144,7 @@ namespace Gu.Wpf.ToolTips
             element.SetValue(IsAdornedElementVisibleProperty, value);
         }
 
+        [AttachedPropertyBrowsableForType(typeof(DependencyObject))]
         private static bool GetIsAdornedElementVisible(DependencyObject element)
         {
             return (bool)element.GetValue(IsAdornedElementVisibleProperty);

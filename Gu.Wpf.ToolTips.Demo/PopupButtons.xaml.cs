@@ -3,7 +3,7 @@
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for PopupButtons.xaml
+    /// Interaction logic for PopupButtons.xaml.
     /// </summary>
     public partial class PopupButtons : UserControl
     {

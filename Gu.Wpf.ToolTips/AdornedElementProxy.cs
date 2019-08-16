@@ -9,7 +9,7 @@ namespace Gu.Wpf.ToolTips
     using System.Windows.Markup;
     using System.Windows.Media;
 
-    [ContentProperty("Child")]
+    [ContentProperty(nameof(Child))]
     public class AdornedElementProxy : FrameworkElement
     {
         private UIElement child;
@@ -21,7 +21,6 @@ namespace Gu.Wpf.ToolTips
         /// </summary>
         public UIElement AdornedElement => this.Adorner?.AdornedElement;
 
-        /// <inheritdoc/>
         [DefaultValue(null)]
         public virtual UIElement Child
         {

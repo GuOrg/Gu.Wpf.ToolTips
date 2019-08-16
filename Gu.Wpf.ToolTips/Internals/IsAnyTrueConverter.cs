@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.ToolTips
+namespace Gu.Wpf.ToolTips
 {
     using System;
     using System.Globalization;
@@ -26,9 +26,9 @@
             return result;
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        object[] IMultiValueConverter.ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException($"{nameof(IsAnyTrueConverter)} can only be used in OneWay bindings");
         }
     }
 }

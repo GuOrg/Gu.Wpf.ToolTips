@@ -1,8 +1,8 @@
-﻿namespace Gu.Wpf.ToolTips
+namespace Gu.Wpf.ToolTips
 {
     internal static class BoolBoxes
     {
-        public static readonly object True = true;
-        public static readonly object False = false;
+        internal static readonly object True = true;
+        internal static readonly object False = false;
     }
 }

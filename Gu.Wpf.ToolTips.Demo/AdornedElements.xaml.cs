@@ -1,9 +1,9 @@
-﻿namespace Gu.Wpf.ToolTips.Demo
+namespace Gu.Wpf.ToolTips.Demo
 {
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for AdornedElements.xaml
+    /// Interaction logic for AdornedElements.xaml.
     /// </summary>
     public partial class AdornedElements : UserControl
     {
