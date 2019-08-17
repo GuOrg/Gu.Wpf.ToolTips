@@ -89,7 +89,7 @@ namespace Gu.Wpf.ToolTips
         protected override Size ArrangeOverride(Size size)
         {
             var finalSize = base.ArrangeOverride(size);
-            this.popupButton?.Arrange(new Rect(default(Point), finalSize));
+            this.popupButton?.Arrange(new Rect(default, finalSize));
             return finalSize;
         }
     }

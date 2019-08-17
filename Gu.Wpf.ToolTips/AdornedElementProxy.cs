@@ -54,9 +54,7 @@ namespace Gu.Wpf.ToolTips
             {
                 if (this.adorner == null && !this.checkedAdorner)
                 {
-                    var templateParent = this.TemplatedParent as FrameworkElement;
-
-                    if (templateParent != null)
+                    if (this.TemplatedParent is FrameworkElement templateParent)
                     {
                         this.adorner = templateParent.VisualAncestors()
                                                      .OfType<Adorner>()

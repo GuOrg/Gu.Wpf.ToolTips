@@ -23,9 +23,9 @@ namespace Gu.Wpf.ToolTips
             return values.ToArray();
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        object[] IMultiValueConverter.ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException($"{nameof(MultiValueToMultiValueConverter)} can only be used in OneWay bindings");
         }
     }
 }
