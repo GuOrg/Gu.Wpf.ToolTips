@@ -3,7 +3,6 @@
     <OutputType>library</OutputType>
     <UseWpf>true</UseWpf>
     <TargetFramework>net45</TargetFramework>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <CodeAnalysisRuleSet>Gu.Wpf.ToolTips.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -16,6 +15,15 @@
   <PropertyGroup>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.2.1</Version>
+    <Authors>Johan Larsson</Authors>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>ToolTips for touch</Description>
+    <PackageProjectUrl>https://github.com/GuOrg/Gu.Wpf.ToolTips</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/GuOrg/Gu.Wpf.ToolTips</RepositoryUrl>
+    <PackageTags>wpf tooltip touch</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
