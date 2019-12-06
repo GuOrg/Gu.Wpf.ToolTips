@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Images\Button_with_default_touch_tool_tip.png" />
+    <EmbeddedResource Include="Images\Button_with_default_touch_tool_tip_hidden.png" />
   </ItemGroup>
 
   <ItemGroup>

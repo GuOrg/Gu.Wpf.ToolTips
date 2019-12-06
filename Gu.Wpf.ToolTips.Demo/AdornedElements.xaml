@@ -1,4 +1,4 @@
-﻿<!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+<!--  ReSharper disable Xaml.BindingWithContextNotResolved  -->
 
 <UserControl x:Class="Gu.Wpf.ToolTips.Demo.AdornedElements"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -11,8 +11,7 @@
              d:DesignWidth="600"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <DataTemplate x:Key="ToolTipContentTemplate"
-                      DataType="{x:Type demo:ViewModel}">
+        <DataTemplate x:Key="ToolTipContentTemplate" DataType="{x:Type demo:ViewModel}">
             <StackPanel>
                 <TextBlock Text="{Binding Value}" />
                 <TextBlock Text="{Binding PlacementTarget.Content, RelativeSource={RelativeSource AncestorType={x:Type ToolTip}}}" />
@@ -20,8 +19,7 @@
             </StackPanel>
         </DataTemplate>
 
-        <Style x:Key="BaseButtonStyle"
-               TargetType="{x:Type Button}">
+        <Style x:Key="BaseButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="{Binding Value, ElementName=Slider}" />
             <Setter Property="Height" Value="50" />
             <Setter Property="Margin" Value="20" />
@@ -36,8 +34,7 @@
             <Setter Property="toolTips:TouchToolTipService.ToolTip">
                 <Setter.Value>
                     <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                        <ContentPresenter Content="{Binding}"
-                                          ContentTemplate="{StaticResource ToolTipContentTemplate}" />
+                        <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
                     </ToolTip>
                 </Setter.Value>
             </Setter>
@@ -53,8 +50,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0">For tooltips to work an &lt;AdornerDecorator&gt; must be present. The tooltips draws on the adornerlayer</TextBlock>
             <StackPanel Grid.Row="1">
-                <CheckBox x:Name="Enabled"
-                          Content="Enabled" />
+                <CheckBox x:Name="Enabled" Content="Enabled" />
                 <CheckBox x:Name="AdornedVisible"
                           Content="Adorned element visible"
                           IsChecked="True" />
@@ -69,41 +65,36 @@
             </StackPanel>
 
             <WrapPanel Grid.Row="2">
-                <Button Content="Button with touch tooltip"
-                        Style="{StaticResource BaseButtonStyle}">
+                <Button Content="Button with touch tooltip" Style="{StaticResource BaseButtonStyle}">
                     <toolTips:TouchToolTipService.ToolTip>
                         <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                            <ContentPresenter Content="{Binding}"
-                                              ContentTemplate="{StaticResource ToolTipContentTemplate}" />
+                            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
                         </ToolTip>
                     </toolTips:TouchToolTipService.ToolTip>
                 </Button>
 
-                <Button Content="Button with touch tooltip from style"
-                        Style="{StaticResource ButtonStyleWithTouchToolTip}" />
+                <Button Content="Button with touch tooltip from style" Style="{StaticResource ButtonStyleWithTouchToolTip}" />
 
                 <Button x:Name="StandardButton"
                         Content="Standard button"
                         Style="{StaticResource BaseButtonStyle}">
                     <Button.ToolTip>
                         <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                            <ContentPresenter Content="{Binding}"
-                                              ContentTemplate="{StaticResource ToolTipContentTemplate}" />
+                            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
                         </ToolTip>
                     </Button.ToolTip>
                 </Button>
 
                 <Label VerticalAlignment="Top"
+                       toolTips:TouchToolTipService.IsOverlayVisible="{Binding IsChecked,
+                                                                               ElementName=IsOverlayVisible}"
                        Content="Text with TouchTooltip"
                        Visibility="{Binding IsChecked,
                                             ElementName=AdornedVisible,
-                                            Converter={StaticResource BooleanToVisibilityConverter}}"
-                       toolTips:TouchToolTipService.IsOverlayVisible="{Binding IsChecked,
-                                                                               ElementName=IsOverlayVisible}">
+                                            Converter={StaticResource BooleanToVisibilityConverter}}">
                     <toolTips:TouchToolTipService.ToolTip>
                         <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                            <ContentPresenter Content="{Binding}"
-                                              ContentTemplate="{StaticResource ToolTipContentTemplate}" />
+                            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
                         </ToolTip>
                     </toolTips:TouchToolTipService.ToolTip>
                 </Label>

@@ -34,37 +34,42 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-            <CheckBox x:Name="Enabled" Content="Enabled" />
-            <CheckBox Content="Adorned element visible"
-                      IsChecked="True" />
-            <CheckBox Content="IsOverlayVisible (null uses default behavior)"
-                      IsChecked="{x:Null}"
-                      IsThreeState="True" />
-        </StackPanel>
+    <AdornerDecorator>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <CheckBox x:Name="ButtonEnabled"
+                          Content="Buttons enabled"
+                          IsChecked="False" />
+                <CheckBox x:Name="ButtonVisible"
+                          Content="Buttons visible"
+                          IsChecked="True" />
+                <CheckBox Content="IsOverlayVisible (null uses default behavior)"
+                          IsChecked="{x:Null}"
+                          IsThreeState="True" />
+            </StackPanel>
 
-        <UniformGrid Grid.Row="1"
-                     Width="400"
-                     Height="100"
-                     Columns="2"
-                     Rows="2">
-            <Button Content="Button with touch tooltip"
-                    IsEnabled="{Binding ElementName=Enabled,
-                                        Path=IsChecked}"
-                    Visibility="{Binding ElementName=AdornedVisible,
-                                         Path=IsChecked,
-                                         Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}">
-                <toolTips:TouchToolTipService.ToolTip>
-                    <ToolTip>
-                        <TextBlock Text="Tool tip text." />
-                    </ToolTip>
-                </toolTips:TouchToolTipService.ToolTip>
-            </Button>
-        </UniformGrid>
-    </Grid>
+            <UniformGrid Grid.Row="1"
+                         Width="400"
+                         Height="100"
+                         Columns="2"
+                         Rows="2">
+                <Button Content="Button with touch tool tip"
+                        IsEnabled="{Binding ElementName=ButtonEnabled,
+                                            Path=IsChecked}"
+                        Visibility="{Binding ElementName=ButtonVisible,
+                                             Path=IsChecked,
+                                             Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}">
+                    <toolTips:TouchToolTipService.ToolTip>
+                        <ToolTip>
+                            <TextBlock Text="Tool tip text." />
+                        </ToolTip>
+                    </toolTips:TouchToolTipService.ToolTip>
+                </Button>
+            </UniformGrid>
+        </Grid>
+    </AdornerDecorator>
 </Window>

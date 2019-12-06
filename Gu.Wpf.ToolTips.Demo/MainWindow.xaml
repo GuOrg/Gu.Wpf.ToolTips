@@ -1,4 +1,4 @@
-﻿<Window x:Class="Gu.Wpf.ToolTips.Demo.MainWindow"
+<Window x:Class="Gu.Wpf.ToolTips.Demo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:demo="clr-namespace:Gu.Wpf.ToolTips.Demo"
@@ -6,16 +6,16 @@
         Width="525"
         Height="350">
     <TabControl>
-        <TabItem Header="Simple">
-            <demo:SimpleView />
-        </TabItem>
-
         <TabItem Header="AdornedElements">
             <demo:AdornedElements />
         </TabItem>
 
         <TabItem Header="PopupButtons">
             <demo:PopupButtons />
+        </TabItem>
+
+        <TabItem Header="Simple">
+            <demo:SimpleView />
         </TabItem>
     </TabControl>
 </Window>
