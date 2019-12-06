@@ -57,4 +57,12 @@ namespace Gu.Wpf.ToolTips.UiTests
             ImageAssert.AreEqual("Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
         }
     }
+
+    class C
+    {
+        public C()
+        {
+            var x = 1;
+        }
+    }
 }
