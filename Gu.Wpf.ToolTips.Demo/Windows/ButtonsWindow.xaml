@@ -5,7 +5,6 @@
         xmlns:toolTips="http://Gu.com/ToolTips"
         xmlns:wpf="clr-namespace:Gu.Wpf.ToolTips.Demo.Wpf"
         Title="ButtonsWindow"
-        Background="LightBlue"
         FontFamily="Arial"
         FontSize="12"
         Left="200"
@@ -19,14 +18,15 @@
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Margin" Value="2" />
-            <Setter Property="Foreground" Value="Black" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{x:Null}"
-                                BorderThickness="0">
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         </Border>
                     </ControlTemplate>
@@ -34,7 +34,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Foreground" Value="Gray" />
+                    <Setter Property="BorderBrush" Value="Gray" />
                 </Trigger>
             </Style.Triggers>
         </Style>
