@@ -36,7 +36,7 @@ namespace Gu.Wpf.ToolTips
         {
             while (child != null)
             {
-                var parent = LogicalTreeHelper.GetParent(child);
+                DependencyObject? parent = LogicalTreeHelper.GetParent(child);
                 if (parent == null)
                 {
                     if (child is FrameworkElement)

@@ -1,15 +1,17 @@
 namespace Gu.Wpf.ToolTips
 {
     using System;
-    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Documents;
     using System.Windows.Media;
 
+    /// <summary>
+    /// An <see cref="Adorner"/> similar to the one used for validation errors.
+    /// </summary>
     public sealed class OverlayAdorner : Adorner
     {
-        private PopupButton popupButton;
+        private PopupButton? popupButton;
 
         static OverlayAdorner()
         {
@@ -26,12 +28,12 @@ namespace Gu.Wpf.ToolTips
         public OverlayAdorner(UIElement adornedElement, ToolTip toolTip, ControlTemplate overlayTemplate)
             : base(adornedElement)
         {
-            Debug.Assert(adornedElement != null, "adornedElement should not be null");
             this.popupButton = new PopupButton
             {
                 IsTabStop = false,
                 AdornedElement = adornedElement,
             };
+
             if (overlayTemplate != null)
             {
                 this.popupButton.SetCurrentValue(Control.TemplateProperty, overlayTemplate);
@@ -79,10 +81,9 @@ namespace Gu.Wpf.ToolTips
         /// <inheritdoc/>
         protected override Size MeasureOverride(Size constraint)
         {
-            Debug.Assert(this.popupButton != null, "_child should not be null");
-            this.AdornedElement?.InvalidateMeasure();
-            this.popupButton.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            return this.popupButton.DesiredSize;
+            this.AdornedElement.InvalidateMeasure();
+            this.popupButton?.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            return this.popupButton?.DesiredSize ?? Size.Empty;
         }
 
         /// <inheritdoc/>
