@@ -2,8 +2,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
     <CodeAnalysisRuleSet>Gu.Wpf.ToolTips.UiTests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Button_with_default_touch_tool_tip.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Gu.Analyzers" Version="1.6.6.6-dev" PrivateAssets="all" />

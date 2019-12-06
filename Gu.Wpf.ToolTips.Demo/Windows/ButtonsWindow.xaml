@@ -1,0 +1,70 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:toolTips="http://Gu.com/ToolTips"
+        xmlns:wpf="clr-namespace:Gu.Wpf.ToolTips.Demo.Wpf"
+        Title="ButtonsWindow"
+        Left="200"
+        SizeToContent="WidthAndHeight"
+        Top="200"
+        WindowStartupLocation="Manual"
+        mc:Ignorable="d">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="BorderBrush" Value="Gray" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <CheckBox x:Name="Enabled" Content="Enabled" />
+            <CheckBox Content="Adorned element visible"
+                      IsChecked="True" />
+            <CheckBox Content="IsOverlayVisible (null uses default behavior)"
+                      IsChecked="{x:Null}"
+                      IsThreeState="True" />
+        </StackPanel>
+
+        <UniformGrid Grid.Row="1"
+                     Width="400"
+                     Height="100"
+                     Columns="2"
+                     Rows="2">
+            <Button Content="Button with touch tooltip"
+                    IsEnabled="{Binding ElementName=Enabled,
+                                        Path=IsChecked}"
+                    Visibility="{Binding ElementName=AdornedVisible,
+                                         Path=IsChecked,
+                                         Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}">
+                <toolTips:TouchToolTipService.ToolTip>
+                    <ToolTip>
+                        <TextBlock Text="Tool tip text." />
+                    </ToolTip>
+                </toolTips:TouchToolTipService.ToolTip>
+            </Button>
+        </UniformGrid>
+    </Grid>
+</Window>
