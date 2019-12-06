@@ -15,30 +15,6 @@
         UseLayoutRounding="True"
         WindowStartupLocation="Manual"
         mc:Ignorable="d">
-    <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Margin" Value="2" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="BorderBrush" Value="Gray" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -62,6 +38,7 @@
                      Columns="2"
                      Rows="2">
             <Button Content="Button with touch tool tip"
+                    Style="{StaticResource NormalizedButtonStyle}"
                     IsEnabled="{Binding ElementName=ButtonEnabled,
                                         Path=IsChecked}"
                     Visibility="{Binding ElementName=ButtonVisible,
