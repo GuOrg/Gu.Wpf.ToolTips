@@ -11,8 +11,8 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
             <Style x:Key="NormalizedButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="White" />
-                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="Background" Value="#FFFFFFFF" />
+                <Setter Property="Foreground" Value="#FF000000" />
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="Margin" Value="2" />
                 <Setter Property="Padding" Value="0" />
@@ -34,7 +34,7 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Foreground" Value="Gray" />
+                        <Setter Property="Foreground" Value="#FF999999" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
