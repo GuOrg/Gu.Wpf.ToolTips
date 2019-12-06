@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) 
 [![NuGet](https://img.shields.io/nuget/v/Gu.Wpf.ToolTips.svg)](https://www.nuget.org/packages/Gu.Wpf.ToolTips/)
 [![Build status](https://ci.appveyor.com/api/projects/status/j4myy99it0now2gv/branch/master?svg=true)](https://ci.appveyor.com/project/JohanLarsson/gu-wpf-tooltips/branch/master)
-[![Build Status](https://dev.azure.com/johan-larsson/Gu.Wpf.ToolTips/_apis/build/status/Gu.Wpf.ToolTips-CI?branchName=master)](https://dev.azure.com/johan-larsson/Gu.Wpf.ToolTips/_build/latest?definitionId=10&branchName=master)
+[![Build Status](https://dev.azure.com/guorg/Gu.Wpf.ToolTips/_apis/build/status/GuOrg.Gu.Wpf.ToolTips?branchName=master)](https://dev.azure.com/guorg/Gu.Wpf.ToolTips/_build/latest?definitionId=15&branchName=master)
 
 Project for tooltips that works for touch users.
 
