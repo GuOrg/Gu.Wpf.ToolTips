@@ -10,6 +10,7 @@
         Left="200"
         RenderOptions.EdgeMode="Aliased"
         SizeToContent="WidthAndHeight"
+        SnapsToDevicePixels="True"
         Top="200"
         UseLayoutRounding="True"
         WindowStartupLocation="Manual"
