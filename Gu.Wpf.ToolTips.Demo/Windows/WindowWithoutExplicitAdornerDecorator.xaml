@@ -8,6 +8,7 @@
         FontFamily="Arial"
         FontSize="12"
         Left="200"
+        RenderOptions.EdgeMode="Aliased"
         SizeToContent="WidthAndHeight"
         Top="200"
         UseLayoutRounding="True"

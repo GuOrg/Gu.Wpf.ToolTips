@@ -5,13 +5,14 @@
         xmlns:toolTips="http://Gu.com/ToolTips"
         xmlns:wpf="clr-namespace:Gu.Wpf.ToolTips.Demo.Wpf"
         Title="ButtonsWindow"
-        Left="200"
-        SizeToContent="WidthAndHeight"
         FontFamily="Arial"
         FontSize="12"
+        Left="200"
+        RenderOptions.EdgeMode="Aliased"
+        SizeToContent="WidthAndHeight"
         Top="200"
-        WindowStartupLocation="Manual"
         UseLayoutRounding="True"
+        WindowStartupLocation="Manual"
         mc:Ignorable="d">
     <Window.Resources>
         <Style TargetType="Button">
