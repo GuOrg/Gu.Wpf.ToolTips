@@ -7,6 +7,8 @@
         Title="ButtonsWindow"
         Left="200"
         SizeToContent="WidthAndHeight"
+        FontFamily="Arial"
+        FontSize="12"
         Top="200"
         WindowStartupLocation="Manual"
         UseLayoutRounding="True"
