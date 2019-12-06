@@ -9,6 +9,7 @@
         SizeToContent="WidthAndHeight"
         Top="200"
         WindowStartupLocation="Manual"
+        UseLayoutRounding="True"
         mc:Ignorable="d">
     <Window.Resources>
         <Style TargetType="Button">
