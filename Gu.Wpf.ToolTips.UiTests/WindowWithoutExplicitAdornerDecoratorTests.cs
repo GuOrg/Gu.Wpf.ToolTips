@@ -37,10 +37,10 @@ namespace Gu.Wpf.ToolTips.UiTests
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
-            ImageAssert.AreEqual("Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
+            ImageAssert.AreEqual(".\\Images\\Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
             window.FindCheckBox("Buttons visible").IsChecked = false;
             window.FindCheckBox("Buttons visible").IsChecked = true;
-            ImageAssert.AreEqual("Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
+            ImageAssert.AreEqual(".\\Images\\Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
         }
 
         [Test]
@@ -48,21 +48,13 @@ namespace Gu.Wpf.ToolTips.UiTests
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
-            ImageAssert.AreEqual("Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
+            ImageAssert.AreEqual(".\\Images\\Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
 
             window.FindCheckBox("Buttons enabled").IsChecked = true;
-            ImageAssert.AreEqual("Button_with_default_touch_tool_tip_hidden.png", window.FindButton("Button with touch tool tip"));
+            ImageAssert.AreEqual(".\\Images\\Button_with_default_touch_tool_tip_hidden.png", window.FindButton("Button with touch tool tip"));
 
             window.FindCheckBox("Buttons enabled").IsChecked = false;
-            ImageAssert.AreEqual("Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
-        }
-    }
-
-    class C
-    {
-        public C()
-        {
-            var x = 1;
+            ImageAssert.AreEqual(".\\Images\\Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
         }
     }
 }
