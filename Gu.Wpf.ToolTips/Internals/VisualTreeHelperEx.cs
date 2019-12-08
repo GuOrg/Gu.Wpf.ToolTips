@@ -8,9 +8,10 @@ namespace Gu.Wpf.ToolTips
 
     internal static class VisualTreeHelperEx
     {
-        private static readonly PropertyInfo InheritanceContextProp = typeof(DependencyObject).GetProperty(
-            "InheritanceContext",
-            BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+        private static readonly PropertyInfo InheritanceContextProp = typeof(DependencyObject)
+            .GetProperty(
+                "InheritanceContext",
+                BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
 
         internal static IEnumerable<DependencyObject> LogicalAncestors(this DependencyObject dependencyObject)
         {

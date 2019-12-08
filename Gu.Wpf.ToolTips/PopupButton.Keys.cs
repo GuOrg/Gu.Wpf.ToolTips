@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.ToolTips
+namespace Gu.Wpf.ToolTips
 {
     using System.Runtime.CompilerServices;
     using System.Windows;
@@ -11,7 +11,7 @@
 
         public static ResourceKey MissingToolTipOverlayKey { get; } = CreateKey();
 
-        private static ComponentResourceKey CreateKey([CallerMemberName] string caller = null)
+        private static ComponentResourceKey CreateKey([CallerMemberName] string? caller = null)
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             return new ComponentResourceKey(typeof(PopupButton), caller);

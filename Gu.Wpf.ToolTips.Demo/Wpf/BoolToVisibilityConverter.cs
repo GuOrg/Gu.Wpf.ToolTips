@@ -4,6 +4,7 @@ namespace Gu.Wpf.ToolTips.Demo.Wpf
     using System.Windows;
     using System.Windows.Data;
 
+    [ValueConversion(typeof(bool?), typeof(Visibility))]
     public sealed class BoolToVisibilityConverter : IValueConverter
     {
         public static readonly BoolToVisibilityConverter VisibleWhenTrueElseCollapsed = new BoolToVisibilityConverter(Visibility.Visible, Visibility.Collapsed);
@@ -22,7 +23,8 @@ namespace Gu.Wpf.ToolTips.Demo.Wpf
         {
             return value switch
             {
-                bool b => b ? this.whenTrue : this.whenFalse,
+                true => this.whenTrue,
+                false => this.whenFalse,
                 null => this.whenFalse,
                 _=> throw new ArgumentException("expected bool", nameof(value)),
             };

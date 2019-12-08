@@ -91,6 +91,11 @@ namespace Gu.Wpf.ToolTips
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static ControlTemplate GetOverlayTemplate(UIElement element)
         {
+            if (element is null)
+            {
+                throw new System.ArgumentNullException(nameof(element));
+            }
+
             return (ControlTemplate)element.GetValue(OverlayTemplateProperty);
         }
 
@@ -99,6 +104,11 @@ namespace Gu.Wpf.ToolTips
         /// <param name="value">OverlayTemplate property value.</param>
         public static void SetOverlayTemplate(UIElement element, ControlTemplate value)
         {
+            if (element is null)
+            {
+                throw new System.ArgumentNullException(nameof(element));
+            }
+
             element.SetValue(OverlayTemplateProperty, value);
         }
 
@@ -107,6 +117,11 @@ namespace Gu.Wpf.ToolTips
         /// <param name="value">ToolTip property value.</param>
         public static void SetToolTip(UIElement element, ToolTip value)
         {
+            if (element is null)
+            {
+                throw new System.ArgumentNullException(nameof(element));
+            }
+
             element.SetValue(ToolTipProperty, value);
         }
 
@@ -117,6 +132,11 @@ namespace Gu.Wpf.ToolTips
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static ToolTip GetToolTip(UIElement element)
         {
+            if (element is null)
+            {
+                throw new System.ArgumentNullException(nameof(element));
+            }
+
             return (ToolTip)element.GetValue(ToolTipProperty);
         }
 
@@ -125,6 +145,11 @@ namespace Gu.Wpf.ToolTips
         /// <param name="value">IsOverlayVisible property value.</param>
         public static void SetIsOverlayVisible(DependencyObject element, bool? value)
         {
+            if (element is null)
+            {
+                throw new System.ArgumentNullException(nameof(element));
+            }
+
             element.SetValue(IsOverlayVisibleProperty, value);
         }
 
@@ -135,6 +160,11 @@ namespace Gu.Wpf.ToolTips
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool? GetIsOverlayVisible(UIElement element)
         {
+            if (element is null)
+            {
+                throw new System.ArgumentNullException(nameof(element));
+            }
+
             return (bool?)element.GetValue(IsOverlayVisibleProperty);
         }
 

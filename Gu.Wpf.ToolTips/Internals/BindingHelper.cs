@@ -21,7 +21,7 @@ namespace Gu.Wpf.ToolTips
 
         internal static PropertyPath GetPath(string path)
         {
-            if (PropertyPaths.TryGetValue(path, out PropertyPath propertyPath))
+            if (PropertyPaths.TryGetValue(path, out PropertyPath? propertyPath))
             {
                 return propertyPath;
             }

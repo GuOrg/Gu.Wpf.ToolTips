@@ -111,22 +111,15 @@ namespace Gu.Wpf.ToolTips
         private static void OnAdornedElementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var popupButton = (PopupButton)d;
-            if (e.NewValue == null)
+            popupButton.AdornedElementType = e.NewValue switch
             {
-                popupButton.AdornedElementType = null;
-            }
-            else if (e.NewValue is ButtonBase)
-            {
-                popupButton.AdornedElementType = ToolTips.AdornedElementType.Button;
-            }
-            else if (e.NewValue is TextBoxBase || e.NewValue is Label || e.NewValue is TextBlock)
-            {
-                popupButton.AdornedElementType = ToolTips.AdornedElementType.Text;
-            }
-            else
-            {
-                popupButton.AdornedElementType = ToolTips.AdornedElementType.Other;
-            }
+                null => (AdornedElementType?)null,
+                ButtonBase _ => ToolTips.AdornedElementType.Button,
+                TextBoxBase _ => ToolTips.AdornedElementType.Text,
+                Label _ => ToolTips.AdornedElementType.Text,
+                TextBlock _ => ToolTips.AdornedElementType.Text,
+                _ => ToolTips.AdornedElementType.Other
+            };
         }
 
         private void OnPreviewMouseLeftButtonDown()
