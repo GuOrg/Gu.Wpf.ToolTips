@@ -1,6 +1,7 @@
 namespace Gu.Wpf.ToolTips.Demo.Wpf
 {
     using System;
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
 
@@ -19,7 +20,7 @@ namespace Gu.Wpf.ToolTips.Demo.Wpf
             this.whenFalse = whenFalse;
         }
 
-        public object Convert(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value switch
             {
@@ -30,9 +31,9 @@ namespace Gu.Wpf.ToolTips.Demo.Wpf
             };
         }
 
-        object IValueConverter.ConvertBack(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new System.NotSupportedException($"{nameof(BoolToVisibilityConverter)} can only be used in OneWay bindings");
+            throw new NotSupportedException($"{nameof(BoolToVisibilityConverter)} can only be used in OneWay bindings");
         }
     }
 }

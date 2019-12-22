@@ -113,7 +113,7 @@ namespace Gu.Wpf.ToolTips
             var popupButton = (PopupButton)d;
             popupButton.AdornedElementType = e.NewValue switch
             {
-                null => (AdornedElementType?)null,
+                null => null,
                 ButtonBase _ => ToolTips.AdornedElementType.Button,
                 TextBoxBase _ => ToolTips.AdornedElementType.Text,
                 Label _ => ToolTips.AdornedElementType.Text,
