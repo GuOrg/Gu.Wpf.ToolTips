@@ -206,10 +206,11 @@ namespace Gu.Wpf.ToolTips
 
             var adorner = uiElement.ReadLocalValue(ToolTipAdornerProperty) as OverlayAdorner;
 
-            if (show && adorner == null)
+            if (show &&
+                adorner is null &&
+                ToolTipService.GetToolTip(uiElement) is ToolTip toolTip)
             {
                 var overlayTemplate = GetOverlayTemplate(uiElement);
-                var toolTip = ToolTipService.GetToolTip(uiElement) as ToolTip;
                 adorner = new OverlayAdorner(uiElement, toolTip, overlayTemplate);
                 adornerLayer.Add(adorner);
                 uiElement.SetCurrentValue(ToolTipAdornerProperty, adorner);
