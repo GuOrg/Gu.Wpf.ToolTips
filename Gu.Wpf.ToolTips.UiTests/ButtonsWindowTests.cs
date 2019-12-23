@@ -8,12 +8,6 @@ namespace Gu.Wpf.ToolTips.UiTests
         private const string ExeFileName = "Gu.Wpf.ToolTips.Demo.exe";
         private const string WindowName = "ButtonsWindow";
 
-        [OneTimeSetUp]
-        public static void OneTimeSetUp()
-        {
-            ImageAssert.OnFail = OnFail.SaveImageToTemp;
-        }
-
         [SetUp]
         public static void SetUp()
         {
