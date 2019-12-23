@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.ToolTips", "Gu.Wpf.ToolTips\Gu.Wpf.ToolTips.csproj", "{A19FCCD3-AA2A-4736-BE35-FA1A8657D76F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gu.Wpf.ToolTips", "Gu.Wpf.ToolTips\Gu.Wpf.ToolTips.csproj", "{A19FCCD3-AA2A-4736-BE35-FA1A8657D76F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gu.Wpf.ToolTips.Tests", "Gu.Wpf.ToolTips.Tests\Gu.Wpf.ToolTips.Tests.csproj", "{BF1D9065-1DFC-4039-8897-6D687C5CEBBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.ToolTips.Demo", "Gu.Wpf.ToolTips.Demo\Gu.Wpf.ToolTips.Demo.csproj", "{1F04F484-5370-49E0-B95D-C99D631CD642}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gu.Wpf.ToolTips.Demo", "Gu.Wpf.ToolTips.Demo\Gu.Wpf.ToolTips.Demo.csproj", "{1F04F484-5370-49E0-B95D-C99D631CD642}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{BF1D6694-8AAD-4F49-9A1A-9EA345269916}"
 	ProjectSection(SolutionItems) = preProject

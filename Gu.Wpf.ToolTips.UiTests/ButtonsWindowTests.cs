@@ -30,13 +30,13 @@ namespace Gu.Wpf.ToolTips.UiTests
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
-            ImageAssert.AreEqual($"Images\\{ImageFolder.Current}\\Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
+            ImageAssert.AreEqual($"Images\\{ImageFolder.Current}\\Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"), ImageFolder.AddAttachment);
 
             window.FindCheckBox("Buttons enabled").IsChecked = true;
-            ImageAssert.AreEqual($"Images\\{ImageFolder.Current}\\Button_with_default_touch_tool_tip_hidden.png", window.FindButton("Button with touch tool tip"));
+            ImageAssert.AreEqual($"Images\\{ImageFolder.Current}\\Button_with_default_touch_tool_tip_hidden.png", window.FindButton("Button with touch tool tip"), ImageFolder.AddAttachment);
 
             window.FindCheckBox("Buttons enabled").IsChecked = false;
-            ImageAssert.AreEqual($"Images\\{ImageFolder.Current}\\Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
+            ImageAssert.AreEqual($"Images\\{ImageFolder.Current}\\Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"), ImageFolder.AddAttachment);
         }
 
         [Test]
@@ -44,10 +44,10 @@ namespace Gu.Wpf.ToolTips.UiTests
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
-            ImageAssert.AreEqual($"Images\\{ImageFolder.Current}\\Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
+            ImageAssert.AreEqual($"Images\\{ImageFolder.Current}\\Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"), ImageFolder.AddAttachment);
             window.FindCheckBox("Buttons visible").IsChecked = false;
             window.FindCheckBox("Buttons visible").IsChecked = true;
-            ImageAssert.AreEqual($"Images\\{ImageFolder.Current}\\Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"));
+            ImageAssert.AreEqual($"Images\\{ImageFolder.Current}\\Button_with_default_touch_tool_tip.png", window.FindButton("Button with touch tool tip"), ImageFolder.AddAttachment);
         }
     }
 }
