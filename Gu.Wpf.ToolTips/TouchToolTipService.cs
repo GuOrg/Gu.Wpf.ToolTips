@@ -1,4 +1,4 @@
-namespace Gu.Wpf.ToolTips
+﻿namespace Gu.Wpf.ToolTips
 {
     using System.Windows;
     using System.Windows.Controls;
@@ -196,7 +196,7 @@ namespace Gu.Wpf.ToolTips
                 {
                     // try again later, perhaps giving layout a chance to create the adorner layer
                     _ = targetElement.Dispatcher.BeginInvoke(
-                                     DispatcherPriority.Loaded,
+                                     DispatcherPriority.Background,
                                      new DispatcherOperationCallback(ShowAdornerOperation),
                                      new object[] { targetElement, show });
                 }
