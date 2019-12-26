@@ -1,5 +1,8 @@
 ﻿namespace Gu.Wpf.ToolTips.UiTests
 {
+    using System;
+    using System.Linq;
+    using System.Windows.Automation;
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
@@ -50,6 +53,18 @@
             window.FindCheckBox("Buttons visible").IsChecked = false;
             window.FindCheckBox("Buttons visible").IsChecked = true;
             ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_with_default_touch_tool_tip.png", button, TestImage.OnFail);
+        }
+
+        [Test]
+        public static void MouseOver()
+        {
+            using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
+            var window = app.MainWindow;
+            var button = window.FindButton("Button with touch tool tip");
+            Assert.AreEqual("Tool tip text.", button.HelpText);
+            Mouse.Position = button.Bounds.Center();
+            Wait.For(TimeSpan.FromMilliseconds(100));
+            Assert.NotNull(button.FindToolTip());
         }
     }
 }
