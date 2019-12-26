@@ -6,9 +6,9 @@
         xmlns:wpf="clr-namespace:Gu.Wpf.ToolTips.Demo.Wpf"
         Title="ButtonsWindow"
         Left="200"
+        SizeToContent="WidthAndHeight"
         Top="200"
         WindowStartupLocation="Manual"
-        SizeToContent="WidthAndHeight"
         mc:Ignorable="d">
     <AdornerDecorator>
         <Grid>
@@ -34,9 +34,9 @@
                          Columns="2"
                          Rows="2">
                 <Button Content="Button with touch tool tip"
-                        Style="{StaticResource NormalizedButtonStyle}"
                         IsEnabled="{Binding ElementName=ButtonEnabled,
                                             Path=IsChecked}"
+                        Style="{StaticResource NormalizedButtonStyle}"
                         Visibility="{Binding ElementName=ButtonVisible,
                                              Path=IsChecked,
                                              Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}">
@@ -46,6 +46,8 @@
                         </ToolTip>
                     </toolTips:TouchToolTipService.ToolTip>
                 </Button>
+
+                <Button Content="Lose focus" />
             </UniformGrid>
         </Grid>
     </AdornerDecorator>

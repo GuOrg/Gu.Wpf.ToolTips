@@ -1,6 +1,5 @@
 ﻿namespace Gu.Wpf.ToolTips.UiTests
 {
-    using System;
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
@@ -59,10 +58,11 @@
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
             var button = window.FindButton("Button with touch tool tip");
-            Assert.AreEqual("Tool tip text.", button.HelpText);
             Mouse.Position = button.Bounds.Center();
-            Wait.For(TimeSpan.FromMilliseconds(100));
             Assert.NotNull(button.FindToolTip());
+
+            Mouse.Position = window.FindButton("Lose focus").Bounds.Center();
+            Assert.Null(button.FindToolTip());
         }
     }
 }
