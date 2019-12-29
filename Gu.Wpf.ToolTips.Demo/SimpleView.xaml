@@ -14,7 +14,7 @@
             <Button Content="Button text"
                     IsEnabled="{Binding ElementName=ElementIsEnabled,
                                         Path=IsChecked}"
-                    ToolTip="Label tool tip.">
+                    ToolTip="Button tool tip.">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="toolTips:TouchToolTipService.IsEnabled" Value="False" />

@@ -55,15 +55,14 @@
         static TouchToolTipService()
         {
             EventManager.RegisterClassHandler(
-                typeof(FrameworkElement),
-                UIElement.TouchDownEvent,
+                typeof(OverlayAdorner),
+                OverlayAdorner.TouchDownEvent,
                 new RoutedEventHandler((o, e) =>
                 {
-                    if (o is FrameworkElement fe &&
-                        fe.GetValue(AdornerProperty) is { } &&
-                        !ToolTipService.GetIsOpen(fe))
+                    if (o is OverlayAdorner { AdornedElement: { } element } adorner &&
+                        !ToolTipService.GetIsOpen(element))
                     {
-                        PopupControlService.Show(fe);
+                        PopupControlService.Show(element);
                     }
                 }));
         }

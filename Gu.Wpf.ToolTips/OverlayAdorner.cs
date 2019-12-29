@@ -32,13 +32,6 @@
         static OverlayAdorner()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(OverlayAdorner), new FrameworkPropertyMetadata(typeof(OverlayAdorner)));
-            IsHitTestVisibleProperty.OverrideMetadata(typeof(OverlayAdorner), IsHitTestVisibleMetadata());
-
-            UIPropertyMetadata IsHitTestVisibleMetadata()
-            {
-                var metadata = IsHitTestVisibleProperty.GetMetadata(typeof(Adorner));
-                return new UIPropertyMetadata(false, metadata.PropertyChangedCallback, metadata.CoerceValueCallback);
-            }
         }
 
         /// <summary>
