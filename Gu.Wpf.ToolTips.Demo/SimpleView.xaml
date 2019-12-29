@@ -8,22 +8,32 @@
              d:DesignWidth="300"
              mc:Ignorable="d">
     <AdornerDecorator>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="20" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <CheckBox Name="IsTouchToolTipEnabled"
-                      Content="IsTouchToolTipEnabled"
-                      IsChecked="True" />
+        <StackPanel>
+            <Button Content="Button text" ToolTip="Label tool tip.">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="toolTips:TouchToolTipService.IsEnabled" Value="False" />
+                        <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="toolTips:TouchToolTipService.IsEnabled" Value="True" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
 
-            <TextBlock Grid.Row="2"
+            <TextBlock Padding="0,0,18,0"
                        HorizontalAlignment="Left"
-                       toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=IsTouchToolTipEnabled,
-                                                                        Path=IsChecked}"
-                       Text="Some text with toolip"
-                       ToolTip="Tooltip text" />
-        </Grid>
+                       toolTips:TouchToolTipService.IsEnabled="True"
+                       Text="TextBlock text"
+                       ToolTip="TextBlock tool tip." />
+
+            <Label Padding="0,0,18,0"
+                   HorizontalAlignment="Left"
+                   toolTips:TouchToolTipService.IsEnabled="True"
+                   Content="Label text"
+                   ToolTip="Label tool tip." />
+        </StackPanel>
     </AdornerDecorator>
 </UserControl>
