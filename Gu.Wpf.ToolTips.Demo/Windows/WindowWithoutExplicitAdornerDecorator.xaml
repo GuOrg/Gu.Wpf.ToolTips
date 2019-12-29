@@ -5,14 +5,9 @@
         xmlns:toolTips="http://Gu.com/ToolTips"
         xmlns:wpf="clr-namespace:Gu.Wpf.ToolTips.Demo.Wpf"
         Title="WindowWithoutExplicitAdornerDecorator"
-        FontFamily="Arial"
-        FontSize="12"
         Left="200"
-        RenderOptions.EdgeMode="Aliased"
         SizeToContent="WidthAndHeight"
-        SnapsToDevicePixels="True"
         Top="200"
-        UseLayoutRounding="True"
         WindowStartupLocation="Manual"
         mc:Ignorable="d">
     <Grid>

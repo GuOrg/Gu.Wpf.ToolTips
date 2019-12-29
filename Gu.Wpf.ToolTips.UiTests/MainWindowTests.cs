@@ -8,7 +8,7 @@ namespace Gu.Wpf.ToolTips.UiTests
         [Test]
         public void ClickAllTabs()
         {
-            // Just a smoke test so we don't crash.
+            // Just a test so we don't crash.
             using var app = Application.Launch("Gu.Wpf.ToolTips.Demo.exe");
             var window = app.MainWindow;
             foreach (var tabItem in window.FindTabControl().Items)
