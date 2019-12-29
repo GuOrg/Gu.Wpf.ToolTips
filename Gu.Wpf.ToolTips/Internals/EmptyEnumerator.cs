@@ -1,0 +1,42 @@
+namespace Gu.Wpf.ToolTips
+{
+    using System;
+    using System.Collections;
+
+    /// <summary>
+    /// Returns an Enumerator that enumerates over nothing.
+    /// </summary>
+    internal class EmptyEnumerator : IEnumerator
+    {
+        /// <summary>
+        /// Read-Only instance of an Empty Enumerator.
+        /// </summary>
+        internal static readonly IEnumerator Instance = new EmptyEnumerator();
+
+        // singleton class, private ctor
+        private EmptyEnumerator()
+        {
+        }
+
+        /// <summary>
+        /// Gets throws <see cref="InvalidOperationException"/>.
+        /// </summary>
+        object IEnumerator.Current => throw new InvalidOperationException();
+
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
+        public void Reset()
+        {
+        }
+
+        /// <summary>
+        /// Returns false.
+        /// </summary>
+        /// <returns>false.</returns>
+        public bool MoveNext()
+        {
+            return false;
+        }
+    }
+}

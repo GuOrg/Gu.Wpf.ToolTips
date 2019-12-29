@@ -27,9 +27,9 @@
             <CheckBox x:Name="ButtonVisible"
                       Content="Buttons visible"
                       IsChecked="True" />
-            <CheckBox Content="IsOverlayVisible (null uses default behavior)"
-                      IsChecked="{x:Null}"
-                      IsThreeState="True" />
+            <CheckBox Content="TouchToolTipServiceIsEnabled"
+                      Name="TouchToolTipServiceIsEnabled"
+                      IsChecked="True" />
         </StackPanel>
 
         <UniformGrid Grid.Row="1"
@@ -38,18 +38,16 @@
                      Columns="2"
                      Rows="2">
             <Button Content="Button with touch tool tip"
-                    Style="{StaticResource NormalizedButtonStyle}"
                     IsEnabled="{Binding ElementName=ButtonEnabled,
-                                        Path=IsChecked}"
+                                            Path=IsChecked}"
+                    toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceIsEnabled, Path=IsChecked}"
                     Visibility="{Binding ElementName=ButtonVisible,
-                                         Path=IsChecked,
-                                         Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}">
-                <toolTips:TouchToolTipService.ToolTip>
-                    <ToolTip>
-                        <TextBlock Text="Tool tip text." />
-                    </ToolTip>
-                </toolTips:TouchToolTipService.ToolTip>
+                                             Path=IsChecked,
+                                             Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}"
+                    ToolTip="Tool tip text.">
             </Button>
+
+            <Button Content="Lose focus" />
         </UniformGrid>
     </Grid>
 </Window>

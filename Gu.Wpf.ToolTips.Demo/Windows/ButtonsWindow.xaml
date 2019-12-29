@@ -13,19 +13,23 @@
     <AdornerDecorator>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
-                <CheckBox x:Name="ButtonEnabled"
-                          Content="Buttons enabled"
-                          IsChecked="False" />
-                <CheckBox x:Name="ButtonVisible"
-                          Content="Buttons visible"
+                <CheckBox x:Name="IsElementEnabled" Content="IsElementEnabled" />
+                <CheckBox x:Name="IsElementVisible"
+                          Content="IsElementVisible"
                           IsChecked="True" />
-                <CheckBox Content="IsOverlayVisible (null uses default behavior)"
-                          IsChecked="{x:Null}"
-                          IsThreeState="True" />
+                <CheckBox x:Name="ToolTipServiceIsEnabled"
+                          Content="ToolTipServiceIsEnabled"
+                          IsChecked="True" />
+                <CheckBox x:Name="ToolTipServiceShowOnDisabled"
+                          Content="ToolTipServiceShowOnDisabled"
+                          IsChecked="True" />
+                <CheckBox x:Name="TouchToolTipServiceIsEnabled"
+                          Content="TouchToolTipServiceIsEnabled"
+                          IsChecked="True" />
             </StackPanel>
 
             <UniformGrid Grid.Row="1"
@@ -33,19 +37,34 @@
                          Height="100"
                          Columns="2"
                          Rows="2">
-                <Button Content="Button with touch tool tip"
-                        IsEnabled="{Binding ElementName=ButtonEnabled,
+
+                <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceIsEnabled,
+                                                                         Path=IsChecked}"
+                        Content="Button with touch tool tip"
+                        IsEnabled="{Binding ElementName=IsElementEnabled,
                                             Path=IsChecked}"
-                        Style="{StaticResource NormalizedButtonStyle}"
-                        Visibility="{Binding ElementName=ButtonVisible,
+                        ToolTip="Tool tip text."
+                        ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
+                                                           Path=IsChecked}"
+                        ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
+                                                                Path=IsChecked}"
+                        Visibility="{Binding ElementName=IsElementVisible,
                                              Path=IsChecked,
-                                             Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}">
-                    <toolTips:TouchToolTipService.ToolTip>
-                        <ToolTip>
-                            <TextBlock Text="Tool tip text." />
-                        </ToolTip>
-                    </toolTips:TouchToolTipService.ToolTip>
-                </Button>
+                                             Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}" />
+
+                <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceIsEnabled,
+                                                                         Path=IsChecked}"
+                        Content="Other button with touch tool tip"
+                        IsEnabled="{Binding ElementName=IsElementEnabled,
+                                            Path=IsChecked}"
+                        ToolTip="Tool tip text."
+                        ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
+                                                           Path=IsChecked}"
+                        ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
+                                                                Path=IsChecked}"
+                        Visibility="{Binding ElementName=IsElementVisible,
+                                             Path=IsChecked,
+                                             Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}" />
 
                 <Button Content="Lose focus" />
             </UniformGrid>

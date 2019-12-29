@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.ToolTips.UiTests
+namespace Gu.Wpf.ToolTips.UiTests
 {
     using System;
     using System.Windows;
@@ -18,9 +18,10 @@
             var window = app.MainWindow;
             var button = window.FindButton("Button with touch tool tip");
             Mouse.Position = button.Bounds.Center() + new Vector(0, button.ActualHeight);
-            window.FindCheckBox("Buttons enabled").IsChecked = false;
-            window.FindCheckBox("Buttons visible").IsChecked = true;
-            window.FindCheckBox("IsOverlayVisible (null uses default behavior)").IsChecked = null;
+            window.FindCheckBox("IsElementEnabled").IsChecked = false;
+            window.FindCheckBox("IsElementVisible").IsChecked = true;
+            window.FindCheckBox("ToolTipServiceIsEnabled").IsChecked = true;
+            window.FindCheckBox("TouchToolTipServiceIsEnabled").IsChecked = true;
             window.WaitUntilResponsive();
         }
 
@@ -31,18 +32,33 @@
         }
 
         [Test]
-        public static void ButtonEnabled()
+        public static void TouchToolTipServiceIsEnabled()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
             var button = window.FindButton("Button with touch tool tip");
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_with_default_touch_tool_tip.png", button, TestImage.OnFail);
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled_with_overlay.png", button, TestImage.OnFail);
 
-            window.FindCheckBox("Buttons enabled").IsChecked = true;
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_with_default_touch_tool_tip_hidden.png", button, TestImage.OnFail);
+            window.FindCheckBox("TouchToolTipServiceIsEnabled").IsChecked = false;
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled.png", button, TestImage.OnFail);
 
-            window.FindCheckBox("Buttons enabled").IsChecked = false;
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_with_default_touch_tool_tip.png", button, TestImage.OnFail);
+            window.FindCheckBox("TouchToolTipServiceIsEnabled").IsChecked = true;
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled_with_overlay.png", button, TestImage.OnFail);
+        }
+
+        [Test]
+        public static void ToolTipServiceIsEnabled()
+        {
+            using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
+            var window = app.MainWindow;
+            var button = window.FindButton("Button with touch tool tip");
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled_with_overlay.png", button, TestImage.OnFail);
+
+            window.FindCheckBox("ToolTipServiceIsEnabled").IsChecked = false;
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled.png", button, TestImage.OnFail);
+
+            window.FindCheckBox("ToolTipServiceIsEnabled").IsChecked = true;
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled_with_overlay.png", button, TestImage.OnFail);
         }
 
         [Test]
@@ -51,10 +67,10 @@
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
             var button = window.FindButton("Button with touch tool tip");
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_with_default_touch_tool_tip.png", button, TestImage.OnFail);
-            window.FindCheckBox("Buttons visible").IsChecked = false;
-            window.FindCheckBox("Buttons visible").IsChecked = true;
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_with_default_touch_tool_tip.png", button, TestImage.OnFail);
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled_with_overlay.png", button, TestImage.OnFail);
+            window.FindCheckBox("IsElementVisible").IsChecked = false;
+            window.FindCheckBox("IsElementVisible").IsChecked = true;
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled_with_overlay.png", button, TestImage.OnFail);
         }
 
         [Test]
@@ -72,6 +88,7 @@
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
+        [Ignore("Not sure if we want toggle on click.")]
         [Test]
         public static void MouseClick()
         {

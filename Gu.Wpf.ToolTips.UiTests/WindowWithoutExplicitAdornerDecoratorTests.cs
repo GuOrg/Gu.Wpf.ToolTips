@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.ToolTips.UiTests
+namespace Gu.Wpf.ToolTips.UiTests
 {
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
@@ -32,10 +32,10 @@
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
             var button = window.FindButton("Button with touch tool tip");
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_with_default_touch_tool_tip.png", button);
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled_with_overlay.png", button);
             window.FindCheckBox("Buttons visible").IsChecked = false;
             window.FindCheckBox("Buttons visible").IsChecked = true;
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_with_default_touch_tool_tip.png", button);
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled_with_overlay.png", button);
         }
 
         [Test]
@@ -44,13 +44,13 @@
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
             var button = window.FindButton("Button with touch tool tip");
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_with_default_touch_tool_tip.png", button);
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled_with_overlay.png", button);
 
             window.FindCheckBox("Buttons enabled").IsChecked = true;
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_with_default_touch_tool_tip_hidden.png", button);
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled.png", button);
 
             window.FindCheckBox("Buttons enabled").IsChecked = false;
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_with_default_touch_tool_tip.png", button);
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled_with_overlay.png", button);
         }
     }
 }

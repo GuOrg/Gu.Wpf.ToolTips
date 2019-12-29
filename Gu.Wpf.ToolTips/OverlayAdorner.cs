@@ -1,6 +1,8 @@
-namespace Gu.Wpf.ToolTips
+﻿namespace Gu.Wpf.ToolTips
 {
     using System;
+    using System.Collections;
+    using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Documents;
@@ -11,11 +13,32 @@ namespace Gu.Wpf.ToolTips
     /// </summary>
     public sealed class OverlayAdorner : Adorner
     {
-        private PopupButton? popupButton;
+        /// <summary>Identifies the <see cref="Template"/> dependency property.</summary>
+        public static readonly DependencyProperty TemplateProperty = Control.TemplateProperty.AddOwner(
+            typeof(OverlayAdorner),
+            new FrameworkPropertyMetadata(
+                null,
+                FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.NotDataBindable,
+                (o, e) =>
+                {
+                    if (o is OverlayAdorner { child: { } child })
+                    {
+                        child.Template = (ControlTemplate)e.NewValue;
+                    }
+                }));
+
+        private Control? child;
 
         static OverlayAdorner()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(OverlayAdorner), new FrameworkPropertyMetadata(typeof(OverlayAdorner)));
+            IsHitTestVisibleProperty.OverrideMetadata(typeof(OverlayAdorner), IsHitTestVisibleMetadata());
+
+            UIPropertyMetadata IsHitTestVisibleMetadata()
+            {
+                var metadata = IsHitTestVisibleProperty.GetMetadata(typeof(Adorner));
+                return new UIPropertyMetadata(false, metadata.PropertyChangedCallback, metadata.CoerceValueCallback);
+            }
         }
 
         /// <summary>
@@ -23,75 +46,94 @@ namespace Gu.Wpf.ToolTips
         /// Be sure to call the base class constructor.
         /// </summary>
         /// <param name="adornedElement">The ui element to adorn.</param>
-        /// <param name="toolTip">The tooltip to show on click.</param>
-        /// <param name="overlayTemplate">A style for a PopupButton.</param>
-        public OverlayAdorner(UIElement adornedElement, ToolTip toolTip, ControlTemplate overlayTemplate)
+        public OverlayAdorner(UIElement adornedElement)
             : base(adornedElement)
         {
-            this.popupButton = new PopupButton
+            var control = new Control
             {
                 IsTabStop = false,
-                AdornedElement = adornedElement,
+                Focusable = false,
+                Template = this.Template,
             };
-
-            if (overlayTemplate != null)
-            {
-                this.popupButton.SetCurrentValue(Control.TemplateProperty, overlayTemplate);
-            }
-
-            if (toolTip != null)
-            {
-                this.popupButton.SetCurrentValue(ToolTipProperty, toolTip);
-            }
-
-            this.AddVisualChild(this.popupButton);
+            this.Child = control;
         }
 
-        /// <inheritdoc/>
-        protected override int VisualChildrenCount => this.popupButton != null ? 1 : 0;
+        /// <summary>
+        /// Gets or sets the visual that renders the content.
+        /// marked virtual because AddVisualChild calls the virtual OnVisualChildrenChanged.
+        /// </summary>
+        [DefaultValue(null)]
+        public Control? Child
+        {
+            get => this.child;
+
+            set
+            {
+                var old = this.child;
+                if (!ReferenceEquals(old, value))
+                {
+                    this.RemoveVisualChild(old);
+                    this.RemoveLogicalChild(old);
+                    this.child = value;
+
+                    this.AddVisualChild(this.child);
+                    this.AddLogicalChild(value);
+                    this.InvalidateMeasure();
+                }
+            }
+        }
 
         /// <summary>
-        /// The clear the single child of a TemplatedAdorner.
+        /// Gets or sets the content is the data used to generate the child elements of this control.
+        /// </summary>
+        public ControlTemplate Template
+        {
+            get => (ControlTemplate)this.GetValue(TemplateProperty);
+            set => this.SetValue(TemplateProperty, value);
+        }
+
+        /// <inheritdoc />
+        protected override int VisualChildrenCount => this.child == null ? 0 : 1;
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren => this.child == null
+            ? EmptyEnumerator.Instance
+            : new SingleChildEnumerator(this.child);
+
+        /// <summary>
+        /// Set child to null and remove it as visual and logical child.
         /// </summary>
         public void ClearChild()
         {
-            this.RemoveVisualChild(this.popupButton);
-            this.popupButton = null;
+            this.RemoveVisualChild(this.child);
+            this.RemoveLogicalChild(this.child);
+            this.child = null;
         }
 
-        /// <summary>
-        ///   Derived class must implement to support Visual children. The method must return
-        ///    the child at the specified index. Index must be between 0 and GetVisualChildrenCount-1.
-        ///
-        ///    By default a Visual does not have any children.
-        ///
-        ///  Remark:
-        ///       During this virtual call it is not valid to modify the Visual tree.
-        /// </summary>
+        /// <inheritdoc />
         protected override Visual GetVisualChild(int index)
         {
-            if (this.popupButton == null || index != 0)
+            if (this.child == null || index != 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), index, "nope: _child == null || index != 0");
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
 
-            return this.popupButton;
+            return this.child;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
-            this.AdornedElement.InvalidateMeasure();
-            this.popupButton?.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            return this.popupButton?.DesiredSize ?? Size.Empty;
+            var desiredSize = this.AdornedElement.RenderSize;
+            this.Child?.Measure(desiredSize);
+            return desiredSize;
         }
 
-        /// <inheritdoc/>
-        protected override Size ArrangeOverride(Size size)
+        /// <inheritdoc />
+        protected override Size ArrangeOverride(Size finalSize)
         {
-            var finalSize = base.ArrangeOverride(size);
-            this.popupButton?.Arrange(new Rect(default, finalSize));
-            return finalSize;
+            this.Child?.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
+            return this.Child?.RenderSize ?? base.ArrangeOverride(finalSize);
         }
     }
 }

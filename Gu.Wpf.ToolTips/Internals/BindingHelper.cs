@@ -1,4 +1,4 @@
-namespace Gu.Wpf.ToolTips
+﻿namespace Gu.Wpf.ToolTips
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -6,29 +6,49 @@ namespace Gu.Wpf.ToolTips
 
     internal static class BindingHelper
     {
-        private static readonly Dictionary<string, PropertyPath> PropertyPaths = new Dictionary<string, PropertyPath>();
+        private static readonly Dictionary<DependencyProperty, PropertyPath> PropertyPaths = new Dictionary<DependencyProperty, PropertyPath>();
 
-        internal static Binding CreateOneWayBinding(this DependencyObject source, DependencyProperty sourceProperty)
+        internal static BindingBuilder Bind(this DependencyObject target, DependencyProperty targetProperty)
         {
-            var propertyPath = AsPropertyPath(sourceProperty);
-            return new Binding { Path = propertyPath, Source = source, Mode = BindingMode.OneWay };
+            return new BindingBuilder(target, targetProperty);
         }
 
-        internal static PropertyPath AsPropertyPath(this DependencyProperty property)
+        internal static PropertyPath GetPath(DependencyProperty property)
         {
-            return GetPath(property.Name);
-        }
-
-        internal static PropertyPath GetPath(string path)
-        {
-            if (PropertyPaths.TryGetValue(path, out PropertyPath? propertyPath))
+            if (PropertyPaths.TryGetValue(property, out var path))
             {
-                return propertyPath;
+                return path;
             }
 
-            propertyPath = new PropertyPath(path);
-            PropertyPaths[path] = propertyPath;
-            return propertyPath;
+            path = new PropertyPath(property);
+            PropertyPaths[property] = path;
+            return path;
+        }
+
+        internal struct BindingBuilder
+        {
+            private readonly DependencyObject target;
+            private readonly DependencyProperty targetProperty;
+
+            internal BindingBuilder(DependencyObject target, DependencyProperty targetProperty)
+            {
+                this.target = target;
+                this.targetProperty = targetProperty;
+            }
+
+            internal BindingExpression OneWayTo(object source, DependencyProperty sourceProperty)
+            {
+                var sourcePath = GetPath(sourceProperty);
+                var binding = new Binding
+                {
+                    Path = sourcePath,
+                    Source = source,
+                    Mode = BindingMode.OneWay,
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                };
+
+                return (BindingExpression)BindingOperations.SetBinding(this.target, this.targetProperty, binding);
+            }
         }
     }
 }

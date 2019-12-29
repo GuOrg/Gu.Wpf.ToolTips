@@ -1,4 +1,4 @@
-namespace Gu.Wpf.ToolTips.Demo.Wpf
+﻿namespace Gu.Wpf.ToolTips.Demo.Wpf
 {
     using System;
     using System.Globalization;
@@ -14,7 +14,7 @@ namespace Gu.Wpf.ToolTips.Demo.Wpf
         private readonly object whenTrue;
         private readonly object whenFalse;
 
-        public BoolToVisibilityConverter(Visibility whenTrue, Visibility whenFalse)
+        private BoolToVisibilityConverter(Visibility whenTrue, Visibility whenFalse)
         {
             this.whenTrue = whenTrue;
             this.whenFalse = whenFalse;

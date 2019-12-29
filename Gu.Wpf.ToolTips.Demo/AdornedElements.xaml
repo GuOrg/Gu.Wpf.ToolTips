@@ -1,5 +1,4 @@
 <!--  ReSharper disable Xaml.BindingWithContextNotResolved  -->
-
 <UserControl x:Class="Gu.Wpf.ToolTips.Demo.AdornedElements"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -19,26 +18,12 @@
             </StackPanel>
         </DataTemplate>
 
-        <Style x:Key="BaseButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="{Binding Value, ElementName=Slider}" />
-            <Setter Property="Height" Value="50" />
-            <Setter Property="Margin" Value="20" />
-            <Setter Property="IsEnabled" Value="{Binding IsChecked, ElementName=Enabled}" />
-            <Setter Property="Visibility" Value="{Binding IsChecked, ElementName=AdornedVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <Setter Property="toolTips:TouchToolTipService.IsOverlayVisible" Value="{Binding IsChecked, ElementName=IsOverlayVisible}" />
-        </Style>
-
-        <Style x:Key="ButtonStyleWithTouchToolTip"
-               BasedOn="{StaticResource BaseButtonStyle}"
-               TargetType="{x:Type Button}">
-            <Setter Property="toolTips:TouchToolTipService.ToolTip">
+        <Style x:Key="ButtonStyleWithTouchToolTip" TargetType="{x:Type Button}">
+            <Setter Property="ToolTip">
                 <Setter.Value>
-                    <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                        <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
-                    </ToolTip>
+                    <ToolTip Content="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
                 </Setter.Value>
             </Setter>
-
         </Style>
     </UserControl.Resources>
     <AdornerDecorator>
@@ -48,57 +33,111 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0">For tooltips to work an &lt;AdornerDecorator&gt; must be present. The tooltips draws on the adornerlayer</TextBlock>
+            <TextBlock Grid.Row="0">Overlays work best when wrapped with explicit &lt;AdornerDecorator&gt;.</TextBlock>
             <StackPanel Grid.Row="1">
-                <CheckBox x:Name="Enabled" Content="Enabled" />
-                <CheckBox x:Name="AdornedVisible"
-                          Content="Adorned element visible"
+                <CheckBox x:Name="IsElementEnabled" Content="IsElementEnabled" />
+                <CheckBox x:Name="IsElementVisible"
+                          Content="IsElementVisible"
                           IsChecked="True" />
-                <CheckBox x:Name="IsOverlayVisible"
-                          Content="IsOverlayVisible (null uses default behavior)"
-                          IsChecked="{x:Null}"
-                          IsThreeState="True" />
-                <Slider x:Name="Slider"
-                        Maximum="250"
-                        Minimum="150"
-                        Value="200" />
+                <CheckBox x:Name="ToolTipServiceIsEnabled"
+                          Content="ToolTipServiceIsEnabled"
+                          IsChecked="True" />
+                <CheckBox x:Name="ToolTipServiceShowOnDisabled"
+                          Content="ToolTipServiceShowOnDisabled"
+                          IsChecked="True" />
+                <CheckBox x:Name="IsTouchToolTipEnabled"
+                          Content="IsTouchToolTipEnabled"
+                          IsChecked="True" />
             </StackPanel>
 
-            <WrapPanel Grid.Row="2">
-                <Button Content="Button with touch tooltip" Style="{StaticResource BaseButtonStyle}">
-                    <toolTips:TouchToolTipService.ToolTip>
-                        <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
-                        </ToolTip>
-                    </toolTips:TouchToolTipService.ToolTip>
-                </Button>
+            <UniformGrid Grid.Row="2" Columns="2">
+                <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=IsTouchToolTipEnabled,
+                                                                         Path=IsChecked}"
+                        Content="Button with touch tool tip"
+                        IsEnabled="{Binding ElementName=IsElementEnabled,
+                                            Path=IsChecked}"
+                        ToolTip="Tool tip text."
+                        ToolTipService.IsEnabled="{Binding ElementName=IsToolTipEnabled,
+                                                           Path=IsChecked}"
+                        ToolTipService.ShowOnDisabled="{Binding ElementName=ShowOnDisabled,
+                                                                Path=IsChecked}"
+                        Visibility="{Binding ElementName=IsElementVisible,
+                                             Path=IsChecked,
+                                             Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                <Button Content="Button with touch tooltip from style" Style="{StaticResource ButtonStyleWithTouchToolTip}" />
-
-                <Button x:Name="StandardButton"
-                        Content="Standard button"
-                        Style="{StaticResource BaseButtonStyle}">
+                <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=IsTouchToolTipEnabled,
+                                                                         Path=IsChecked}"
+                        Content="Button with touch tool tip template"
+                        IsEnabled="{Binding ElementName=IsElementEnabled,
+                                            Path=IsChecked}"
+                        ToolTipService.IsEnabled="{Binding ElementName=IsToolTipEnabled,
+                                                           Path=IsChecked}"
+                        ToolTipService.ShowOnDisabled="{Binding ElementName=ShowOnDisabled,
+                                                                Path=IsChecked}"
+                        Visibility="{Binding ElementName=IsElementVisible,
+                                             Path=IsChecked,
+                                             Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Button.ToolTip>
-                        <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
-                        </ToolTip>
+                        <ToolTip Content="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
                     </Button.ToolTip>
                 </Button>
 
+                <Button Content="Standard button"
+                        IsEnabled="{Binding ElementName=IsElementEnabled,
+                                            Path=IsChecked}"
+                        ToolTip="Tool tip text."
+                        ToolTipService.IsEnabled="{Binding ElementName=IsToolTipEnabled,
+                                                           Path=IsChecked}"
+                        ToolTipService.ShowOnDisabled="{Binding ElementName=ShowOnDisabled,
+                                                                Path=IsChecked}"
+                        Visibility="{Binding ElementName=IsElementVisible,
+                                             Path=IsChecked,
+                                             Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=IsTouchToolTipEnabled,
+                                                                         Path=IsChecked}"
+                        Content="Button with touch tool tip from style"
+                        IsEnabled="{Binding ElementName=IsElementEnabled,
+                                            Path=IsChecked}"
+                        Style="{StaticResource ButtonStyleWithTouchToolTip}"
+                        ToolTipService.IsEnabled="{Binding ElementName=IsToolTipEnabled,
+                                                           Path=IsChecked}"
+                        ToolTipService.ShowOnDisabled="{Binding ElementName=ShowOnDisabled,
+                                                                Path=IsChecked}"
+                        Visibility="{Binding ElementName=IsElementVisible,
+                                             Path=IsChecked,
+                                             Converter={StaticResource BooleanToVisibilityConverter}}" />
+
                 <Label VerticalAlignment="Top"
-                       toolTips:TouchToolTipService.IsOverlayVisible="{Binding IsChecked,
-                                                                               ElementName=IsOverlayVisible}"
-                       Content="Text with TouchTooltip"
+                       toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=IsTouchToolTipEnabled,
+                                                                        Path=IsChecked}"
+                       Content="Label with TouchTooltip"
+                       IsEnabled="{Binding ElementName=IsElementEnabled,
+                                           Path=IsChecked}"
+                       ToolTip="Tool tip text."
+                       ToolTipService.IsEnabled="{Binding ElementName=IsToolTipEnabled,
+                                                          Path=IsChecked}"
+                       ToolTipService.ShowOnDisabled="{Binding ElementName=ShowOnDisabled,
+                                                               Path=IsChecked}"
                        Visibility="{Binding IsChecked,
-                                            ElementName=AdornedVisible,
-                                            Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <toolTips:TouchToolTipService.ToolTip>
-                        <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContentTemplate}" />
-                        </ToolTip>
-                    </toolTips:TouchToolTipService.ToolTip>
-                </Label>
-            </WrapPanel>
+                                            ElementName=IsElementVisible,
+                                            Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                <TextBlock VerticalAlignment="Top"
+                           toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=IsTouchToolTipEnabled,
+                                                                            Path=IsChecked}"
+                           IsEnabled="{Binding ElementName=IsElementEnabled,
+                                               Path=IsChecked}"
+                           Text="TextBlock with TouchTooltip"
+                           ToolTip="Tool tip text."
+                           ToolTipService.IsEnabled="{Binding ElementName=IsToolTipEnabled,
+                                                              Path=IsChecked}"
+                           ToolTipService.ShowOnDisabled="{Binding ElementName=ShowOnDisabled,
+                                                                   Path=IsChecked}"
+                           Visibility="{Binding IsChecked,
+                                                ElementName=IsElementVisible,
+                                                Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </UniformGrid>
         </Grid>
     </AdornerDecorator>
 </UserControl>

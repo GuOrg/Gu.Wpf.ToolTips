@@ -14,20 +14,16 @@
                 <RowDefinition Height="20" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <CheckBox x:Name="IsOverlayVisible"
-                      Content="IsOverlayVisible"
+            <CheckBox Name="IsTouchToolTipEnabled"
+                      Content="IsTouchToolTipEnabled"
                       IsChecked="True" />
 
             <TextBlock Grid.Row="2"
                        HorizontalAlignment="Left"
-                       toolTips:TouchToolTipService.IsOverlayVisible="{Binding IsChecked, ElementName=IsOverlayVisible}"
-                       Text="Some text with toolip">
-                <ToolTipService.ToolTip>
-                    <ToolTip>
-                        <TextBlock Text="Tooltip text" />
-                    </ToolTip>
-                </ToolTipService.ToolTip>
-            </TextBlock>
+                       toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=IsTouchToolTipEnabled,
+                                                                        Path=IsChecked}"
+                       Text="Some text with toolip"
+                       ToolTip="Tooltip text" />
         </Grid>
     </AdornerDecorator>
 </UserControl>

@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.ToolTips.UiTests
+namespace Gu.Wpf.ToolTips.UiTests
 {
     using System.Drawing;
     using System.IO;
@@ -12,7 +12,7 @@
         [Script]
         public static void Rename()
         {
-            var folder = @"C:\Git\_GuOrg\Gu.Wpf.Adorners\Gu.Wpf.Adorners.UiTests";
+            var folder = @"C:\Git\_GuOrg\Gu.Wpf.ToolTips\Gu.Wpf.ToolTips.UiTests";
             var oldName = "Red_border_default_visibility_width_100.png";
             var newName = "Red_border_default_visibility_width_100.png";
 

@@ -1,1 +1,16 @@
-﻿
+﻿Gu.Wpf.ToolTips.OverlayAdorner
+Gu.Wpf.ToolTips.OverlayAdorner.Child.get -> System.Windows.Controls.Control
+Gu.Wpf.ToolTips.OverlayAdorner.Child.set -> void
+Gu.Wpf.ToolTips.OverlayAdorner.ClearChild() -> void
+Gu.Wpf.ToolTips.OverlayAdorner.OverlayAdorner(System.Windows.UIElement adornedElement) -> void
+Gu.Wpf.ToolTips.OverlayAdorner.Template.get -> System.Windows.Controls.ControlTemplate
+Gu.Wpf.ToolTips.OverlayAdorner.Template.set -> void
+Gu.Wpf.ToolTips.TouchToolTipService
+XamlGeneratedNamespace.GeneratedInternalTypeHelper
+XamlGeneratedNamespace.GeneratedInternalTypeHelper.GeneratedInternalTypeHelper() -> void
+static Gu.Wpf.ToolTips.TouchToolTipService.GetIsEnabled(System.Windows.DependencyObject element) -> bool
+static Gu.Wpf.ToolTips.TouchToolTipService.GetIsOverlayVisible(this System.Windows.FrameworkElement element) -> bool
+static Gu.Wpf.ToolTips.TouchToolTipService.SetIsEnabled(System.Windows.DependencyObject element, bool value) -> void
+static readonly Gu.Wpf.ToolTips.OverlayAdorner.TemplateProperty -> System.Windows.DependencyProperty
+static readonly Gu.Wpf.ToolTips.TouchToolTipService.IsEnabledProperty -> System.Windows.DependencyProperty
+static readonly Gu.Wpf.ToolTips.TouchToolTipService.IsOverlayVisibleProperty -> System.Windows.DependencyProperty
