@@ -56,13 +56,26 @@
         {
             EventManager.RegisterClassHandler(
                 typeof(OverlayAdorner),
-                OverlayAdorner.TouchDownEvent,
+                UIElement.TouchDownEvent,
                 new RoutedEventHandler((o, e) =>
                 {
                     if (o is OverlayAdorner { AdornedElement: { } element } adorner &&
                         !ToolTipService.GetIsOpen(element))
                     {
                         PopupControlService.Show(element);
+                        e.Handled = true;
+                    }
+                }));
+
+            EventManager.RegisterClassHandler(
+                typeof(OverlayAdorner),
+                UIElement.PreviewTouchUpEvent,
+                new RoutedEventHandler((o, e) =>
+                {
+                    if (o is OverlayAdorner { AdornedElement: { } element } adorner &&
+                        ToolTipService.GetIsOpen(element))
+                    {
+                        e.Handled = true;
                     }
                 }));
         }
