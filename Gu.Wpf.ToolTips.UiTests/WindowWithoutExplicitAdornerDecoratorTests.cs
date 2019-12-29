@@ -1,4 +1,4 @@
-namespace Gu.Wpf.ToolTips.UiTests
+﻿namespace Gu.Wpf.ToolTips.UiTests
 {
     using System;
     using System.Windows;
@@ -73,7 +73,6 @@ namespace Gu.Wpf.ToolTips.UiTests
             ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_disabled_with_overlay.png", button, TestImage.OnFail);
         }
 
-        [Ignore("FindToolTip() is broken.")]
         [Test]
         public static void MouseOver()
         {
@@ -85,7 +84,6 @@ namespace Gu.Wpf.ToolTips.UiTests
             Assert.AreEqual(false, toolTip.IsOffscreen);
 
             Mouse.Position = window.FindButton("Lose focus").Bounds.Center();
-            Wait.For(TimeSpan.FromMilliseconds(200));
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
@@ -105,7 +103,6 @@ namespace Gu.Wpf.ToolTips.UiTests
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
-        [Ignore("FindToolTip() is broken.")]
         [Test]
         public static void TouchTap()
         {
@@ -117,7 +114,6 @@ namespace Gu.Wpf.ToolTips.UiTests
             Assert.AreEqual(false, toolTip.IsOffscreen);
 
             Touch.Tap(button.Bounds.Center());
-            Wait.For(TimeSpan.FromMilliseconds(200));
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
     }
