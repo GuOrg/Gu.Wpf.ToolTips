@@ -30,7 +30,7 @@
         internal static void OnFail(Bitmap? expected, Bitmap actual, string resource)
         {
             var fullFileName = Path.Combine(Path.GetTempPath(), resource);
-            // ReSharper disable once AssignNullToNotNullAttribute
+            //// ReSharper disable once AssignNullToNotNullAttribute
             _ = Directory.CreateDirectory(Path.GetDirectoryName(fullFileName));
             if (File.Exists(fullFileName))
             {
