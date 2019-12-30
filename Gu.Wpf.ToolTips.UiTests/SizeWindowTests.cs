@@ -36,21 +36,24 @@ namespace Gu.Wpf.ToolTips.UiTests
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
             var element = window.FindButton(name);
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_width_60_height_25_margin_2_padding_2.png", element, TestImage.OnFail);
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_width_60_height_25_margin_2_padding_2.png",
+                element, TestImage.OnFail);
 
             window.FindTextBox("WidthTextBox").Text = "62";
             window.FindTextBox("HeightTextBox").Text = "27";
             window.FindTextBox("MarginTextBox").Text = "4";
             window.FindTextBox("PaddingTextBox").Text = "6";
             window.WaitUntilResponsive();
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_width_62_height_27_margin_4_padding_6.png", element, TestImage.OnFail);
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_width_62_height_27_margin_4_padding_6.png",
+                element, TestImage.OnFail);
 
             window.FindTextBox("WidthTextBox").Text = "60";
             window.FindTextBox("HeightTextBox").Text = "25";
             window.FindTextBox("MarginTextBox").Text = "2";
             window.FindTextBox("PaddingTextBox").Text = "2";
             window.WaitUntilResponsive();
-            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_width_60_height_25_margin_2_padding_2.png", element, TestImage.OnFail);
+            ImageAssert.AreEqual($"Images\\{TestImage.Current}\\Button_width_60_height_25_margin_2_padding_2.png",
+                element, TestImage.OnFail);
         }
     }
 }

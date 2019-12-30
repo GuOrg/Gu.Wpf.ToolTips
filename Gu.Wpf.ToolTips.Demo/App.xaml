@@ -5,6 +5,7 @@
     <!--<Application.StartupUri>Windows/ButtonsWindow.xaml</Application.StartupUri>-->
     <!--<Application.StartupUri>Windows/WindowWithoutExplicitAdornerDecorator.xaml</Application.StartupUri>-->
     <!--<Application.StartupUri>Windows/DebugWindow.xaml</Application.StartupUri>-->
+    <!--<Application.StartupUri>Windows/MemoryWindow.xaml</Application.StartupUri>-->
     <Application.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
