@@ -61,7 +61,7 @@
                     if (o is OverlayAdorner { AdornedElement: { } element } &&
                         !ToolTipService.GetIsOpen(element))
                     {
-                        PopupControlService.Show(element);
+                        PopupControlService.ShowToolTip(element);
                         e.Handled = true;
                     }
                 }));
