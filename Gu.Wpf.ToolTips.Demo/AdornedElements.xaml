@@ -35,17 +35,17 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0">Overlays work best when wrapped with explicit &lt;AdornerDecorator&gt;.</TextBlock>
             <StackPanel Grid.Row="1">
-                <CheckBox x:Name="IsElementEnabled" Content="IsElementEnabled" />
-                <CheckBox x:Name="IsElementVisible"
+                <CheckBox Name="IsElementEnabled" Content="IsElementEnabled" />
+                <CheckBox Name="IsElementVisible"
                           Content="IsElementVisible"
                           IsChecked="True" />
-                <CheckBox x:Name="ToolTipServiceIsEnabled"
+                <CheckBox Name="ToolTipServiceIsEnabled"
                           Content="ToolTipServiceIsEnabled"
                           IsChecked="True" />
-                <CheckBox x:Name="ToolTipServiceShowOnDisabled"
+                <CheckBox Name="ToolTipServiceShowOnDisabled"
                           Content="ToolTipServiceShowOnDisabled"
                           IsChecked="True" />
-                <CheckBox x:Name="TouchToolTipServiceServiceIsEnabled"
+                <CheckBox Name="TouchToolTipServiceServiceIsEnabled"
                           Content="TouchToolTipServiceServiceIsEnabled"
                           IsChecked="True" />
             </StackPanel>
@@ -57,7 +57,7 @@
                         IsEnabled="{Binding ElementName=IsElementEnabled,
                                             Path=IsChecked}"
                         ToolTip="Tool tip text."
-                        ToolTipService.IsEnabled="{Binding ElementName=IsToolTipEnabled,
+                        ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
                                                            Path=IsChecked}"
                         ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
                                                                 Path=IsChecked}"
@@ -70,7 +70,7 @@
                         Content="Button with touch tool tip template"
                         IsEnabled="{Binding ElementName=IsElementEnabled,
                                             Path=IsChecked}"
-                        ToolTipService.IsEnabled="{Binding ElementName=IsToolTipEnabled,
+                        ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
                                                            Path=IsChecked}"
                         ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
                                                                 Path=IsChecked}"
@@ -86,7 +86,7 @@
                         IsEnabled="{Binding ElementName=IsElementEnabled,
                                             Path=IsChecked}"
                         ToolTip="Tool tip text."
-                        ToolTipService.IsEnabled="{Binding ElementName=IsToolTipEnabled,
+                        ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
                                                            Path=IsChecked}"
                         ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
                                                                 Path=IsChecked}"
@@ -100,7 +100,7 @@
                         IsEnabled="{Binding ElementName=IsElementEnabled,
                                             Path=IsChecked}"
                         Style="{StaticResource ButtonStyleWithTouchToolTip}"
-                        ToolTipService.IsEnabled="{Binding ElementName=IsToolTipEnabled,
+                        ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
                                                            Path=IsChecked}"
                         ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
                                                                 Path=IsChecked}"
@@ -115,9 +115,9 @@
                        IsEnabled="{Binding ElementName=IsElementEnabled,
                                            Path=IsChecked}"
                        ToolTip="Tool tip text."
-                       ToolTipService.IsEnabled="{Binding ElementName=IsToolTipEnabled,
+                       ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
                                                           Path=IsChecked}"
-                       ToolTipService.ShowOnDisabled="{Binding ElementName=ShowOnDisabled,
+                       ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
                                                                Path=IsChecked}"
                        Visibility="{Binding IsChecked,
                                             ElementName=IsElementVisible,
@@ -130,7 +130,7 @@
                                                Path=IsChecked}"
                            Text="TextBlock with TouchTooltip"
                            ToolTip="Tool tip text."
-                           ToolTipService.IsEnabled="{Binding ElementName=IsToolTipEnabled,
+                           ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
                                                               Path=IsChecked}"
                            ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
                                                                    Path=IsChecked}"
