@@ -1,4 +1,4 @@
-namespace Gu.Wpf.ToolTips.UiTests
+﻿namespace Gu.Wpf.ToolTips.UiTests
 {
     using System.Drawing;
     using System.IO;
@@ -30,7 +30,13 @@ namespace Gu.Wpf.ToolTips.UiTests
         internal static void OnFail(Bitmap? expected, Bitmap actual, string resource)
         {
             var fullFileName = Path.Combine(Path.GetTempPath(), resource);
+            // ReSharper disable once AssignNullToNotNullAttribute
             _ = Directory.CreateDirectory(Path.GetDirectoryName(fullFileName));
+            if (File.Exists(fullFileName))
+            {
+                File.Delete(fullFileName);
+            }
+
             actual.Save(fullFileName);
             TestContext.AddTestAttachment(fullFileName);
         }

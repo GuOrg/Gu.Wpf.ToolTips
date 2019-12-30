@@ -59,7 +59,7 @@
                 UIElement.TouchDownEvent,
                 new RoutedEventHandler((o, e) =>
                 {
-                    if (o is OverlayAdorner { AdornedElement: { } element } adorner &&
+                    if (o is OverlayAdorner { AdornedElement: { } element } &&
                         !ToolTipService.GetIsOpen(element))
                     {
                         PopupControlService.Show(element);
@@ -72,7 +72,7 @@
                 UIElement.PreviewTouchUpEvent,
                 new RoutedEventHandler((o, e) =>
                 {
-                    if (o is OverlayAdorner { AdornedElement: { } element } adorner &&
+                    if (o is OverlayAdorner { AdornedElement: { } element } &&
                         ToolTipService.GetIsOpen(element))
                     {
                         e.Handled = true;
