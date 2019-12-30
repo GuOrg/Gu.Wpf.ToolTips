@@ -25,59 +25,59 @@
         </Style>
     </Window.Resources>
     <StackPanel>
-        <TextBox x:Name="Width" Text="60" />
-        <TextBox x:Name="Height" Text="25" />
-        <TextBox x:Name="Margin" Text="2" />
-        <TextBox x:Name="Padding" Text="2" />
+        <TextBox x:Name="WidthTextBox" Text="60" />
+        <TextBox x:Name="HeightTextBox" Text="25" />
+        <TextBox x:Name="MarginTextBox" Text="2" />
+        <TextBox x:Name="PaddingTextBox" Text="2" />
 
         <UniformGrid Columns="2">
             <Button x:Name="Button1"
-                    Width="{Binding ElementName=Width,
+                    Width="{Binding ElementName=WidthTextBox,
                                     Path=Text}"
-                    Height="{Binding ElementName=Height,
+                    Height="{Binding ElementName=HeightTextBox,
                                      Path=Text}"
-                    Margin="{Binding ElementName=Margin,
+                    Margin="{Binding ElementName=MarginTextBox,
                                      Path=Text}"
-                    Padding="{Binding ElementName=Padding,
+                    Padding="{Binding ElementName=PaddingTextBox,
                                       Path=Text}"
                     toolTips:TouchToolTipService.IsEnabled="True"
                     Content="Button"
                     ToolTip="Tool tip text." />
 
             <Button x:Name="Button2"
-                    Width="{Binding ElementName=Width,
+                    Width="{Binding ElementName=WidthTextBox,
                                     Path=Text}"
-                    Height="{Binding ElementName=Height,
+                    Height="{Binding ElementName=HeightTextBox,
                                      Path=Text}"
-                    Margin="{Binding ElementName=Margin,
+                    Margin="{Binding ElementName=MarginTextBox,
                                      Path=Text}"
-                    Padding="{Binding ElementName=Padding,
+                    Padding="{Binding ElementName=PaddingTextBox,
                                       Path=Text}"
                     toolTips:TouchToolTipService.IsEnabled="True"
                     Content="Button"
                     ToolTip="Tool tip text." />
 
             <Button x:Name="Button3"
-                    Width="{Binding ElementName=Width,
+                    Width="{Binding ElementName=WidthTextBox,
                                     Path=Text}"
-                    Height="{Binding ElementName=Height,
+                    Height="{Binding ElementName=HeightTextBox,
                                      Path=Text}"
-                    Margin="{Binding ElementName=Margin,
+                    Margin="{Binding ElementName=MarginTextBox,
                                      Path=Text}"
-                    Padding="{Binding ElementName=Padding,
+                    Padding="{Binding ElementName=PaddingTextBox,
                                       Path=Text}"
                     toolTips:TouchToolTipService.IsEnabled="True"
                     Content="Button"
                     ToolTip="Tool tip text." />
 
             <Button x:Name="Button4"
-                    Width="{Binding ElementName=Width,
+                    Width="{Binding ElementName=WidthTextBox,
                                     Path=Text}"
-                    Height="{Binding ElementName=Height,
+                    Height="{Binding ElementName=HeightTextBox,
                                      Path=Text}"
-                    Margin="{Binding ElementName=Margin,
+                    Margin="{Binding ElementName=MarginTextBox,
                                      Path=Text}"
-                    Padding="{Binding ElementName=Padding,
+                    Padding="{Binding ElementName=PaddingTextBox,
                                       Path=Text}"
                     toolTips:TouchToolTipService.IsEnabled="True"
                     Content="Button"
