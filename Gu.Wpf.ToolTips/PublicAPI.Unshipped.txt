@@ -4,8 +4,6 @@ Gu.Wpf.ToolTips.OverlayAdorner.Template.get -> System.Windows.Controls.ControlTe
 Gu.Wpf.ToolTips.OverlayAdorner.Template.set -> void
 Gu.Wpf.ToolTips.PopupControlService
 Gu.Wpf.ToolTips.TouchToolTipService
-XamlGeneratedNamespace.GeneratedInternalTypeHelper
-XamlGeneratedNamespace.GeneratedInternalTypeHelper.GeneratedInternalTypeHelper() -> void
 static Gu.Wpf.ToolTips.PopupControlService.ShowToolTip(System.Windows.DependencyObject o) -> void
 static Gu.Wpf.ToolTips.TouchToolTipService.GetIsEnabled(System.Windows.DependencyObject element) -> bool
 static Gu.Wpf.ToolTips.TouchToolTipService.GetIsOverlayVisible(this System.Windows.FrameworkElement element) -> bool

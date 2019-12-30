@@ -86,18 +86,20 @@ namespace Gu.Wpf.ToolTips.UiTests
             ImageAssert.AreEqual($"Images\\{TestImage.Current}\\{withOverlay}", element, TestImage.OnFail);
         }
 
-        [Ignore("Bug in FindToolTip()")]
-        [Test]
-        public void MouseOver()
+        [TestCase("Button 1")]
+        [TestCase("Button 2")]
+        [TestCase("TextBlock 1")]
+        [TestCase("Label 1")]
+        public void MouseOver(string name)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
             var window = app.MainWindow;
-            var button = window.FindButton("Button with touch tool tip");
-            Mouse.Position = button.Bounds.Center();
-            var toolTip = button.FindToolTip();
+            var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
+            Mouse.Position = element.Bounds.Center();
+            var toolTip = element.FindToolTip();
             Assert.AreEqual(false, toolTip.IsOffscreen);
 
-            Mouse.Position = window.FindButton("Lose focus").Bounds.Center();
+            window.FindButton("Lose focus").Click(moveMouse: true);
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
