@@ -34,6 +34,7 @@
                        HorizontalAlignment="Left"
                        toolTips:TouchToolTipService.IsEnabled="True"
                        Text="TextBlock text"
+                       ToolTipService.ShowOnDisabled="True"
                        ToolTip="TextBlock tool tip." />
 
             <Label Padding="0,0,18,0"
@@ -42,6 +43,7 @@
                    HorizontalAlignment="Left"
                    toolTips:TouchToolTipService.IsEnabled="True"
                    Content="Label text"
+                   ToolTipService.ShowOnDisabled="True"
                    ToolTip="Label tool tip." />
         </StackPanel>
     </AdornerDecorator>
