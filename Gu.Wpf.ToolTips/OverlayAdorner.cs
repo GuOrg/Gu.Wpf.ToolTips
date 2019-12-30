@@ -80,18 +80,10 @@
         }
 
         /// <inheritdoc />
-        protected override Size MeasureOverride(Size constraint)
-        {
-            var desiredSize = this.AdornedElement.RenderSize;
-            this.child.Measure(desiredSize);
-            return desiredSize;
-        }
-
-        /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)
         {
-            this.child.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
-            return this.child.RenderSize;
+            this.child.Arrange(new Rect(finalSize));
+            return base.ArrangeOverride(finalSize);
         }
     }
 }
