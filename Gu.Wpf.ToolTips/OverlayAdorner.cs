@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections;
-    using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Documents;
@@ -27,7 +26,7 @@
                     }
                 }));
 
-        private Control? child;
+        private readonly Control child;
 
         static OverlayAdorner()
         {
@@ -49,32 +48,9 @@
                 Focusable = false,
                 Template = this.Template,
             };
-            this.Child = control;
-        }
-
-        /// <summary>
-        /// Gets or sets the visual that renders the content.
-        /// marked virtual because AddVisualChild calls the virtual OnVisualChildrenChanged.
-        /// </summary>
-        [DefaultValue(null)]
-        public Control? Child
-        {
-            get => this.child;
-
-            set
-            {
-                var old = this.child;
-                if (!ReferenceEquals(old, value))
-                {
-                    this.RemoveVisualChild(old);
-                    this.RemoveLogicalChild(old);
-                    this.child = value;
-
-                    this.AddVisualChild(this.child);
-                    this.AddLogicalChild(value);
-                    this.InvalidateMeasure();
-                }
-            }
+            this.child = control;
+            this.AddVisualChild(control);
+            this.AddLogicalChild(control);
         }
 
         /// <summary>
@@ -87,22 +63,10 @@
         }
 
         /// <inheritdoc />
-        protected override int VisualChildrenCount => this.child == null ? 0 : 1;
+        protected override int VisualChildrenCount => 1;
 
         /// <inheritdoc />
-        protected override IEnumerator LogicalChildren => this.child == null
-            ? EmptyEnumerator.Instance
-            : new SingleChildEnumerator(this.child);
-
-        /// <summary>
-        /// Set child to null and remove it as visual and logical child.
-        /// </summary>
-        public void ClearChild()
-        {
-            this.RemoveVisualChild(this.child);
-            this.RemoveLogicalChild(this.child);
-            this.child = null;
-        }
+        protected override IEnumerator LogicalChildren => new SingleChildEnumerator(this.child);
 
         /// <inheritdoc />
         protected override Visual GetVisualChild(int index)
@@ -119,15 +83,15 @@
         protected override Size MeasureOverride(Size constraint)
         {
             var desiredSize = this.AdornedElement.RenderSize;
-            this.Child?.Measure(desiredSize);
+            this.child.Measure(desiredSize);
             return desiredSize;
         }
 
         /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)
         {
-            this.Child?.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
-            return this.Child?.RenderSize ?? base.ArrangeOverride(finalSize);
+            this.child.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
+            return this.child.RenderSize;
         }
     }
 }

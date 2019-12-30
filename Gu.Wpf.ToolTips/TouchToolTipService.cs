@@ -49,8 +49,7 @@
             typeof(OverlayAdorner),
             typeof(TouchToolTipService),
             new PropertyMetadata(
-                default(OverlayAdorner),
-                (d, e) => ((OverlayAdorner)e.OldValue)?.ClearChild()));
+                default(OverlayAdorner)));
 
         static TouchToolTipService()
         {
