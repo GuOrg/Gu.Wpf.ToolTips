@@ -13,66 +13,52 @@
     <StackPanel HorizontalAlignment="Left">
         <CheckBox x:Name="IsElementEnabled" Content="IsElementEnabled" />
         <CheckBox x:Name="IsElementVisible"
-                      Content="IsElementVisible"
-                      IsChecked="True" />
+                  Content="IsElementVisible"
+                  IsChecked="True" />
         <CheckBox x:Name="ToolTipServiceIsEnabled"
-                      Content="ToolTipServiceIsEnabled"
-                      IsChecked="True" />
+                  Content="ToolTipServiceIsEnabled"
+                  IsChecked="True" />
         <CheckBox x:Name="ToolTipServiceShowOnDisabled"
-                      Content="ToolTipServiceShowOnDisabled"
-                      IsChecked="True" />
+                  Content="ToolTipServiceShowOnDisabled"
+                  IsChecked="True" />
         <CheckBox x:Name="TouchToolTipServiceIsEnabled"
-                      Content="TouchToolTipServiceIsEnabled"
-                      IsChecked="True" />
+                  Content="TouchToolTipServiceIsEnabled"
+                  IsChecked="True" />
 
         <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceIsEnabled,
-                                                                     Path=IsChecked}"
-                    Content="Button 1"
-                    IsEnabled="{Binding ElementName=IsElementEnabled,
-                                        Path=IsChecked}"
-                    ToolTip="Tool tip text."
-                    ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
-                                                       Path=IsChecked}"
-                    ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
-                                                            Path=IsChecked}"
-                    Visibility="{Binding ElementName=IsElementVisible,
-                                         Path=IsChecked,
-                                         Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}" />
+                                                                 Path=IsChecked}"
+                Content="Button 1"
+                IsEnabled="{Binding ElementName=IsElementEnabled,
+                                    Path=IsChecked}"
+                ToolTip="Tool tip text."
+                ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
+                                                   Path=IsChecked}"
+                ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
+                                                        Path=IsChecked}"
+                Visibility="{Binding ElementName=IsElementVisible,
+                                     Path=IsChecked,
+                                     Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}" />
 
         <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceIsEnabled,
-                                                                     Path=IsChecked}"
-                    Content="Button 2"
-                    IsEnabled="{Binding ElementName=IsElementEnabled,
-                                        Path=IsChecked}"
-                    ToolTip="Tool tip text."
-                    ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
-                                                       Path=IsChecked}"
-                    ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
-                                                            Path=IsChecked}"
-                    Visibility="{Binding ElementName=IsElementVisible,
-                                         Path=IsChecked,
-                                         Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}" />
+                                                                 Path=IsChecked}"
+                Content="Button 2"
+                IsEnabled="{Binding ElementName=IsElementEnabled,
+                                    Path=IsChecked}"
+                ToolTip="Tool tip text."
+                ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
+                                                   Path=IsChecked}"
+                ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
+                                                        Path=IsChecked}"
+                Visibility="{Binding ElementName=IsElementVisible,
+                                     Path=IsChecked,
+                                     Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}" />
 
         <TextBlock toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceIsEnabled,
-                                                                        Path=IsChecked}"
-                       IsEnabled="{Binding ElementName=ElementIsEnabled,
-                                           Path=IsChecked}"
-                       Text="TextBlock 1"
-                       ToolTip="TextBlock tool tip."
-                       ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
-                                                          Path=IsChecked}"
-                       ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
-                                                               Path=IsChecked}"
-                       Visibility="{Binding ElementName=IsElementVisible,
-                                            Path=IsChecked,
-                                            Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}" />
-
-        <Label toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceIsEnabled,
                                                                     Path=IsChecked}"
-                   Content="Label 1"
                    IsEnabled="{Binding ElementName=ElementIsEnabled,
                                        Path=IsChecked}"
-                   ToolTip="Label tool tip."
+                   Text="TextBlock 1"
+                   ToolTip="TextBlock tool tip."
                    ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
                                                       Path=IsChecked}"
                    ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
@@ -80,6 +66,20 @@
                    Visibility="{Binding ElementName=IsElementVisible,
                                         Path=IsChecked,
                                         Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}" />
+
+        <Label toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceIsEnabled,
+                                                                Path=IsChecked}"
+               Content="Label 1"
+               IsEnabled="{Binding ElementName=ElementIsEnabled,
+                                   Path=IsChecked}"
+               ToolTip="Label tool tip."
+               ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
+                                                  Path=IsChecked}"
+               ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
+                                                       Path=IsChecked}"
+               Visibility="{Binding ElementName=IsElementVisible,
+                                    Path=IsChecked,
+                                    Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}" />
 
         <Button Content="Lose focus" />
     </StackPanel>
