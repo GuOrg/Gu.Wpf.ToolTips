@@ -88,9 +88,9 @@
         {
             private static InputDevice? currentInputDevice = null;
 
-#pragma warning disable CA1810 // Initialize reference type static fields inline
+        #pragma warning disable CA1810 // Initialize reference type static fields inline
             static TouchOnlyControl()
-#pragma warning restore CA1810 // Initialize reference type static fields inline
+        #pragma warning restore CA1810 // Initialize reference type static fields inline
             {
                 IsTabStopProperty.OverrideMetadata(typeof(TouchOnlyControl), new FrameworkPropertyMetadata(false));
                 FocusableProperty.OverrideMetadata(typeof(TouchOnlyControl), new FrameworkPropertyMetadata(false));

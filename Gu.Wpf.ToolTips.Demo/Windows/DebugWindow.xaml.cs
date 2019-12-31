@@ -12,10 +12,12 @@
 
         private void Button_ToolTipOpening(object sender, ToolTipEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button_ToolTipOpening));
         }
 
         private void Button_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button_ToolTipClosing));
         }
     }
 }
