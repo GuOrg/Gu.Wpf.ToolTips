@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Documents;
@@ -86,38 +87,61 @@
 
         private class TouchOnlyControl : Control
         {
-            private static InputDevice? currentInputDevice = null;
+            private static InputType currentInput = InputType.None;
 
-        #pragma warning disable CA1810 // Initialize reference type static fields inline
+#pragma warning disable CA1810 // Initialize reference type static fields inline
             static TouchOnlyControl()
-        #pragma warning restore CA1810 // Initialize reference type static fields inline
+#pragma warning restore CA1810 // Initialize reference type static fields inline
             {
                 IsTabStopProperty.OverrideMetadata(typeof(TouchOnlyControl), new FrameworkPropertyMetadata(false));
                 FocusableProperty.OverrideMetadata(typeof(TouchOnlyControl), new FrameworkPropertyMetadata(false));
 
                 InputManager.Current.PreNotifyInput += (sender, args) =>
                 {
-                    currentInputDevice = args.StagingItem.Input.Device;
+                    if (args.StagingItem.Input is { RoutedEvent: { Name: "TouchEnter" }, Source: TouchOnlyControl _ })
+                    {
+                        currentInput = InputType.Touch;
+                    }
+                    else if (currentInput == InputType.None)
+                    {
+                        currentInput = InputType.Other;
+                    }
+
+                    //Dump("PreNotifyInput", args);
                 };
 
                 InputManager.Current.PostNotifyInput += (sender, args) =>
                 {
-                    currentInputDevice = null;
+                    if (args.StagingItem.Input is { RoutedEvent: { Name: "TouchLeave" }, Source: TouchOnlyControl _ })
+                    {
+                        currentInput = InputType.None;
+                    }
+                    else if (currentInput != InputType.Touch)
+                    {
+                        currentInput = InputType.None;
+                    }
+
+                    //Dump("PostNotifyInput", args);
                 };
+
+                //static void Dump(string name, NotifyInputEventArgs args)
+                //{
+                //    if (args.StagingItem.Input is { } inputEventArgs)
+                //    {
+                //        Debug.WriteLine($"{name,-15} currentInput: {currentInput,-5} RoutedEvent: {inputEventArgs.RoutedEvent.Name}");
+                //        // Debug.WriteLine($"{name} RoutedEvent: {inputEventArgs.RoutedEvent.Name} Device: {inputEventArgs.Device?.GetType().Name ?? "null"} Source: {inputEventArgs.Source} currentInput: {currentInput}");
+                //    }
+                //}
             }
 
-            protected override int VisualChildrenCount
+            private enum InputType
             {
-                get
-                {
-                    return currentInputDevice switch
-                    {
-                        MouseDevice _ => 0,
-                        KeyboardDevice _ => 0,
-                        _ => base.VisualChildrenCount,
-                    };
-                }
+                None,
+                Touch,
+                Other,
             }
+
+            protected override int VisualChildrenCount => currentInput == InputType.Other ? 0 : base.VisualChildrenCount;
         }
     }
 }
