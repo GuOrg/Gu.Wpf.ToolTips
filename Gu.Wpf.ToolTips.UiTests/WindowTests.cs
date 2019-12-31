@@ -119,18 +119,37 @@ namespace Gu.Wpf.ToolTips.UiTests
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
-        [Ignore("Bug in FindToolTip()")]
-        [Test]
-        public void TouchTap()
+        [TestCase("Button 1")]
+        [TestCase("Button 2")]
+        [TestCase("TextBlock 1")]
+        [TestCase("Label 1")]
+        public void TouchTapTwice(string name)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
             var window = app.MainWindow;
-            var button = window.FindButton("Button with touch tool tip");
-            Touch.Tap(button.Bounds.Center());
-            var toolTip = button.FindToolTip();
+            var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
+            Touch.Tap(element.Bounds.Center());
+            var toolTip = element.FindToolTip();
             Assert.AreEqual(false, toolTip.IsOffscreen);
 
-            Touch.Tap(button.Bounds.Center());
+            Touch.Tap(element.Bounds.Center());
+            Assert.AreEqual(true, toolTip.IsOffscreen);
+        }
+
+        [TestCase("Button 1")]
+        [TestCase("Button 2")]
+        [TestCase("TextBlock 1")]
+        [TestCase("Label 1")]
+        public void TouchTapThenOutside(string name)
+        {
+            using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
+            var window = app.MainWindow;
+            var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
+            Touch.Tap(element.Bounds.Center());
+            var toolTip = element.FindToolTip();
+            Assert.AreEqual(false, toolTip.IsOffscreen);
+
+            Touch.Tap(window.FindButton("Lose focus").Bounds.Center());
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
     }
