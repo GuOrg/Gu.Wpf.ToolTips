@@ -5,6 +5,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Documents;
+    using System.Windows.Input;
     using System.Windows.Media;
 
     /// <summary>
@@ -26,12 +27,11 @@
                     }
                 }));
 
-        private readonly Control child;
+        private readonly TouchOnlyControl child;
 
         static OverlayAdorner()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(OverlayAdorner), new FrameworkPropertyMetadata(typeof(OverlayAdorner)));
-            IsHitTestVisibleProperty.OverrideMetadata(typeof(OverlayAdorner), new UIPropertyMetadata(false));
         }
 
         /// <summary>
@@ -42,10 +42,8 @@
         public OverlayAdorner(UIElement adornedElement)
             : base(adornedElement)
         {
-            var control = new Control
+            var control = new TouchOnlyControl
             {
-                IsTabStop = false,
-                Focusable = false,
                 Template = this.Template,
             };
             this.child = control;
@@ -84,6 +82,42 @@
         {
             this.child.Arrange(new Rect(finalSize));
             return base.ArrangeOverride(finalSize);
+        }
+
+        private class TouchOnlyControl : Control
+        {
+            private static InputDevice? currentInputDevice = null;
+
+#pragma warning disable CA1810 // Initialize reference type static fields inline
+            static TouchOnlyControl()
+#pragma warning restore CA1810 // Initialize reference type static fields inline
+            {
+                IsTabStopProperty.OverrideMetadata(typeof(TouchOnlyControl), new FrameworkPropertyMetadata(false));
+                FocusableProperty.OverrideMetadata(typeof(TouchOnlyControl), new FrameworkPropertyMetadata(false));
+
+                InputManager.Current.PreNotifyInput += (sender, args) =>
+                {
+                    currentInputDevice = args.StagingItem.Input.Device;
+                };
+
+                InputManager.Current.PostNotifyInput += (sender, args) =>
+                {
+                    currentInputDevice = null;
+                };
+            }
+
+            protected override int VisualChildrenCount
+            {
+                get
+                {
+                    return currentInputDevice switch
+                    {
+                        MouseDevice _ => 0,
+                        KeyboardDevice _ => 0,
+                        _ => base.VisualChildrenCount,
+                    };
+                }
+            }
         }
     }
 }
