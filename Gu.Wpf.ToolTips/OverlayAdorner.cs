@@ -5,6 +5,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Documents;
+    using System.Windows.Input;
     using System.Windows.Media;
 
     /// <summary>
@@ -22,16 +23,17 @@
                 {
                     if (o is OverlayAdorner { child: { } child })
                     {
-                        child.Template = (ControlTemplate)e.NewValue;
+#pragma warning disable WPF0041 // Set mutable dependency properties using SetCurrentValue.
+                        ((Control)child.Child).Template = (ControlTemplate)e.NewValue;
+#pragma warning restore WPF0041 // Set mutable dependency properties using SetCurrentValue.
                     }
                 }));
 
-        private readonly Control child;
+        private readonly TouchOnlyDecorator child;
 
         static OverlayAdorner()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(OverlayAdorner), new FrameworkPropertyMetadata(typeof(OverlayAdorner)));
-            IsHitTestVisibleProperty.OverrideMetadata(typeof(OverlayAdorner), new UIPropertyMetadata(false));
         }
 
         /// <summary>
@@ -42,11 +44,13 @@
         public OverlayAdorner(UIElement adornedElement)
             : base(adornedElement)
         {
-            var control = new Control
+            var control = new TouchOnlyDecorator()
             {
-                IsTabStop = false,
-                Focusable = false,
-                Template = this.Template,
+                Child = new Control
+                {
+                    Template = this.Template,
+                    IsTabStop = false,
+                },
             };
             this.child = control;
             this.AddVisualChild(control);
@@ -84,6 +88,33 @@
         {
             this.child.Arrange(new Rect(finalSize));
             return base.ArrangeOverride(finalSize);
+        }
+
+        private class TouchOnlyDecorator : Decorator
+        {
+            private static InputDevice? currentInputDevice;
+
+            static TouchOnlyDecorator()
+            {
+                InputManager.Current.PreNotifyInput += (sender, args) =>
+                {
+                    currentInputDevice = args.StagingItem.Input.Device;
+                };
+            }
+
+            /// <inheritdoc />
+            protected override HitTestResult? HitTestCore(PointHitTestParameters hitTestParameters)
+            {
+                return currentInputDevice is TouchDevice ? base.HitTestCore(hitTestParameters) : null;
+            }
+
+            /// <inheritdoc />
+            protected override void OnRender(DrawingContext dc)
+            {
+#pragma warning disable CA1062 // Validate arguments of public methods
+                dc.DrawRectangle(Brushes.Transparent, null, new Rect(this.RenderSize));
+#pragma warning restore CA1062 // Validate arguments of public methods
+            }
         }
     }
 }
