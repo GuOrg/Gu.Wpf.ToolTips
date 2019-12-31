@@ -28,13 +28,8 @@
                 throw new ArgumentNullException(nameof(o));
             }
 
-            _ = o.Dispatcher?.BeginInvoke(
-                DispatcherPriority.Input,
-                new Action(() =>
-                {
-                    QuickShow.SetValue(Service, true);
-                    _ = InspectElementForToolTip.Invoke(Service, new object[] { o, 0 });
-                }));
+            QuickShow.SetValue(Service, true);
+            _ = InspectElementForToolTip.Invoke(Service, new object[] { o, 0 });
         }
     }
 }
