@@ -1,17 +1,15 @@
-namespace Gu.Wpf.ToolTips
+﻿namespace Gu.Wpf.ToolTips
 {
     using System.Collections;
 
     internal class SingleChildEnumerator : IEnumerator
     {
-        private readonly int count;
         private readonly object child;
         private int index = -1;
 
         internal SingleChildEnumerator(object child)
         {
             this.child = child;
-            this.count = child == null ? 0 : 1;
         }
 
         object? IEnumerator.Current => this.index == 0 ? this.child : null;
@@ -19,12 +17,9 @@ namespace Gu.Wpf.ToolTips
         bool IEnumerator.MoveNext()
         {
             this.index++;
-            return this.index < this.count;
+            return this.index < (this.child == null ? 0 : 1);
         }
 
-        void IEnumerator.Reset()
-        {
-            this.index = -1;
-        }
+        void IEnumerator.Reset() => this.index = -1;
     }
 }
