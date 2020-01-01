@@ -96,9 +96,9 @@
                 IsTabStopProperty.OverrideMetadata(typeof(TouchOnlyControl), new FrameworkPropertyMetadata(false));
                 FocusableProperty.OverrideMetadata(typeof(TouchOnlyControl), new FrameworkPropertyMetadata(false));
 
-                InputManager.Current.PreNotifyInput += (sender, args) =>
+                InputManager.Current.PreProcessInput += (sender, args) =>
                 {
-                    if (args.StagingItem.Input is { RoutedEvent: { Name: "TouchEnter" }, Source: TouchOnlyControl _ })
+                    if (args.StagingItem.Input is { RoutedEvent: { Name: "PreviewStylusInRange" } })
                     {
                         currentInput = InputType.Touch;
                     }
@@ -107,31 +107,27 @@
                         currentInput = InputType.Other;
                     }
 
-                    //Dump("PreNotifyInput", args);
+                    Dump("PreProcessInput", args);
                 };
-
-                InputManager.Current.PostNotifyInput += (sender, args) =>
+                InputManager.Current.PostProcessInput += (sender, args) =>
                 {
-                    if (args.StagingItem.Input is { RoutedEvent: { Name: "TouchLeave" }, Source: TouchOnlyControl _ })
-                    {
-                        currentInput = InputType.None;
-                    }
-                    else if (currentInput != InputType.Touch)
+                    if (args.StagingItem.Input is { RoutedEvent: { Name: "StylusOutOfRange" } } ||
+                        currentInput != InputType.Touch)
                     {
                         currentInput = InputType.None;
                     }
 
-                    //Dump("PostNotifyInput", args);
+                    //Dump("PostProcessInput", args);
                 };
 
-                //static void Dump(string name, NotifyInputEventArgs args)
-                //{
-                //    if (args.StagingItem.Input is { } inputEventArgs)
-                //    {
-                //        Debug.WriteLine($"{name,-15} currentInput: {currentInput,-5} RoutedEvent: {inputEventArgs.RoutedEvent.Name}");
-                //        // Debug.WriteLine($"{name} RoutedEvent: {inputEventArgs.RoutedEvent.Name} Device: {inputEventArgs.Device?.GetType().Name ?? "null"} Source: {inputEventArgs.Source} currentInput: {currentInput}");
-                //    }
-                //}
+                static void Dump(string name, NotifyInputEventArgs args)
+                {
+                    if (args.StagingItem.Input is { } inputEventArgs)
+                    {
+                        Debug.WriteLine($"{name,-16} {inputEventArgs.GetType().Name,-21} {inputEventArgs.Device?.GetType().Name ?? "null",-21} {inputEventArgs.RoutedEvent.Name}");
+                        // Debug.WriteLine($"{name} RoutedEvent: {inputEventArgs.RoutedEvent.Name} Device: {inputEventArgs.Device?.GetType().Name ?? "null"} Source: {inputEventArgs.Source} currentInput: {currentInput}");
+                    }
+                }
             }
 
             private enum InputType
