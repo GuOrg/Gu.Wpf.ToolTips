@@ -22,13 +22,13 @@
                 FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.NotDataBindable,
                 (o, e) =>
                 {
-                    if (o is OverlayAdorner { child: { } child })
+                    if (o is OverlayAdorner { child: Control control })
                     {
-                        child.Template = (ControlTemplate)e.NewValue;
+                        control.Template = (ControlTemplate)e.NewValue;
                     }
                 }));
 
-        private readonly TouchOnlyControl child;
+        private readonly Control child;
 
         static OverlayAdorner()
         {
@@ -43,13 +43,15 @@
         public OverlayAdorner(UIElement adornedElement)
             : base(adornedElement)
         {
-            var control = new TouchOnlyControl
+            var child = new Control
             {
                 Template = this.Template,
+                IsTabStop = false,
+                Focusable = false,
             };
-            this.child = control;
-            this.AddVisualChild(control);
-            this.AddLogicalChild(control);
+            this.child = child;
+            this.AddVisualChild(child);
+            this.AddLogicalChild(child);
         }
 
         /// <summary>
@@ -83,61 +85,6 @@
         {
             this.child.Arrange(new Rect(finalSize));
             return base.ArrangeOverride(finalSize);
-        }
-
-        private class TouchOnlyControl : Control
-        {
-            private static InputType currentInput = InputType.None;
-
-#pragma warning disable CA1810 // Initialize reference type static fields inline
-            static TouchOnlyControl()
-#pragma warning restore CA1810 // Initialize reference type static fields inline
-            {
-                IsTabStopProperty.OverrideMetadata(typeof(TouchOnlyControl), new FrameworkPropertyMetadata(false));
-                FocusableProperty.OverrideMetadata(typeof(TouchOnlyControl), new FrameworkPropertyMetadata(false));
-
-                InputManager.Current.PreProcessInput += (sender, args) =>
-                {
-                    if (args.StagingItem.Input is { RoutedEvent: { Name: "PreviewStylusInRange" } })
-                    {
-                        currentInput = InputType.Touch;
-                    }
-                    else if (currentInput == InputType.None)
-                    {
-                        currentInput = InputType.Other;
-                    }
-
-                    Dump("PreProcessInput", args);
-                };
-                InputManager.Current.PostProcessInput += (sender, args) =>
-                {
-                    if (args.StagingItem.Input is { RoutedEvent: { Name: "StylusOutOfRange" } } ||
-                        currentInput != InputType.Touch)
-                    {
-                        currentInput = InputType.None;
-                    }
-
-                    //Dump("PostProcessInput", args);
-                };
-
-                static void Dump(string name, NotifyInputEventArgs args)
-                {
-                    if (args.StagingItem.Input is { } inputEventArgs)
-                    {
-                        Debug.WriteLine($"{name,-16} {inputEventArgs.GetType().Name,-21} {inputEventArgs.Device?.GetType().Name ?? "null",-21} {inputEventArgs.RoutedEvent.Name}");
-                        // Debug.WriteLine($"{name} RoutedEvent: {inputEventArgs.RoutedEvent.Name} Device: {inputEventArgs.Device?.GetType().Name ?? "null"} Source: {inputEventArgs.Source} currentInput: {currentInput}");
-                    }
-                }
-            }
-
-            private enum InputType
-            {
-                None,
-                Touch,
-                Other,
-            }
-
-            protected override int VisualChildrenCount => currentInput == InputType.Other ? 0 : base.VisualChildrenCount;
         }
     }
 }
