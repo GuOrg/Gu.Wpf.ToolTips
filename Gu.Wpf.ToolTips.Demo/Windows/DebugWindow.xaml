@@ -8,7 +8,7 @@
         Title="DebugWindow" Height="450" Width="800">
     <UniformGrid Rows="1">
         <Button Content="Button 1"
-                ToolTip="Button tool tip."
+                ToolTip="Button 1 tool tip."
                 IsEnabled="False"
                 ToolTipOpening="Button_ToolTipOpening"
                 ToolTipClosing="Button_ToolTipClosing">
@@ -25,6 +25,7 @@
             </Button.Style>
         </Button>
 
-        <Button Content="Button 2"></Button>
+        <Button Content="Button 2" 
+                ToolTip="Button 1 tool tip." />
     </UniformGrid>
 </Window>

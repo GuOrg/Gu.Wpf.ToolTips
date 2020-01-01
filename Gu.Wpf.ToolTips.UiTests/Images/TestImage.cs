@@ -1,4 +1,4 @@
-namespace Gu.Wpf.ToolTips.UiTests
+﻿namespace Gu.Wpf.ToolTips.UiTests
 {
     using System.Drawing;
     using System.IO;
@@ -9,6 +9,7 @@ namespace Gu.Wpf.ToolTips.UiTests
     {
         internal static readonly string Current = GetCurrent();
 
+        [Explicit]
         [Script]
         public static void Rename()
         {
