@@ -1,4 +1,4 @@
-namespace Gu.Wpf.ToolTips.UiTests
+﻿namespace Gu.Wpf.ToolTips.UiTests
 {
     using System;
     using Gu.Wpf.UiAutomation;
@@ -119,6 +119,7 @@ namespace Gu.Wpf.ToolTips.UiTests
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
+        [Ignore("TBD")]
         [TestCase("Button 1")]
         [TestCase("Button 2")]
         [TestCase("TextBlock 1")]
@@ -136,6 +137,7 @@ namespace Gu.Wpf.ToolTips.UiTests
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
+        [Ignore("TBD")]
         [TestCase("Button 1")]
         [TestCase("Button 2")]
         [TestCase("TextBlock 1")]
