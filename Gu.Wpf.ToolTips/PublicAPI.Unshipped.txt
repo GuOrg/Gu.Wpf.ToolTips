@@ -3,7 +3,10 @@ Gu.Wpf.ToolTips.OverlayAdorner.OverlayAdorner(System.Windows.UIElement adornedEl
 Gu.Wpf.ToolTips.OverlayAdorner.Template.get -> System.Windows.Controls.ControlTemplate
 Gu.Wpf.ToolTips.OverlayAdorner.Template.set -> void
 Gu.Wpf.ToolTips.PopupControlService
+Gu.Wpf.ToolTips.TouchOnlyDecorator
+Gu.Wpf.ToolTips.TouchOnlyDecorator.TouchOnlyDecorator() -> void
 Gu.Wpf.ToolTips.TouchToolTipService
+override Gu.Wpf.ToolTips.TouchOnlyDecorator.VisualChildrenCount.get -> int
 static Gu.Wpf.ToolTips.PopupControlService.ShowToolTip(System.Windows.DependencyObject o) -> void
 static Gu.Wpf.ToolTips.TouchToolTipService.GetIsEnabled(System.Windows.DependencyObject element) -> bool
 static Gu.Wpf.ToolTips.TouchToolTipService.GetIsOverlayVisible(this System.Windows.FrameworkElement element) -> bool
