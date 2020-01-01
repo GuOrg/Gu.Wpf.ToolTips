@@ -4,7 +4,6 @@
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Threading;
 
     /// <summary>
     /// Exposes the internal PopupControlService via reflection.
@@ -15,6 +14,7 @@
 #pragma warning disable REFL009, GU0006 // The referenced member is not known to exist.
         private static readonly MethodInfo InspectElementForToolTip = Service.GetType().GetMethod("InspectElementForToolTip", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException("Did not find method InspectElementForToolTip");
         private static readonly FieldInfo QuickShow = Service.GetType().GetField("_quickShow", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException("Did not find field _quickShow");
+        private static readonly PropertyInfo LastMouseDirectlyOver = Service.GetType().GetProperty("LastMouseDirectlyOver", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException("Did not find field _quickShow");
 #pragma warning restore REFL009, GU0006  // The referenced member is not known to exist.
 
         /// <summary>
@@ -31,5 +31,7 @@
             QuickShow.SetValue(Service, true);
             _ = InspectElementForToolTip.Invoke(Service, new object[] { o, 0 });
         }
+
+        internal static void SetLastMouseDirectlyOver(IInputElement element) => LastMouseDirectlyOver.SetValue(Service, element);
     }
 }

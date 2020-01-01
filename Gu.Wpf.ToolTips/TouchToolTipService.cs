@@ -62,6 +62,7 @@
                         !ToolTipService.GetIsOpen(element))
                     {
                         PopupControlService.ShowToolTip(element);
+                        PopupControlService.SetLastMouseDirectlyOver((IInputElement)e.OriginalSource);
                         e.Handled = true;
                     }
                 }));
