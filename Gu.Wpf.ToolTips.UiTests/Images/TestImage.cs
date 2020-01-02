@@ -28,7 +28,9 @@
             }
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter
         internal static void OnFail(Bitmap? expected, Bitmap actual, string resource)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             var fullFileName = Path.Combine(Path.GetTempPath(), resource);
             //// ReSharper disable once AssignNullToNotNullAttribute

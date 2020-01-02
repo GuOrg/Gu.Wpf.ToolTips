@@ -44,14 +44,19 @@
                 Content="Button 2"
                 IsEnabled="{Binding ElementName=IsElementEnabled,
                                     Path=IsChecked}"
-                ToolTip="Tool tip text."
                 ToolTipService.IsEnabled="{Binding ElementName=ToolTipServiceIsEnabled,
                                                    Path=IsChecked}"
                 ToolTipService.ShowOnDisabled="{Binding ElementName=ToolTipServiceShowOnDisabled,
                                                         Path=IsChecked}"
                 Visibility="{Binding ElementName=IsElementVisible,
                                      Path=IsChecked,
-                                     Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}" />
+                                     Converter={x:Static wpf:BoolToVisibilityConverter.VisibleWhenTrueElseCollapsed}}">
+            <Button.ToolTip>
+                <ToolTip>
+                    <TextBlock Text="Tool tip text." />
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
 
         <TextBlock toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceIsEnabled,
                                                                     Path=IsChecked}"
