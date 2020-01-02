@@ -16,6 +16,14 @@
             this.windowName = windowName;
         }
 
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            // Touch must be initialized before the app to test touch on is started.
+            // Not sure why but my guess is the call to InitializeTouchInjection adds a touch device making WPF start listening for touch input.
+            Touch.Initialize();
+        }
+
         [SetUp]
         public void SetUp()
         {
