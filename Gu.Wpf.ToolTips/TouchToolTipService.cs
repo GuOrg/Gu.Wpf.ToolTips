@@ -133,8 +133,6 @@
 
                     closeTimer.Tick += (_, __) => ResetCloseTimer();
                     closeTimer.Start();
-
-
                 }));
 
             static void ResetCloseTimer()
