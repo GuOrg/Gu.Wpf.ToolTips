@@ -10,8 +10,8 @@
         <Button Content="Button 1"
                 ToolTip="Button 1 tool tip."
                 IsEnabled="False"
-                ToolTipOpening="Button_ToolTipOpening"
-                ToolTipClosing="Button_ToolTipClosing">
+                ToolTipOpening="Button1_ToolTipOpening"
+                ToolTipClosing="Button1_ToolTipClosing">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="toolTips:TouchToolTipService.IsEnabled" Value="False" />
@@ -25,7 +25,36 @@
             </Button.Style>
         </Button>
 
-        <Button Content="Button 2" 
-                ToolTip="Button 1 tool tip." />
+        <Button Content="Button 2"
+                ToolTipOpening="Button2_ToolTipOpening"
+                ToolTipClosing="Button2_ToolTipClosing"
+                IsEnabled="False">
+            <Button.ToolTip>
+                <ToolTip>
+                    <TextBlock Text="Button 2 tool tip." />
+                </ToolTip>
+            </Button.ToolTip>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="toolTips:TouchToolTipService.IsEnabled" Value="False" />
+                    <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+                    <Style.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="toolTips:TouchToolTipService.IsEnabled" Value="True" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        
+        <Button Content="Button 3"
+                ToolTipOpening="Button3_ToolTipOpening"
+                ToolTipClosing="Button3_ToolTipClosing"
+                ToolTip="Button 3 tool tip." />
+
+        <Button Content="Button 4"
+                ToolTipOpening="Button4_ToolTipOpening"
+                ToolTipClosing="Button4_ToolTipClosing"
+                ToolTip="Button 4 tool tip." />
     </UniformGrid>
 </Window>

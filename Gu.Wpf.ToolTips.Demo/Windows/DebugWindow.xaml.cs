@@ -10,14 +10,44 @@
             this.InitializeComponent();
         }
 
-        private void Button_ToolTipOpening(object sender, ToolTipEventArgs e)
+        private void Button1_ToolTipOpening(object sender, ToolTipEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(nameof(this.Button_ToolTipOpening));
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button1_ToolTipOpening));
         }
 
-        private void Button_ToolTipClosing(object sender, ToolTipEventArgs e)
+        private void Button1_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(nameof(this.Button_ToolTipClosing));
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button1_ToolTipClosing));
+        }
+
+        private void Button2_ToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button2_ToolTipOpening));
+        }
+
+        private void Button2_ToolTipClosing(object sender, ToolTipEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button2_ToolTipClosing));
+        }
+
+        private void Button3_ToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button2_ToolTipOpening));
+        }
+
+        private void Button3_ToolTipClosing(object sender, ToolTipEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button2_ToolTipClosing));
+        }
+
+        private void Button4_ToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button2_ToolTipOpening));
+        }
+
+        private void Button4_ToolTipClosing(object sender, ToolTipEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button2_ToolTipClosing));
         }
     }
 }
