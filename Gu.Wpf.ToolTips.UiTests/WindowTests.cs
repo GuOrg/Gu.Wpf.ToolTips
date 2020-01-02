@@ -119,7 +119,6 @@
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
-        [Ignore("TBD")]
         [TestCase("Button 1")]
         [TestCase("Button 2")]
         [TestCase("TextBlock 1")]
@@ -137,7 +136,6 @@
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
-        [Ignore("TBD")]
         [TestCase("Button 1")]
         [TestCase("Button 2")]
         [TestCase("TextBlock 1")]
