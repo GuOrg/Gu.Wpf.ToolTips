@@ -6,7 +6,10 @@ Gu.Wpf.ToolTips.PopupControlService
 Gu.Wpf.ToolTips.TouchOnlyDecorator
 Gu.Wpf.ToolTips.TouchOnlyDecorator.TouchOnlyDecorator() -> void
 Gu.Wpf.ToolTips.TouchToolTipService
+XamlGeneratedNamespace.GeneratedInternalTypeHelper
+XamlGeneratedNamespace.GeneratedInternalTypeHelper.GeneratedInternalTypeHelper() -> void
 override Gu.Wpf.ToolTips.TouchOnlyDecorator.VisualChildrenCount.get -> int
+static Gu.Wpf.ToolTips.PopupControlService.HideToolTip(System.Windows.DependencyObject element) -> void
 static Gu.Wpf.ToolTips.PopupControlService.ShowToolTip(System.Windows.DependencyObject o) -> void
 static Gu.Wpf.ToolTips.TouchToolTipService.GetIsEnabled(System.Windows.DependencyObject element) -> bool
 static Gu.Wpf.ToolTips.TouchToolTipService.GetIsOverlayVisible(this System.Windows.FrameworkElement element) -> bool

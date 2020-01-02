@@ -22,7 +22,7 @@
         private static readonly PropertyInfo ToolTipTimerProperty = Service.GetType().GetProperty("ToolTipTimer", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException("Did not find field _quickShow");
 #pragma warning restore REFL009, GU0006, INPC013  // The referenced member is not known to exist.
 
-        internal static DispatcherTimer ToolTipTimer => (DispatcherTimer)ToolTipTimerProperty.GetValue(Service);
+        internal static DispatcherTimer? ToolTipTimer => (DispatcherTimer?)ToolTipTimerProperty.GetValue(Service);
 
         private static DependencyObject? LastObjectWithToolTip
         {
@@ -65,9 +65,9 @@
         }
 
         /// <summary>
-        /// Shows the <see cref="ToolTip"/> for <paramref name="o"/> like if it was hovered with mouse.
+        /// Hides the <see cref="ToolTip"/> for <paramref name="element"/>.
         /// </summary>
-        /// <param name="o">The <see cref="DependencyObject"/>.</param>
+        /// <param name="element">The <see cref="DependencyObject"/>.</param>
         public static void HideToolTip(DependencyObject element) => InspectElementForToolTip(element, 0);
 
         private static void InspectElementForToolTip(DependencyObject element, int triggerAction) => InspectElementForToolTipMethod.Invoke(Service, new object[] { element, triggerAction });
