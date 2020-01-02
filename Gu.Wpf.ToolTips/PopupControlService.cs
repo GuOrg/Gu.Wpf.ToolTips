@@ -13,13 +13,13 @@
     {
         private static readonly object Service = typeof(FrameworkElement).GetProperty("PopupControlService", BindingFlags.NonPublic | BindingFlags.Static)?.GetValue(null) ?? throw new InvalidOperationException("Did not find property PopupControlService");
 #pragma warning disable REFL009, GU0006, INPC013 // The referenced member is not known to exist.
-        private static readonly MethodInfo InspectElementForToolTipMethod = Service.GetType().GetMethod("InspectElementForToolTip", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException("Did not find method InspectElementForToolTip");
-        private static readonly MethodInfo RaiseToolTipClosingEventMethod = Service.GetType().GetMethod("RaiseToolTipClosingEvent", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException("Did not find method InspectElementForToolTip");
-        private static readonly MethodInfo RaiseToolTipOpeningEventMethod = Service.GetType().GetMethod("RaiseToolTipOpeningEvent", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException("Did not find method InspectElementForToolTip");
-        private static readonly PropertyInfo LastObjectWithToolTipProperty = Service.GetType().GetProperty("LastObjectWithToolTip", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException("Did not find field _quickShow");
-        private static readonly PropertyInfo LastMouseOverWithToolTipProperty = Service.GetType().GetProperty("LastMouseOverWithToolTip", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException("Did not find field _quickShow");
-        private static readonly PropertyInfo LastCheckedProperty = Service.GetType().GetProperty("LastChecked", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException("Did not find field _quickShow");
-        private static readonly PropertyInfo ToolTipTimerProperty = Service.GetType().GetProperty("ToolTipTimer", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException("Did not find field _quickShow");
+        private static readonly MethodInfo InspectElementForToolTipMethod = GetMethod("InspectElementForToolTip");
+        private static readonly MethodInfo RaiseToolTipClosingEventMethod = GetMethod("RaiseToolTipClosingEvent");
+        private static readonly MethodInfo RaiseToolTipOpeningEventMethod = GetMethod("RaiseToolTipOpeningEvent");
+        private static readonly PropertyInfo LastObjectWithToolTipProperty = GetProperty("LastObjectWithToolTip");
+        private static readonly PropertyInfo LastMouseOverWithToolTipProperty = GetProperty("LastMouseOverWithToolTip");
+        private static readonly PropertyInfo LastCheckedProperty = GetProperty("LastChecked");
+        private static readonly PropertyInfo ToolTipTimerProperty = GetProperty("ToolTipTimer");
 #pragma warning restore REFL009, GU0006, INPC013  // The referenced member is not known to exist.
 
         internal static DispatcherTimer? ToolTipTimer => (DispatcherTimer?)ToolTipTimerProperty.GetValue(Service);
@@ -75,5 +75,9 @@
         private static void RaiseToolTipClosingEvent(bool reset) => RaiseToolTipClosingEventMethod.Invoke(Service, new object[] { reset });
 
         private static void RaiseToolTipOpeningEvent(bool fromKeyboard) => RaiseToolTipOpeningEventMethod.Invoke(Service, new object[] { fromKeyboard });
+
+        private static MethodInfo GetMethod(string name) => Service.GetType().GetMethod(name, BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException($"Did not find method {name}");
+       
+        private static PropertyInfo GetProperty(string name) => Service.GetType().GetProperty(name, BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException($"Did not find method {name}");
     }
 }
