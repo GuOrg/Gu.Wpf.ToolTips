@@ -19,10 +19,7 @@
         private static readonly PropertyInfo LastObjectWithToolTipProperty = GetProperty("LastObjectWithToolTip");
         private static readonly PropertyInfo LastMouseOverWithToolTipProperty = GetProperty("LastMouseOverWithToolTip");
         private static readonly PropertyInfo LastCheckedProperty = GetProperty("LastChecked");
-        private static readonly PropertyInfo ToolTipTimerProperty = GetProperty("ToolTipTimer");
 #pragma warning restore REFL009, GU0006, INPC013  // The referenced member is not known to exist.
-
-        internal static DispatcherTimer? ToolTipTimer => (DispatcherTimer?)ToolTipTimerProperty.GetValue(Service);
 
         private static DependencyObject? LastObjectWithToolTip
         {

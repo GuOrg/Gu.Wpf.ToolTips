@@ -5,10 +5,12 @@
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Documents;
     using System.Windows.Input;
     using System.Windows.Media;
+    using System.Windows.Threading;
 
     /// <summary>
     /// Attached properties controlling touch tool tips.
@@ -54,6 +56,8 @@
             new PropertyMetadata(
                 default(OverlayAdorner)));
 
+        private static DispatcherTimer? closeTimer;
+
         static TouchToolTipService()
         {
             EventManager.RegisterClassHandler(
@@ -66,46 +70,77 @@
                     {
                         Debug.WriteLine("Tap");
                         if (!ToolTipService.GetIsOpen(element) &&
-                            PopupControlService.ToolTipTimer is null)
+                            !ReferenceEquals(element, closeTimer?.Tag))
                         {
                             _ = dispatcher.BeginInvoke(
                                 System.Windows.Threading.DispatcherPriority.Input,
-                                new Action(() => PopupControlService.ShowToolTip(element)));
+                                new Action(() =>
+                                {
+                                    ResetCloseTimer();
+                                    PopupControlService.ShowToolTip(element);
+                                }));
                         }
 
                         e.Handled = true;
                     }
+
+                    static OverlayAdorner? HitTest(StylusSystemGestureEventArgs e)
+                    {
+                        OverlayAdorner? result = null;
+                        if (e.Source is Visual source &&
+                            AdornerLayer.GetAdornerLayer(source) is AdornerLayer adornerLayer)
+                        {
+                            VisualTreeHelper.HitTest(
+                                adornerLayer,
+                                x => Filter(x),
+                                _ => /* Not used. */ HitTestResultBehavior.Stop,
+                                new PointHitTestParameters(e.GetPosition(adornerLayer)));
+
+                            HitTestFilterBehavior Filter(DependencyObject potentialHitTestTarget)
+                            {
+                                switch (potentialHitTestTarget)
+                                {
+                                    case OverlayAdorner overlayAdorner:
+                                        // Using the filter for side effect as the OverlayAdorner is HitTestVisible = false
+                                        result = overlayAdorner;
+                                        return HitTestFilterBehavior.Stop;
+                                    case Adorner _:
+                                        return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
+                                    default:
+                                        return HitTestFilterBehavior.Continue;
+                                }
+                            }
+                        }
+
+                        return result;
+                    }
                 }));
 
-            static OverlayAdorner? HitTest(StylusSystemGestureEventArgs e)
-            {
-                OverlayAdorner? result = null;
-                if (e.Source is Visual source &&
-                    AdornerLayer.GetAdornerLayer(source) is AdornerLayer adornerLayer)
+            EventManager.RegisterClassHandler(
+                typeof(FrameworkElement),
+                FrameworkElement.ToolTipClosingEvent,
+                new RoutedEventHandler((o, e) =>
                 {
-                    VisualTreeHelper.HitTest(
-                        adornerLayer,
-                        x => Filter(x),
-                        _ => /* Not used. */ HitTestResultBehavior.Stop,
-                        new PointHitTestParameters(e.GetPosition(adornerLayer)));
+                    // https://source.dot.net/#PresentationFramework/System/Windows/Controls/Primitives/Popup.cs,2892
+                    const int AnimationDelay = 150;
+                    ResetCloseTimer();
 
-                    HitTestFilterBehavior Filter(DependencyObject potentialHitTestTarget)
+                    closeTimer = new DispatcherTimer(DispatcherPriority.Normal)
                     {
-                        switch (potentialHitTestTarget)
-                        {
-                            case OverlayAdorner overlayAdorner:
-                                // Using the filter for side effect as the OverlayAdorner is HitTestVisible = false
-                                result = overlayAdorner;
-                                return HitTestFilterBehavior.Stop;
-                            case Adorner _:
-                                return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
-                            default:
-                                return HitTestFilterBehavior.Continue;
-                        }
-                    }
-                }
+                        Interval = new TimeSpan(0, 0, 0, 0, AnimationDelay),
+                        Tag = o,
+                    };
 
-                return result;
+                    closeTimer.Tick += (_, __) => ResetCloseTimer();
+                    closeTimer.Start();
+
+
+                }));
+
+            static void ResetCloseTimer()
+            {
+                closeTimer?.Stop();
+                closeTimer = null;
             }
         }
 
