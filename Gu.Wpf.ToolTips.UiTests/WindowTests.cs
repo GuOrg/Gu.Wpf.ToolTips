@@ -104,10 +104,12 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
             Mouse.Position = element.Bounds.Center();
+            Wait.For(TimeSpan.FromMilliseconds(100));
             var toolTip = element.FindToolTip();
             Assert.AreEqual(false, toolTip.IsOffscreen);
 
             window.FindButton("Lose focus").Click(moveMouse: true);
+            Wait.For(TimeSpan.FromMilliseconds(100));
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
@@ -181,6 +183,7 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
             Touch.Tap(element.Bounds.Center());
+            Wait.For(TimeSpan.FromMilliseconds(100));
             var toolTip = element.FindToolTip();
             Assert.AreEqual(false, toolTip.IsOffscreen);
 
@@ -202,6 +205,7 @@
             for (var i = 0; i < 4; i++)
             {
                 Touch.Tap(element.Bounds.Center());
+                Wait.For(TimeSpan.FromMilliseconds(100));
                 var toolTip = element.FindToolTip();
                 Assert.AreEqual(false, toolTip.IsOffscreen);
 
