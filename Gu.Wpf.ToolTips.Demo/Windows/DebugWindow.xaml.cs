@@ -32,22 +32,22 @@
 
         private void Button3_ToolTipOpening(object sender, ToolTipEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(nameof(this.Button2_ToolTipOpening));
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button3_ToolTipOpening));
         }
 
         private void Button3_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(nameof(this.Button2_ToolTipClosing));
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button3_ToolTipClosing));
         }
 
         private void Button4_ToolTipOpening(object sender, ToolTipEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(nameof(this.Button2_ToolTipOpening));
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button4_ToolTipOpening));
         }
 
         private void Button4_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(nameof(this.Button2_ToolTipClosing));
+            System.Diagnostics.Debug.WriteLine(nameof(this.Button4_ToolTipClosing));
         }
     }
 }

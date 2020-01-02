@@ -6,7 +6,9 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
+    using System.Windows.Documents;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     /// <summary>
     /// Attached properties controlling touch tool tips.
@@ -51,6 +53,54 @@
             typeof(TouchToolTipService),
             new PropertyMetadata(
                 default(OverlayAdorner)));
+
+        static TouchToolTipService()
+        {
+            EventManager.RegisterClassHandler(
+                typeof(UIElement),
+                UIElement.StylusSystemGestureEvent,
+                new RoutedEventHandler((o, e) =>
+                {
+                    if (e is StylusSystemGestureEventArgs { SystemGesture: SystemGesture.Tap } tap &&
+                        HitTest(tap) is OverlayAdorner { AdornedElement: { } element } &&
+                        !ToolTipService.GetIsOpen(element))
+                    {
+                        Debug.WriteLine("Tap");
+                        PopupControlService.ShowToolTip(element);
+                        e.Handled = true;
+                    }
+                }));
+
+            static OverlayAdorner? HitTest(StylusSystemGestureEventArgs e)
+            {
+                OverlayAdorner? result = null;
+                if (e.Source is Visual source &&
+                    AdornerLayer.GetAdornerLayer(source) is AdornerLayer adornerLayer)
+                {
+                    VisualTreeHelper.HitTest(
+                        adornerLayer,
+                        x => Filter(x),
+                        _ => HitTestResultBehavior.Stop,
+                        new PointHitTestParameters(e.GetPosition(adornerLayer)));
+
+                    HitTestFilterBehavior Filter(DependencyObject potentialHitTestTarget)
+                    {
+                        switch (potentialHitTestTarget)
+                        {
+                            case OverlayAdorner overlayAdorner:
+                                result = overlayAdorner;
+                                return HitTestFilterBehavior.Stop;
+                            case Adorner _:
+                                return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
+                            default:
+                                return HitTestFilterBehavior.Continue;
+                        }
+                    }
+                }
+
+                return result;
+            }
+        }
 
         /// <summary>Helper for getting <see cref="IsEnabledProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="DependencyObject"/> to read <see cref="IsEnabledProperty"/> from.</param>
