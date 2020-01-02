@@ -3,16 +3,9 @@
     <OutputType>WinExe</OutputType>
     <UseWpf>true</UseWpf>
     <LangVersion>latest</LangVersion>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <CodeAnalysisRuleSet>Gu.Wpf.ToolTips.Demo.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Gu.Wpf.ToolTips\Gu.Wpf.ToolTips.csproj" />

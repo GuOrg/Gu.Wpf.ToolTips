@@ -56,9 +56,9 @@
         /// <summary>
         /// Gets or sets the content is the data used to generate the child elements of this control.
         /// </summary>
-        public ControlTemplate Template
+        public ControlTemplate? Template
         {
-            get => (ControlTemplate)this.GetValue(TemplateProperty);
+            get => (ControlTemplate?)this.GetValue(TemplateProperty);
             set => this.SetValue(TemplateProperty, value);
         }
 

@@ -4,10 +4,9 @@
     <UseWpf>true</UseWpf>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFrameworks>net45;netcoreapp3.1</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <CodeAnalysisRuleSet>Gu.Wpf.ToolTips.ruleset</CodeAnalysisRuleSet>
-    <NoWarn>$(NoWarn);IDE0009</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -38,13 +37,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
-
-  <ItemGroup>
     <AdditionalFiles Include="PublicAPI.Shipped.txt" />
     <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
   </ItemGroup>
@@ -63,6 +55,6 @@
 
   <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
     <PackageDownload Include="Microsoft.NETCore.App.Ref" Version="[$(AnnotatedReferenceAssemblyVersion)]" />
-    <PackageReference Include="TunnelVisionLabs.ReferenceAssemblyAnnotator" Version="1.0.0-alpha.97" PrivateAssets="all" />
+    <PackageReference Include="TunnelVisionLabs.ReferenceAssemblyAnnotator" Version="1.0.0-alpha.138" PrivateAssets="all" />
   </ItemGroup>
 </Project>
