@@ -46,7 +46,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        
+
         <Button Content="Button 3"
                 ToolTipOpening="Button3_ToolTipOpening"
                 ToolTipClosing="Button3_ToolTipClosing"

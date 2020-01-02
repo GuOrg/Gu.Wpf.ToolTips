@@ -62,11 +62,17 @@
                 new RoutedEventHandler((o, e) =>
                 {
                     if (e is StylusSystemGestureEventArgs { SystemGesture: SystemGesture.Tap } tap &&
-                        HitTest(tap) is OverlayAdorner { AdornedElement: { } element } &&
-                        !ToolTipService.GetIsOpen(element))
+                        HitTest(tap) is OverlayAdorner { AdornedElement: { Dispatcher: { } dispatcher } element })
                     {
                         Debug.WriteLine("Tap");
-                        PopupControlService.ShowToolTip(element);
+                        if (!ToolTipService.GetIsOpen(element) &&
+                            PopupControlService.ToolTipTimer is null)
+                        {
+                            _ = dispatcher.BeginInvoke(
+                                System.Windows.Threading.DispatcherPriority.Input,
+                                new Action(() => PopupControlService.ShowToolTip(element)));
+                        }
+
                         e.Handled = true;
                     }
                 }));
@@ -80,7 +86,7 @@
                     VisualTreeHelper.HitTest(
                         adornerLayer,
                         x => Filter(x),
-                        _ => HitTestResultBehavior.Stop,
+                        _ => /* Not used. */ HitTestResultBehavior.Stop,
                         new PointHitTestParameters(e.GetPosition(adornerLayer)));
 
                     HitTestFilterBehavior Filter(DependencyObject potentialHitTestTarget)
@@ -88,6 +94,7 @@
                         switch (potentialHitTestTarget)
                         {
                             case OverlayAdorner overlayAdorner:
+                                // Using the filter for side effect as the OverlayAdorner is HitTestVisible = false
                                 result = overlayAdorner;
                                 return HitTestFilterBehavior.Stop;
                             case Adorner _:
