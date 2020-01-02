@@ -133,6 +133,7 @@
             Assert.AreEqual(false, toolTip.IsOffscreen);
 
             Touch.Tap(element.Bounds.Center());
+            Wait.For(TimeSpan.FromMilliseconds(100));
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
@@ -152,6 +153,7 @@
                 Assert.AreEqual(false, toolTip.IsOffscreen);
 
                 Touch.Tap(element.Bounds.Center());
+                Wait.For(TimeSpan.FromMilliseconds(100));
                 Assert.AreEqual(true, toolTip.IsOffscreen);
             }
         }
@@ -170,6 +172,7 @@
             Assert.AreEqual(false, toolTip.IsOffscreen);
 
             Touch.Tap(window.FindButton("Lose focus").Bounds.Center());
+            Wait.For(TimeSpan.FromMilliseconds(100));
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
@@ -183,13 +186,14 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
 
-            for (int i = 0; i < 4; i++)
+            for (var i = 0; i < 4; i++)
             {
                 Touch.Tap(element.Bounds.Center());
                 var toolTip = element.FindToolTip();
                 Assert.AreEqual(false, toolTip.IsOffscreen);
 
                 Touch.Tap(window.FindButton("Lose focus").Bounds.Center());
+                Wait.For(TimeSpan.FromMilliseconds(100));
                 Assert.AreEqual(true, toolTip.IsOffscreen);
             }
         }
