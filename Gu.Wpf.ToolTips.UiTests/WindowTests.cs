@@ -111,18 +111,21 @@
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
 
-        [Ignore("Not sure if we want toggle on click.")]
-        [Test]
-        public void MouseClick()
+        [TestCase("Button 1")]
+        [TestCase("Button 2")]
+        [TestCase("TextBlock 1")]
+        [TestCase("Label 1")]
+        public void TapThenMouseClick(string name)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
             var window = app.MainWindow;
-            var button = window.FindButton("Button with touch tool tip");
-            Mouse.Position = button.Bounds.Center();
-            var toolTip = button.FindToolTip();
+            var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
+            Touch.Tap(element.Bounds.Center());
+            Wait.For(TimeSpan.FromMilliseconds(100));
+            var toolTip = element.FindToolTip();
             Assert.AreEqual(false, toolTip.IsOffscreen);
 
-            Mouse.Click(MouseButton.Left, button.Bounds.Center());
+            Mouse.Click(MouseButton.Left, element.Bounds.Center());
             Wait.For(TimeSpan.FromMilliseconds(100));
             Assert.AreEqual(true, toolTip.IsOffscreen);
         }
@@ -137,6 +140,7 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
             Touch.Tap(element.Bounds.Center());
+            Wait.For(TimeSpan.FromMilliseconds(100));
             var toolTip = element.FindToolTip();
             Assert.AreEqual(false, toolTip.IsOffscreen);
 
@@ -157,6 +161,7 @@
             for (var i = 0; i < 4; i++)
             {
                 Touch.Tap(element.Bounds.Center());
+                Wait.For(TimeSpan.FromMilliseconds(100));
                 var toolTip = element.FindToolTip();
                 Assert.AreEqual(false, toolTip.IsOffscreen);
 
