@@ -6,6 +6,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
+    using System.Windows.Input;
 
     /// <summary>
     /// Attached properties controlling touch tool tips.
@@ -50,23 +51,6 @@
             typeof(TouchToolTipService),
             new PropertyMetadata(
                 default(OverlayAdorner)));
-
-        static TouchToolTipService()
-        {
-            EventManager.RegisterClassHandler(
-                typeof(OverlayAdorner),
-                UIElement.TouchDownEvent,
-                new RoutedEventHandler((o, e) =>
-                {
-                    if (o is OverlayAdorner { AdornedElement: { Dispatcher: { } dispatcher } element } &&
-                        !ToolTipService.GetIsOpen(element))
-                    {
-                        PopupControlService.ShowToolTip(element);
-                        PopupControlService.SetLastMouseDirectlyOver((IInputElement)e.OriginalSource);
-                        e.Handled = true;
-                    }
-                }));
-        }
 
         /// <summary>Helper for getting <see cref="IsEnabledProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="DependencyObject"/> to read <see cref="IsEnabledProperty"/> from.</param>

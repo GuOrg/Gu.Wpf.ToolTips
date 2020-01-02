@@ -2,11 +2,9 @@
 {
     using System;
     using System.Collections;
-    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Documents;
-    using System.Windows.Input;
     using System.Windows.Media;
 
     /// <summary>
@@ -19,7 +17,7 @@
             typeof(OverlayAdorner),
             new FrameworkPropertyMetadata(
                 null,
-                FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.NotDataBindable,
+                FrameworkPropertyMetadataOptions.AffectsMeasure,
                 (o, e) =>
                 {
                     if (o is OverlayAdorner { child: Control control })
@@ -33,6 +31,7 @@
         static OverlayAdorner()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(OverlayAdorner), new FrameworkPropertyMetadata(typeof(OverlayAdorner)));
+            IsHitTestVisibleProperty.OverrideMetadata(typeof(OverlayAdorner), new UIPropertyMetadata(false));
         }
 
         /// <summary>

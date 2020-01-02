@@ -5,9 +5,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <local:TouchOnlyDecorator>
-                        <Canvas Background="Transparent">
-                            <Rectangle x:Name="Icon"
+                    <Rectangle x:Name="TouchInfoIcon"
                                Height="{Binding RelativeSource={RelativeSource Self},
                                                 Path=ActualWidth}"
                                Width="12"
@@ -16,35 +14,33 @@
                                Margin="0,2,2,0"
                                HorizontalAlignment="Right"
                                VerticalAlignment="Top">
-                                <Rectangle.Fill>
-                                    <DrawingBrush>
-                                        <DrawingBrush.Drawing>
-                                            <DrawingGroup>
-                                                <DrawingGroup.Children>
-                                                    <GeometryDrawing Brush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
-                                                        <GeometryDrawing.Geometry>
-                                                            <EllipseGeometry Center="50,50"
+                        <Rectangle.Fill>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <DrawingGroup.Children>
+                                            <GeometryDrawing Brush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
+                                                <GeometryDrawing.Geometry>
+                                                    <EllipseGeometry Center="50,50"
                                                                      RadiusX="50"
                                                                      RadiusY="50" />
-                                                        </GeometryDrawing.Geometry>
-                                                    </GeometryDrawing>
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
 
-                                                    <GeometryDrawing Brush="White">
-                                                        <GeometryDrawing.Geometry>
-                                                            <GeometryGroup>
-                                                                <RectangleGeometry Rect="43,15,14,15" />
-                                                                <RectangleGeometry Rect="43,36,14,50" />
-                                                            </GeometryGroup>
-                                                        </GeometryDrawing.Geometry>
-                                                    </GeometryDrawing>
-                                                </DrawingGroup.Children>
-                                            </DrawingGroup>
-                                        </DrawingBrush.Drawing>
-                                    </DrawingBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                        </Canvas>
-                    </local:TouchOnlyDecorator>
+                                            <GeometryDrawing Brush="White">
+                                                <GeometryDrawing.Geometry>
+                                                    <GeometryGroup>
+                                                        <RectangleGeometry Rect="43,15,14,15" />
+                                                        <RectangleGeometry Rect="43,36,14,50" />
+                                                    </GeometryGroup>
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                        </DrawingGroup.Children>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
