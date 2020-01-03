@@ -18,7 +18,7 @@
                 if (args.StagingItem.Input is { } inputEventArgs &&
                     !(inputEventArgs.Device is KeyboardDevice))
                 {
-                    Debug.WriteLine($"{name,-16} {inputEventArgs.GetType().Name,-21} {inputEventArgs.Device?.GetType().Name ?? "null",-21} {inputEventArgs.Device?.Target?.ToString() ?? "null",-21} {inputEventArgs.RoutedEvent.Name}");
+                    Debug.WriteLine($"{name,-16} {inputEventArgs.GetType().Name,-28} {inputEventArgs.Device?.GetType().Name ?? "null",-21} {inputEventArgs.Device?.Target?.GetType().Name ?? "null",-21} {inputEventArgs.RoutedEvent.Name}");
                 }
             }
         }

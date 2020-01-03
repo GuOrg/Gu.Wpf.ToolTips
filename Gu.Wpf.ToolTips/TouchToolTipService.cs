@@ -55,6 +55,7 @@
                 default(OverlayAdorner)));
 
         private static DispatcherTimer? closeTimer;
+        private static UIElement? tapped;
 
 #pragma warning disable CA1810 // Initialize reference type static fields inline, bug in the analyzer
         static TouchToolTipService()
@@ -66,14 +67,13 @@
                 new RoutedEventHandler((o, e) =>
                 {
                     if (e is StylusSystemGestureEventArgs { SystemGesture: SystemGesture.Tap } tap &&
-                        HitTest(tap) is OverlayAdorner { AdornedElement: { Dispatcher: { } dispatcher } element } &&
-                        !ToolTipService.GetIsOpen(element) &&
-                        !ReferenceEquals(element, closeTimer?.Tag))
+                        HitTest(tap) is OverlayAdorner { AdornedElement: { Dispatcher: { } dispatcher } element })
                     {
-                        _ = dispatcher.BeginInvoke(
-                            DispatcherPriority.Input,
-                            new Action(() => PopupControlService.ShowToolTip(element)));
-                        ResetCloseTimer();
+                        // Deferring show to StylusOutOfRangeEvent as stylus input triggers synthetic mouse input.
+                        tapped = ToolTipService.GetIsOpen(element) ||
+                                 ReferenceEquals(element, closeTimer?.Tag)
+                            ? null
+                            : element;
                         e.Handled = true;
                     }
 
@@ -106,6 +106,19 @@
                         }
 
                         return result;
+                    }
+                }));
+
+            EventManager.RegisterClassHandler(
+                typeof(UIElement),
+                UIElement.StylusOutOfRangeEvent,
+                new RoutedEventHandler((o, e) =>
+                {
+                    if (tapped is { })
+                    {
+                        ResetCloseTimer();
+                        PopupControlService.ShowToolTip(tapped);
+                        tapped = null;
                     }
                 }));
 

@@ -202,5 +202,77 @@
                 Assert.AreEqual(false, toolTip.IsOpen());
             }
         }
+
+        [Ignore("tbd")]
+        [Test]
+        public void TapElementsInSequence()
+        {
+            using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
+            var window = app.MainWindow;
+            var button1 = window.FindButton("Button 1");
+            Touch.Tap(button1.Bounds.Center());
+            var button1ToolTip = button1.FindToolTip();
+            Assert.AreEqual(true, button1ToolTip.IsOpen());
+
+            var button2 = window.FindButton("Button 2");
+            Touch.Tap(button2.Bounds.Center());
+            Assert.AreEqual(false, button1ToolTip.IsOpen());
+            var button2ToolTip = button2.FindToolTip();
+            Assert.AreEqual(true, button2ToolTip.IsOpen());
+
+            var textBlock = window.FindTextBlock("TextBlock 1");
+            Touch.Tap(textBlock.Bounds.Center());
+            Assert.AreEqual(false, button1ToolTip.IsOpen());
+            Assert.AreEqual(false, button2ToolTip.IsOpen());
+            var textBlockToolTip = textBlock.FindToolTip();
+            Assert.AreEqual(true, textBlockToolTip.IsOpen());
+
+            var label = window.FindLabel("Label 1");
+            Touch.Tap(textBlock.Bounds.Center());
+            Assert.AreEqual(false, button1ToolTip.IsOpen());
+            Assert.AreEqual(false, button2ToolTip.IsOpen());
+            Assert.AreEqual(false, textBlockToolTip.IsOpen());
+
+            var labelToolTip = label.FindToolTip();
+            Assert.AreEqual(true, textBlockToolTip.IsOpen());
+        }
+
+        [Ignore("tbd")]
+        [Test]
+        public void TapElementsInSequenceManyTimes()
+        {
+            using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
+            var window = app.MainWindow;
+
+            for (var i = 0; i < 4; i++)
+            {
+                var button1 = window.FindButton("Button 1");
+                Touch.Tap(button1.Bounds.Center());
+                var button1ToolTip = button1.FindToolTip();
+                Assert.AreEqual(true, button1ToolTip.IsOpen());
+
+                var button2 = window.FindButton("Button 2");
+                Touch.Tap(button2.Bounds.Center());
+                Assert.AreEqual(false, button1ToolTip.IsOpen());
+                var button2ToolTip = button2.FindToolTip();
+                Assert.AreEqual(true, button2ToolTip.IsOpen());
+
+                var textBlock = window.FindTextBlock("TextBlock 1");
+                Touch.Tap(textBlock.Bounds.Center());
+                Assert.AreEqual(false, button1ToolTip.IsOpen());
+                Assert.AreEqual(false, button2ToolTip.IsOpen());
+                var textBlockToolTip = textBlock.FindToolTip();
+                Assert.AreEqual(true, textBlockToolTip.IsOpen());
+
+                var label = window.FindLabel("Label 1");
+                Touch.Tap(textBlock.Bounds.Center());
+                Assert.AreEqual(false, button1ToolTip.IsOpen());
+                Assert.AreEqual(false, button2ToolTip.IsOpen());
+                Assert.AreEqual(false, textBlockToolTip.IsOpen());
+
+                var labelToolTip = label.FindToolTip();
+                Assert.AreEqual(true, labelToolTip.IsOpen());
+            }
+        }
     }
 }
