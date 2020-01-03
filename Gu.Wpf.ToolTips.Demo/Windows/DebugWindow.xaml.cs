@@ -11,14 +11,15 @@
         {
             this.InitializeComponent();
             InputManager.Current.PreProcessInput += (o, e) => Dump("PreProcessInput", e);
-            InputManager.Current.PostProcessInput += (o, e) => Dump("PostProcessInput", e);
+            // InputManager.Current.PostProcessInput += (o, e) => Dump("PostProcessInput", e);
 
             static void Dump(string name, NotifyInputEventArgs args)
             {
                 if (args.StagingItem.Input is { } inputEventArgs &&
+                    inputEventArgs.RoutedEvent.Name != "PreviewInputReport" &&
                     !(inputEventArgs.Device is KeyboardDevice))
                 {
-                    Debug.WriteLine($"{name,-16} {inputEventArgs.GetType().Name,-28} {inputEventArgs.Device?.GetType().Name ?? "null",-21} {inputEventArgs.Device?.Target?.GetType().Name ?? "null",-21} {inputEventArgs.RoutedEvent.Name}");
+                    Debug.WriteLine($"{name,-16} {inputEventArgs.GetType().Name,-28} {inputEventArgs.Device?.GetType().Name ?? "null",-21} {inputEventArgs.Device?.Target?.GetType().Name ?? "null",-15} {inputEventArgs.RoutedEvent.Name}");
                 }
             }
         }
