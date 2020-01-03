@@ -1,11 +1,9 @@
 ﻿namespace Gu.Wpf.ToolTips
 {
     using System;
-    using System.Diagnostics;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Documents;
     using System.Windows.Input;
@@ -68,7 +66,6 @@
                     if (e is StylusSystemGestureEventArgs { SystemGesture: SystemGesture.Tap } tap &&
                         HitTest(tap) is OverlayAdorner { AdornedElement: { Dispatcher: { } dispatcher } element })
                     {
-                        Debug.WriteLine("Tap");
                         if (!ToolTipService.GetIsOpen(element) &&
                             !ReferenceEquals(element, closeTimer?.Tag))
                         {
@@ -198,7 +195,7 @@
                 }
                 else
                 {
-                    Debug.Assert(condition: false, message: $"Element {d} already has an overlay adorner.");
+                   System.Diagnostics.Debug.Assert(condition: false, message: $"Element {d} already has an overlay adorner.");
                 }
             }
             else if (d.GetValue(AdornerProperty) is OverlayAdorner adorner)
