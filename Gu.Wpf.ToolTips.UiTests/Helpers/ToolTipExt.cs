@@ -12,7 +12,7 @@
             {
                 return !toolTip.IsOffscreen;
             }
-            catch
+            catch (System.Windows.Automation.ElementNotAvailableException)
             {
                 // Got the following exception when running on CI
                 // System.Windows.Automation.ElementNotAvailableException : The target element corresponds to UI that is no longer available (for example, the parent window has closed).

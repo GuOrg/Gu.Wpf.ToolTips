@@ -56,7 +56,9 @@
 
         private static DispatcherTimer? closeTimer;
 
+#pragma warning disable CA1810 // Initialize reference type static fields inline, bug in the analyzer
         static TouchToolTipService()
+#pragma warning restore CA1810 // Initialize reference type static fields inline
         {
             EventManager.RegisterClassHandler(
                 typeof(UIElement),
