@@ -104,12 +104,10 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
             Mouse.Position = element.Bounds.Center();
-            Wait.For(TimeSpan.FromMilliseconds(100));
             var toolTip = element.FindToolTip();
             Assert.AreEqual(true, toolTip.IsOpen());
 
             window.FindButton("Lose focus").Click(moveMouse: true);
-            Wait.For(TimeSpan.FromMilliseconds(100));
             Assert.AreEqual(false, toolTip.IsOpen());
         }
 
@@ -123,12 +121,10 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
             Touch.Tap(element.Bounds.Center());
-            Wait.For(TimeSpan.FromMilliseconds(100));
             var toolTip = element.FindToolTip();
             Assert.AreEqual(true, toolTip.IsOpen());
 
             Mouse.Click(MouseButton.Left, element.Bounds.Center());
-            Wait.For(TimeSpan.FromMilliseconds(100));
             Assert.AreEqual(false, toolTip.IsOpen());
         }
 
@@ -142,12 +138,10 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
             Touch.Tap(element.Bounds.Center());
-            Wait.For(TimeSpan.FromMilliseconds(100));
             var toolTip = element.FindToolTip();
             Assert.AreEqual(true, toolTip.IsOpen());
 
             Touch.Tap(element.Bounds.Center());
-            Wait.For(TimeSpan.FromMilliseconds(100));
             Assert.AreEqual(false, toolTip.IsOpen());
         }
 
@@ -163,12 +157,10 @@
             for (var i = 0; i < 4; i++)
             {
                 Touch.Tap(element.Bounds.Center());
-                Wait.For(TimeSpan.FromMilliseconds(100));
                 var toolTip = element.FindToolTip();
                 Assert.AreEqual(true, toolTip.IsOpen());
 
                 Touch.Tap(element.Bounds.Center());
-                Wait.For(TimeSpan.FromMilliseconds(100));
                 Assert.AreEqual(false, toolTip.IsOpen());
             }
         }
@@ -183,12 +175,10 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
             Touch.Tap(element.Bounds.Center());
-            Wait.For(TimeSpan.FromMilliseconds(100));
             var toolTip = element.FindToolTip();
             Assert.AreEqual(true, toolTip.IsOpen());
 
             Touch.Tap(window.FindButton("Lose focus").Bounds.Center());
-            Wait.For(TimeSpan.FromMilliseconds(100));
             Assert.AreEqual(false, toolTip.IsOpen());
         }
 
@@ -205,12 +195,10 @@
             for (var i = 0; i < 4; i++)
             {
                 Touch.Tap(element.Bounds.Center());
-                Wait.For(TimeSpan.FromMilliseconds(100));
                 var toolTip = element.FindToolTip();
                 Assert.AreEqual(true, toolTip.IsOpen());
 
                 Touch.Tap(window.FindButton("Lose focus").Bounds.Center());
-                Wait.For(TimeSpan.FromMilliseconds(100));
                 Assert.AreEqual(false, toolTip.IsOpen());
             }
         }

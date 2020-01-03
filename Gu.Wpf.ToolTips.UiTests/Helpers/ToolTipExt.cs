@@ -1,11 +1,13 @@
 ﻿namespace Gu.Wpf.ToolTips.UiTests
 {
+    using System;
     using Gu.Wpf.UiAutomation;
 
     internal static class ToolTipExt
     {
         internal static bool IsOpen(this ToolTip toolTip)
         {
+            Wait.For(TimeSpan.FromMilliseconds(100));
             try
             {
                 return !toolTip.IsOffscreen;
