@@ -62,10 +62,10 @@
         }
 
         /// <summary>
-        /// Hides the <see cref="ToolTip"/> for <paramref name="element"/>.
+        /// Hides the <see cref="ToolTip"/> for <paramref name="o"/>.
         /// </summary>
-        /// <param name="element">The <see cref="DependencyObject"/>.</param>
-        public static void HideToolTip(DependencyObject element) => InspectElementForToolTip(element, 0);
+        /// <param name="o">The <see cref="DependencyObject"/>.</param>
+        public static void HideToolTip(DependencyObject o) => InspectElementForToolTip(o, 0);
 
         private static void InspectElementForToolTip(DependencyObject element, int triggerAction) => InspectElementForToolTipMethod.Invoke(Service, new object[] { element, triggerAction });
 
