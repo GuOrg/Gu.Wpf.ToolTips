@@ -66,20 +66,14 @@
                 new RoutedEventHandler((o, e) =>
                 {
                     if (e is StylusSystemGestureEventArgs { SystemGesture: SystemGesture.Tap } tap &&
-                        HitTest(tap) is OverlayAdorner { AdornedElement: { Dispatcher: { } dispatcher } element })
+                        HitTest(tap) is OverlayAdorner { AdornedElement: { Dispatcher: { } dispatcher } element } &&
+                        !ToolTipService.GetIsOpen(element) &&
+                        !ReferenceEquals(element, closeTimer?.Tag))
                     {
-                        if (!ToolTipService.GetIsOpen(element) &&
-                            !ReferenceEquals(element, closeTimer?.Tag))
-                        {
-                            _ = dispatcher.BeginInvoke(
-                                System.Windows.Threading.DispatcherPriority.Input,
-                                new Action(() =>
-                                {
-                                    ResetCloseTimer();
-                                    PopupControlService.ShowToolTip(element);
-                                }));
-                        }
-
+                        _ = dispatcher.BeginInvoke(
+                            DispatcherPriority.Input,
+                            new Action(() => PopupControlService.ShowToolTip(element)));
+                        ResetCloseTimer();
                         e.Handled = true;
                     }
 
@@ -197,7 +191,7 @@
                 }
                 else
                 {
-                   System.Diagnostics.Debug.Assert(condition: false, message: $"Element {d} already has an overlay adorner.");
+                    System.Diagnostics.Debug.Assert(condition: false, message: $"Element {d} already has an overlay adorner.");
                 }
             }
             else if (d.GetValue(AdornerProperty) is OverlayAdorner adorner)
