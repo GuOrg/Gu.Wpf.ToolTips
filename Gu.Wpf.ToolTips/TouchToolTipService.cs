@@ -222,7 +222,7 @@
                             new Binding { Source = element, Path = BindingHelper.GetPath(FrameworkElement.ToolTipProperty), Mode = BindingMode.OneWay },
                             new Binding { Source = element, Path = BindingHelper.GetPath(ToolTipService.IsEnabledProperty), Mode = BindingMode.OneWay },
                         },
-                        Converter = IdentityConverter.Default,
+                        Converter = IsOverlayVisibleConverter.Default,
                     };
                     _ = BindingOperations.SetBinding(element, IsOverlayVisibleProxyProperty, multiBinding);
                 }
@@ -234,9 +234,9 @@
             }
         }
 
-        private sealed class IdentityConverter : IMultiValueConverter
+        private sealed class IsOverlayVisibleConverter : IMultiValueConverter
         {
-            internal static readonly IdentityConverter Default = new IdentityConverter();
+            internal static readonly IsOverlayVisibleConverter Default = new IsOverlayVisibleConverter();
 
             public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
             {
@@ -247,7 +247,7 @@
 
             object[] IMultiValueConverter.ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
             {
-                throw new NotSupportedException($"{nameof(IdentityConverter)} can only be used in OneWay bindings");
+                throw new NotSupportedException($"{nameof(IsOverlayVisibleConverter)} can only be used in OneWay bindings");
             }
         }
     }
