@@ -5,8 +5,14 @@ root = true
 indent_style = space
 # (Please don't specify an indent_size here; that has too many unintended consequences.)
 
+# Code files
+[*.{cs,csx,vb,vbx}]
+indent_size = 4
+insert_final_newline = true
+charset = utf-8-bom
+
 # XML project files
-[*.csproj]
+[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
 indent_size = 2
 
 # XML config files
@@ -26,22 +32,8 @@ indent_size = 2
 end_of_line = lf
 indent_size = 2
 
-[*.xaml]
-indent_style = space
-indent_size = 4
-end_of_line = crlf
-trim_trailing_spaces = true
-insert_final_newline = true
-
-[*.cs]
-indent_style = space
-indent_size = 4
-charset = utf-8-bom
-trim_trailing_spaces = true
-insert_final_newline = true
-
 # Dotnet code style settings:
-[*.cs]
+[*.{cs,vb}]
 # Sort using and Import directives with System.* appearing first
 dotnet_sort_system_directives_first = true
 # Always use "this." and "Me." when applicable; let StyleCop Analyzers provide the warning and fix
@@ -61,7 +53,7 @@ dotnet_style_coalesce_expression = true:suggestion
 dotnet_style_null_propagation = true:suggestion
 dotnet_style_explicit_tuple_names = true:suggestion
 
-# Non-private static fields are camelCase
+# Non-private static fields are PascalCase
 dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.symbols = non_private_static_fields
 dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.style = non_private_static_field_style
@@ -70,7 +62,7 @@ dotnet_naming_symbols.non_private_static_fields.applicable_kinds = field
 dotnet_naming_symbols.non_private_static_fields.applicable_accessibilities = public, protected, internal, protected_internal, private_protected
 dotnet_naming_symbols.non_private_static_fields.required_modifiers = static
 
-dotnet_naming_style.non_private_static_field_style.capitalization = camel_case
+dotnet_naming_style.non_private_static_field_style.capitalization = pascal_case
 
 # Non-private readonly fields are PascalCase
 dotnet_naming_rule.non_private_readonly_fields_should_be_pascal_case.severity = suggestion
@@ -206,5 +198,6 @@ csharp_prefer_braces = true:silent
 csharp_preserve_single_line_blocks = true
 csharp_preserve_single_line_statements = true
 
-# CA1303: Do not pass literals as localized parameters
-dotnet_diagnostic.CA1303.severity = none
+dotnet_diagnostic.CA1303.severity = none # Do not pass literals as localized parameters
+dotnet_diagnostic.IDE0009.severity = none # Add 'this', bug in the analyzer when using patterns.
+dotnet_diagnostic.IDE1006.severity = none # _, bug in the analyzer when discarding many.
