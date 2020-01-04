@@ -2,6 +2,7 @@
 {
     using System;
     using System.Globalization;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
@@ -61,6 +62,25 @@
         static TouchToolTipService()
 #pragma warning restore CA1810 // Initialize reference type static fields inline
         {
+            if (typeof(ToolTipService).GetField("FindToolTipEvent", BindingFlags.NonPublic | BindingFlags.Static)?.GetValue(null) is RoutedEvent findToolTipEvent)
+            {
+                EventManager.RegisterClassHandler(
+                    typeof(UIElement),
+                    findToolTipEvent,
+                    new RoutedEventHandler((o, e) =>
+                    {
+                        if (Stylus.CurrentStylusDevice?.InRange == true)
+                        {
+                            // Working around a framework bug
+                            // The bug is that when tool tip is visible and another element is tapped the following happens
+                            // 1. current tool tip is closed with _quickshow = true
+                            // 2. _quickshow means that the tool tip for the new element is instantly opened.
+                            // 3. The newly opened tool tip is closed when the synthetic mouse down from the touch input is sent.
+                            e.Handled = true;
+                        }
+                    }));
+            }
+
             EventManager.RegisterClassHandler(
                 typeof(UIElement),
                 UIElement.StylusSystemGestureEvent,
@@ -116,8 +136,8 @@
                 {
                     if (tapped is { })
                     {
-                        ResetCloseTimer();
                         PopupControlService.ShowToolTip(tapped);
+                        ResetCloseTimer();
                         tapped = null;
                     }
                 }));
@@ -130,7 +150,6 @@
                     // https://source.dot.net/#PresentationFramework/System/Windows/Controls/Primitives/Popup.cs,2892
                     const int AnimationDelay = 150;
                     ResetCloseTimer();
-
                     closeTimer = new DispatcherTimer(DispatcherPriority.Normal)
                     {
                         Interval = new TimeSpan(0, 0, 0, 0, AnimationDelay),

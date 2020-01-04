@@ -11,7 +11,7 @@
         {
             this.InitializeComponent();
             InputManager.Current.PreProcessInput += (o, e) => Dump("PreProcessInput", e);
-            // InputManager.Current.PostProcessInput += (o, e) => Dump("PostProcessInput", e);
+            //// InputManager.Current.PostProcessInput += (o, e) => Dump("PostProcessInput", e);
 
             static void Dump(string name, NotifyInputEventArgs args)
             {
