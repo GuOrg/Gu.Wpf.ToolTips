@@ -203,7 +203,6 @@
             }
         }
 
-        [Ignore("tbd")]
         [Test]
         public void TapElementsInSequence()
         {
@@ -228,16 +227,15 @@
             Assert.AreEqual(true, textBlockToolTip.IsOpen());
 
             var label = window.FindLabel("Label 1");
-            Touch.Tap(textBlock.Bounds.Center());
+            Touch.Tap(label.Bounds.Center());
             Assert.AreEqual(false, button1ToolTip.IsOpen());
             Assert.AreEqual(false, button2ToolTip.IsOpen());
             Assert.AreEqual(false, textBlockToolTip.IsOpen());
 
             var labelToolTip = label.FindToolTip();
-            Assert.AreEqual(true, textBlockToolTip.IsOpen());
+            Assert.AreEqual(true, labelToolTip.IsOpen());
         }
 
-        [Ignore("tbd")]
         [Test]
         public void TapElementsInSequenceManyTimes()
         {
@@ -265,7 +263,7 @@
                 Assert.AreEqual(true, textBlockToolTip.IsOpen());
 
                 var label = window.FindLabel("Label 1");
-                Touch.Tap(textBlock.Bounds.Center());
+                Touch.Tap(label.Bounds.Center());
                 Assert.AreEqual(false, button1ToolTip.IsOpen());
                 Assert.AreEqual(false, button2ToolTip.IsOpen());
                 Assert.AreEqual(false, textBlockToolTip.IsOpen());

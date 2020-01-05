@@ -1,6 +1,7 @@
 ﻿namespace Gu.Wpf.ToolTips
 {
     using System;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Reflection;
     using System.Windows;
@@ -64,21 +65,25 @@
         {
             if (typeof(ToolTipService).GetField("FindToolTipEvent", BindingFlags.NonPublic | BindingFlags.Static)?.GetValue(null) is RoutedEvent findToolTipEvent)
             {
-                EventManager.RegisterClassHandler(
-                    typeof(UIElement),
-                    findToolTipEvent,
-                    new RoutedEventHandler((o, e) =>
+                EventManager.RegisterClassHandler(typeof(UIElement), findToolTipEvent, new RoutedEventHandler((o, e) => CancelFindToolTipIfTouch(e)));
+                //// For some reason explicit subscription on TextBlock is needed
+                EventManager.RegisterClassHandler(typeof(TextBlock), findToolTipEvent, new RoutedEventHandler((o, e) => CancelFindToolTipIfTouch(e)));
+                EventManager.RegisterClassHandler(typeof(ContentElement), findToolTipEvent, new RoutedEventHandler((o, e) => CancelFindToolTipIfTouch(e)));
+                EventManager.RegisterClassHandler(typeof(UIElement3D), findToolTipEvent, new RoutedEventHandler((o, e) => CancelFindToolTipIfTouch(e)));
+
+                static void CancelFindToolTipIfTouch(RoutedEventArgs e)
+                {
+                    ////Debug.WriteLine($"FindToolTipEvent: {e} {Stylus.CurrentStylusDevice?.InRange}");
+                    if (Stylus.CurrentStylusDevice?.InRange == true)
                     {
-                        if (Stylus.CurrentStylusDevice?.InRange == true)
-                        {
-                            // Working around a framework bug
-                            // The bug is that when tool tip is visible and another element is tapped the following happens
-                            // 1. current tool tip is closed with _quickshow = true
-                            // 2. _quickshow means that the tool tip for the new element is instantly opened.
-                            // 3. The newly opened tool tip is closed when the synthetic mouse down from the touch input is sent.
-                            e.Handled = true;
-                        }
-                    }));
+                        // Working around a framework bug
+                        // The bug is that when tool tip is visible and another element is tapped the following happens
+                        // 1. Current tool tip is closed with _quickshow = true
+                        // 2. _quickshow means that the tool tip for the new element is instantly opened.
+                        // 3. The newly opened tool tip is closed when the synthetic mouse down from the touch input is sent.
+                        e.Handled = true;
+                    }
+                }
             }
 
             EventManager.RegisterClassHandler(

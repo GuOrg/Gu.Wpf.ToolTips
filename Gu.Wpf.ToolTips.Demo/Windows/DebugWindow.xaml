@@ -47,6 +47,18 @@
             </Button.Style>
         </Button>
 
+        <TextBlock Text="TextBlock 1"
+                   ToolTipOpening="TextBlock1_ToolTipOpening"
+                   ToolTipClosing="TextBlock1_ToolTipClosing"
+                   toolTips:TouchToolTipService.IsEnabled="True"
+                   ToolTip="TextBlock 1 tool tip." />
+
+        <Label Content="Label 1"
+               ToolTipOpening="Label1_ToolTipOpening"
+               ToolTipClosing="Label1_ToolTipClosing"
+               toolTips:TouchToolTipService.IsEnabled="True"
+               ToolTip="Label 1 tool tip." />
+        
         <Button Content="Button 3"
                 ToolTipOpening="Button3_ToolTipOpening"
                 ToolTipClosing="Button3_ToolTipClosing"

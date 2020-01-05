@@ -10,7 +10,7 @@
         public DebugWindow()
         {
             this.InitializeComponent();
-            InputManager.Current.PreProcessInput += (o, e) => Dump("PreProcessInput", e);
+            //// InputManager.Current.PreProcessInput += (o, e) => Dump("PreProcessInput", e);
             //// InputManager.Current.PostProcessInput += (o, e) => Dump("PostProcessInput", e);
 
             static void Dump(string name, NotifyInputEventArgs args)
@@ -42,6 +42,26 @@
         private void Button2_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
             Debug.WriteLine(nameof(this.Button2_ToolTipClosing));
+        }
+
+        private void TextBlock1_ToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+            Debug.WriteLine(nameof(this.TextBlock1_ToolTipOpening));
+        }
+
+        private void TextBlock1_ToolTipClosing(object sender, ToolTipEventArgs e)
+        {
+            Debug.WriteLine(nameof(this.TextBlock1_ToolTipClosing));
+        }
+
+        private void Label1_ToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+            Debug.WriteLine(nameof(this.Label1_ToolTipOpening));
+        }
+
+        private void Label1_ToolTipClosing(object sender, ToolTipEventArgs e)
+        {
+            Debug.WriteLine(nameof(this.Label1_ToolTipClosing));
         }
 
         private void Button3_ToolTipOpening(object sender, ToolTipEventArgs e)
