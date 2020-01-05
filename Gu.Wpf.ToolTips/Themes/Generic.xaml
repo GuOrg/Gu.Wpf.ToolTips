@@ -6,14 +6,15 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Ellipse x:Name="TouchInfoIcon"
-                               Height="{Binding RelativeSource={RelativeSource Self},
-                                                Path=ActualWidth}"
-                               Width="12"
-                               Canvas.Top="0"
-                               Canvas.Right="0"
-                               Margin="0,2,2,0"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Top">
+                             Height="{Binding RelativeSource={RelativeSource Self},
+                                             Path=ActualWidth}"
+                             Width="12"
+                             Canvas.Top="0"
+                             Canvas.Right="0"
+                             Margin="0,2,2,0"
+                             StrokeThickness="0"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Top">
                         <Ellipse.Fill>
                             <DrawingBrush>
                                 <DrawingBrush.Drawing>
@@ -21,9 +22,7 @@
                                         <DrawingGroup.Children>
                                             <GeometryDrawing Brush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
                                                 <GeometryDrawing.Geometry>
-                                                    <EllipseGeometry Center="50,50"
-                                                                     RadiusX="50"
-                                                                     RadiusY="50" />
+                                                    <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
                                                 </GeometryDrawing.Geometry>
                                             </GeometryDrawing>
 
