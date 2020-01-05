@@ -13,7 +13,9 @@
             //// InputManager.Current.PreProcessInput += (o, e) => Dump("PreProcessInput", e);
             //// InputManager.Current.PostProcessInput += (o, e) => Dump("PostProcessInput", e);
 
+#pragma warning disable CS8321 // Local function is declared but never used
             static void Dump(string name, NotifyInputEventArgs args)
+#pragma warning restore CS8321 // Local function is declared but never used
             {
                 if (args.StagingItem.Input is { } inputEventArgs &&
                     inputEventArgs.RoutedEvent.Name != "PreviewInputReport" &&

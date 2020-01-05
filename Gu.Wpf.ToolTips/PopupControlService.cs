@@ -27,6 +27,7 @@
             set => LastObjectWithToolTipProperty.SetValue(Service, value);
         }
 
+#pragma warning disable IDE0052 // Remove unread private members
         private static DependencyObject? LastMouseOverWithToolTip
         {
             get => (DependencyObject?)LastMouseOverWithToolTipProperty.GetValue(Service);
@@ -38,6 +39,7 @@
             get => (DependencyObject?)LastCheckedProperty.GetValue(Service);
             set => LastCheckedProperty.SetValue(Service, value);
         }
+#pragma warning restore IDE0052 // Remove unread private members
 
         /// <summary>
         /// Shows the <see cref="ToolTip"/> for <paramref name="o"/> like if it was hovered with mouse.

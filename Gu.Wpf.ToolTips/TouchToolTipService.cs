@@ -175,6 +175,7 @@
         /// <summary>Helper for getting <see cref="IsEnabledProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="DependencyObject"/> to read <see cref="IsEnabledProperty"/> from.</param>
         /// <returns>IsEnabled property value.</returns>
+        [AttachedPropertyBrowsableForType(typeof(DependencyObject))]
         public static bool GetIsEnabled(DependencyObject element)
         {
             if (element is null)
