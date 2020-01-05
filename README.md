@@ -59,7 +59,7 @@ Tapping opens/closes the tool tip.
 ```
 Renders:
 
-![screenie](http://i.imgur.com/wbasIMg.gif)
+![Animation](https://user-images.githubusercontent.com/1640096/71777206-fdf02980-2f9c-11ea-85a4-92d0979a2ef0.gif)
 
 #### OverlayAdorner
 
