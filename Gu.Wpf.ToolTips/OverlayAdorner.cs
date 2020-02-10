@@ -71,7 +71,7 @@
         /// <inheritdoc />
         protected override Visual GetVisualChild(int index)
         {
-            if (this.child == null || index != 0)
+            if (this.child is null || index != 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }

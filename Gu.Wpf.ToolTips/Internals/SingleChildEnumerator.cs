@@ -17,7 +17,7 @@
         bool IEnumerator.MoveNext()
         {
             this.index++;
-            return this.index < (this.child == null ? 0 : 1);
+            return this.index < (this.child is null ? 0 : 1);
         }
 
         void IEnumerator.Reset() => this.index = -1;
