@@ -29,7 +29,9 @@
         }
 
 #pragma warning disable IDE0060 // Remove unused parameter
+#pragma warning disable CA1801 // Review unused parameters
         internal static void OnFail(Bitmap? expected, Bitmap actual, string resource)
+#pragma warning restore CA1801 // Review unused parameters
 #pragma warning restore IDE0060 // Remove unused parameter
         {
             var fullFileName = Path.Combine(Path.GetTempPath(), resource);

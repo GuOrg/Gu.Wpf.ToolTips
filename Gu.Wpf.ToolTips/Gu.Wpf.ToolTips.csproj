@@ -5,7 +5,6 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <TargetFrameworks>net45;netcoreapp3.1</TargetFrameworks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <CodeAnalysisRuleSet>Gu.Wpf.ToolTips.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
@@ -20,7 +19,6 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>0.3.0</Version>
     <Authors>Johan Larsson</Authors>
     <NeutralLanguage>en</NeutralLanguage>
@@ -29,8 +27,12 @@
     <PackageProjectUrl>https://github.com/GuOrg/Gu.Wpf.ToolTips</PackageProjectUrl>
     <RepositoryUrl>https://github.com/GuOrg/Gu.Wpf.ToolTips</RepositoryUrl>
     <PackageTags>wpf tooltip touch</PackageTags>
-    <PackageReleaseNotes>BREAKING: PopUpButton removed. API simplified with OverlayAdorner only
-BREAKING: TouchToolTipService.IsEnabled is the new simplified API, use style to change overlay rendering.</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      BREAKING: PopUpButton removed. API simplified with OverlayAdorner only
+      BREAKING: TouchToolTipService.IsEnabled is the new simplified API, use style to change overlay rendering.
+    </PackageReleaseNotes>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,15 +41,15 @@ BREAKING: TouchToolTipService.IsEnabled is the new simplified API, use style to 
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Gu.Analyzers" Version="1.8.1" PrivateAssets="all" />
+    <PackageReference Include="Gu.Analyzers" Version="1.8.2" PrivateAssets="all" />
     <PackageReference Include="IDisposableAnalyzers" Version="3.4.3" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="2.9.8" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.1" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="PropertyChangedAnalyzers" Version="3.2.1" PrivateAssets="all" />
     <PackageReference Include="ReflectionAnalyzers" Version="0.1.22-dev" PrivateAssets="all" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.205" PrivateAssets="all" />
-    <PackageReference Include="WpfAnalyzers" Version="3.2.0" PrivateAssets="all" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.261" PrivateAssets="all" />
+    <PackageReference Include="WpfAnalyzers" Version="3.3.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

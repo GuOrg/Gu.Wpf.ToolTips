@@ -25,7 +25,7 @@ namespace Gu.Wpf.ToolTips.Demo.Windows
                 Button { Content: "Toggle 100" } => 100,
                 Button { Content: "Toggle 1000" } => 1000,
                 Button { Content: "Toggle 10 000" } => 10_000,
-                _ => throw new InvalidOperationException()
+                _ => throw new InvalidOperationException(),
             };
 
             for (var i = 0; i < n; i++)
