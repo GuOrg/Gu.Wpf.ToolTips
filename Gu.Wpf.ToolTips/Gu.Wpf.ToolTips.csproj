@@ -5,7 +5,6 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <TargetFrameworks>net45;netcoreapp3.1</TargetFrameworks>
-    <CodeAnalysisRuleSet>Gu.Wpf.ToolTips.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -38,6 +37,7 @@
   <ItemGroup>
     <AdditionalFiles Include="PublicAPI.Shipped.txt" />
     <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+    <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   
   <ItemGroup>
