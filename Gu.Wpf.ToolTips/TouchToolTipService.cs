@@ -17,8 +17,6 @@
     /// </summary>
     public static class TouchToolTipService
     {
-#pragma warning disable SA1202 // Elements must be ordered by access
-
         /// <summary>
         /// Gets or sets whether an <see cref="OverlayAdorner"/> appears.
         /// </summary>
@@ -213,8 +211,6 @@
 
             return (bool)element.GetValue(IsOverlayVisibleProperty);
         }
-
-#pragma warning restore SA1202 // Elements must be ordered by access
 
         private static void OnIsOverlayVisibleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
