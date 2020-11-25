@@ -9,8 +9,6 @@
                              Height="{Binding RelativeSource={RelativeSource Self},
                                               Path=ActualWidth}"
                              Width="12"
-                             Canvas.Top="0"
-                             Canvas.Right="0"
                              Margin="0,2,2,0"
                              StrokeThickness="0"
                              HorizontalAlignment="Right"

@@ -1,6 +1,5 @@
 ﻿namespace Gu.Wpf.ToolTips.UiTests
 {
-    using System;
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 

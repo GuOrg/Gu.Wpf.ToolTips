@@ -1,7 +1,6 @@
 ﻿namespace Gu.Wpf.ToolTips
 {
     using System;
-    using System.Diagnostics;
     using System.Globalization;
     using System.Reflection;
     using System.Windows;
@@ -90,7 +89,7 @@
                 new RoutedEventHandler((o, e) =>
                 {
                     if (e is StylusSystemGestureEventArgs { SystemGesture: SystemGesture.Tap } tap &&
-                        HitTest(tap) is OverlayAdorner { AdornedElement: { Dispatcher: { } dispatcher } element })
+                        HitTest(tap) is { AdornedElement: { Dispatcher: { } } element })
                     {
                         // Deferring show to StylusOutOfRangeEvent as stylus input triggers synthetic mouse input.
                         tapped = ToolTipService.GetIsOpen(element) ||
@@ -104,7 +103,7 @@
                     {
                         OverlayAdorner? result = null;
                         if (e.Source is Visual source &&
-                            AdornerLayer.GetAdornerLayer(source) is AdornerLayer adornerLayer)
+                            AdornerLayer.GetAdornerLayer(source) is { } adornerLayer)
                         {
                             VisualTreeHelper.HitTest(
                                 adornerLayer,

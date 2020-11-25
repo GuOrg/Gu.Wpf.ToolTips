@@ -4,7 +4,6 @@
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Threading;
 
     /// <summary>
     /// Exposes the internal PopupControlService via reflection.

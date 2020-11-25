@@ -20,7 +20,7 @@
                 FrameworkPropertyMetadataOptions.AffectsMeasure,
                 (o, e) =>
                 {
-                    if (o is OverlayAdorner { child: Control control })
+                    if (o is OverlayAdorner { child: { } control })
                     {
                         control.Template = (ControlTemplate)e.NewValue;
                     }
@@ -42,15 +42,14 @@
         public OverlayAdorner(UIElement adornedElement)
             : base(adornedElement)
         {
-            var child = new Control
+            this.child = new Control
             {
                 Template = this.Template,
                 IsTabStop = false,
                 Focusable = false,
             };
-            this.child = child;
-            this.AddVisualChild(child);
-            this.AddLogicalChild(child);
+            this.AddVisualChild(this.child);
+            this.AddLogicalChild(this.child);
         }
 
         /// <summary>
