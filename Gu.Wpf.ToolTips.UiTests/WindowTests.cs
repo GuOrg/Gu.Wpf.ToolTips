@@ -142,6 +142,9 @@
 
             Mouse.MoveTo(element.Bounds.Center());
             Assert.AreEqual(true, toolTip.IsOpen());
+
+            window.FindButton("Lose focus").Click(moveMouse: true);
+            Assert.AreEqual(false, toolTip.IsOpen());
         }
 
         [TestCase("Button 1")]
