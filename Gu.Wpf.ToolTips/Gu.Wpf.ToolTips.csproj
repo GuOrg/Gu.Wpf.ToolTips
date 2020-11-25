@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.3.0</Version>
+    <Version>0.3.1</Version>
     <Authors>Johan Larsson</Authors>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -27,6 +27,9 @@
     <RepositoryUrl>https://github.com/GuOrg/Gu.Wpf.ToolTips</RepositoryUrl>
     <PackageTags>wpf tooltip touch</PackageTags>
     <PackageReleaseNotes>
+      0.3.1
+      A couple of more checks around issue 13. Could not repro so not sure if fixed.
+      0.3.0
       BREAKING: PopUpButton removed. API simplified with OverlayAdorner only
       BREAKING: TouchToolTipService.IsEnabled is the new simplified API, use style to change overlay rendering.
     </PackageReleaseNotes>
