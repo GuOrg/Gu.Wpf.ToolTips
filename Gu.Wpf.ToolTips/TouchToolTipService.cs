@@ -23,7 +23,9 @@
             "IsEnabled",
             typeof(bool),
             typeof(TouchToolTipService),
-            new PropertyMetadata(default(bool), OnIsEnabledChanged));
+            new PropertyMetadata(
+                default(bool),
+                OnIsEnabledChanged));
 
         private static readonly DependencyPropertyKey IsOverlayVisiblePropertyKey = DependencyProperty.RegisterAttachedReadOnly(
             "IsOverlayVisible",
@@ -86,7 +88,7 @@
             EventManager.RegisterClassHandler(
                 typeof(UIElement),
                 UIElement.StylusSystemGestureEvent,
-                new RoutedEventHandler((o, e) =>
+                new RoutedEventHandler((_, e) =>
                 {
                     if (e is StylusSystemGestureEventArgs { SystemGesture: SystemGesture.Tap } tap &&
                         HitTest(tap) is { AdornedElement: { Dispatcher: { } } element })
@@ -134,7 +136,7 @@
             EventManager.RegisterClassHandler(
                 typeof(UIElement),
                 UIElement.StylusOutOfRangeEvent,
-                new RoutedEventHandler((o, e) =>
+                new RoutedEventHandler((_, _) =>
                 {
                     if (tapped is { })
                     {
@@ -147,7 +149,7 @@
             EventManager.RegisterClassHandler(
                 typeof(FrameworkElement),
                 FrameworkElement.ToolTipClosingEvent,
-                new RoutedEventHandler((o, e) =>
+                new RoutedEventHandler((o, _) =>
                 {
                     // https://source.dot.net/#PresentationFramework/System/Windows/Controls/Primitives/Popup.cs,2892
                     const int AnimationDelay = 150;
@@ -158,7 +160,7 @@
                         Tag = o,
                     };
 
-                    closeTimer.Tick += (_, __) => ResetCloseTimer();
+                    closeTimer.Tick += (_, _) => ResetCloseTimer();
                     closeTimer.Start();
                 }));
 
@@ -246,7 +248,7 @@
                         {
                             new Binding { Source = element, Mode = BindingMode.OneTime },
                             new Binding { Source = element, Path = BindingHelper.GetPath(UIElement.IsVisibleProperty), Mode = BindingMode.OneWay },
-                            new Binding { Source = element, Path = BindingHelper.GetPath(FrameworkElement.ToolTipProperty), Mode = BindingMode.OneWay },
+                            new Binding { Source = element, Path = BindingHelper.GetPath(ToolTipService.ToolTipProperty), Mode = BindingMode.OneWay },
                             new Binding { Source = element, Path = BindingHelper.GetPath(ToolTipService.IsEnabledProperty), Mode = BindingMode.OneWay },
                         },
                         Converter = IsOverlayVisibleConverter.Default,

@@ -6,8 +6,7 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Ellipse x:Name="TouchInfoIcon"
-                             Height="{Binding RelativeSource={RelativeSource Self},
-                                              Path=ActualWidth}"
+                             Height="12"
                              Width="12"
                              Margin="0,2,2,0"
                              StrokeThickness="0"
