@@ -4,10 +4,10 @@
 
     internal class SingleChildEnumerator : IEnumerator
     {
-        private readonly object child;
+        private readonly object? child;
         private int index = -1;
 
-        internal SingleChildEnumerator(object child)
+        internal SingleChildEnumerator(object? child)
         {
             this.child = child;
         }

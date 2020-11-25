@@ -18,7 +18,7 @@
             get
             {
                 var managerType = typeof(UnloadedEventManager);
-                var manager = (UnloadedEventManager)GetCurrentManager(managerType);
+                var manager = (UnloadedEventManager?)GetCurrentManager(managerType);
 
                 // at first use, create and register a new manager
                 if (manager is null)

@@ -38,7 +38,7 @@
                 throw new System.ArgumentNullException(nameof(adorner));
             }
 
-            var adornerLayer = (AdornerLayer)adorner.GetValue(AdornerLayerProperty) ??
+            var adornerLayer = (AdornerLayer?)adorner.GetValue(AdornerLayerProperty) ??
                                AdornerLayer.GetAdornerLayer(adorner.AdornedElement);
             adornerLayer?.Remove(adorner);
             adorner.ClearValue(AdornerLayerProperty);

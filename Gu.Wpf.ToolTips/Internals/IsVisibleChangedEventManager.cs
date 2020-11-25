@@ -18,7 +18,7 @@
             get
             {
                 var managerType = typeof(IsVisibleChangedEventManager);
-                var manager = (IsVisibleChangedEventManager)GetCurrentManager(managerType);
+                var manager = (IsVisibleChangedEventManager?)GetCurrentManager(managerType);
 
                 // at first use, create and register a new manager
                 if (manager is null)

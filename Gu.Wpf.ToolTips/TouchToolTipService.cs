@@ -62,11 +62,11 @@
         {
             if (typeof(ToolTipService).GetField("FindToolTipEvent", BindingFlags.NonPublic | BindingFlags.Static)?.GetValue(null) is RoutedEvent findToolTipEvent)
             {
-                EventManager.RegisterClassHandler(typeof(UIElement), findToolTipEvent, new RoutedEventHandler((o, e) => CancelFindToolTipIfTouch(e)));
+                EventManager.RegisterClassHandler(typeof(UIElement), findToolTipEvent, new RoutedEventHandler((_, e) => CancelFindToolTipIfTouch(e)));
                 //// For some reason explicit subscription on TextBlock is needed
-                EventManager.RegisterClassHandler(typeof(TextBlock), findToolTipEvent, new RoutedEventHandler((o, e) => CancelFindToolTipIfTouch(e)));
-                EventManager.RegisterClassHandler(typeof(ContentElement), findToolTipEvent, new RoutedEventHandler((o, e) => CancelFindToolTipIfTouch(e)));
-                EventManager.RegisterClassHandler(typeof(UIElement3D), findToolTipEvent, new RoutedEventHandler((o, e) => CancelFindToolTipIfTouch(e)));
+                EventManager.RegisterClassHandler(typeof(TextBlock), findToolTipEvent, new RoutedEventHandler((_, e) => CancelFindToolTipIfTouch(e)));
+                EventManager.RegisterClassHandler(typeof(ContentElement), findToolTipEvent, new RoutedEventHandler((_, e) => CancelFindToolTipIfTouch(e)));
+                EventManager.RegisterClassHandler(typeof(UIElement3D), findToolTipEvent, new RoutedEventHandler((_, e) => CancelFindToolTipIfTouch(e)));
 
                 static void CancelFindToolTipIfTouch(RoutedEventArgs e)
                 {
