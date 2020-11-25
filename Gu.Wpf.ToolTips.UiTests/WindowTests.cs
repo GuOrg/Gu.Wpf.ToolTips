@@ -131,6 +131,23 @@
         [TestCase("Button 2")]
         [TestCase("TextBlock 1")]
         [TestCase("Label 1")]
+        public void TapThenMouseOver(string name)
+        {
+            using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
+            var window = app.MainWindow;
+            var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
+            Touch.Tap(element.Bounds.Center());
+            var toolTip = element.FindToolTip();
+            Assert.AreEqual(true, toolTip.IsOpen());
+
+            Mouse.MoveTo(element.Bounds.Center());
+            Assert.AreEqual(true, toolTip.IsOpen());
+        }
+
+        [TestCase("Button 1")]
+        [TestCase("Button 2")]
+        [TestCase("TextBlock 1")]
+        [TestCase("Label 1")]
         public void TapAdornerTwice(string name)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
