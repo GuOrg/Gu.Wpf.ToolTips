@@ -1,4 +1,4 @@
-namespace Gu.Wpf.ToolTips
+﻿namespace Gu.Wpf.ToolTips
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -8,6 +8,7 @@ namespace Gu.Wpf.ToolTips
     {
         internal static IEnumerable<DependencyObject> VisualAncestors(this DependencyObject dependencyObject)
         {
+            // ReSharper disable once AssignNullToNotNullAttribute
             while ((dependencyObject = VisualTreeHelper.GetParent(dependencyObject)) != null)
             {
                 yield return dependencyObject;
