@@ -75,8 +75,8 @@
                     ////Debug.WriteLine($"FindToolTipEvent: {e} {Stylus.CurrentStylusDevice?.InRange}");
                     if (Stylus.CurrentStylusDevice?.InRange == true)
                     {
-                        // Working around a framework bug
-                        // The bug is that when tool tip is visible and another element is tapped the following happens
+                        // Working around the following framework issue
+                        // When tool tip is visible and another element is tapped the following happens
                         // 1. Current tool tip is closed with _quickshow = true
                         // 2. _quickshow means that the tool tip for the new element is instantly opened.
                         // 3. The newly opened tool tip is closed when the synthetic mouse down from the touch input is sent.
