@@ -55,8 +55,8 @@
             new PropertyMetadata(
                 default(OverlayAdorner)));
 
+        private static readonly WeakReference<UIElement> Tapped = new(null!);
         private static DispatcherTimer? closeTimer;
-        private static WeakReference<UIElement> tapped = new(null!);
 
 #pragma warning disable CA1810 // Initialize reference type static fields inline, bug in the analyzer
         static TouchToolTipService()
@@ -94,7 +94,7 @@
                         HitTest(tap) is { AdornedElement: { Dispatcher: { } } element })
                     {
                         // Deferring show to StylusOutOfRangeEvent as stylus input triggers synthetic mouse input.
-                        tapped.SetTarget(
+                        Tapped.SetTarget(
                             ToolTipService.GetIsOpen(element) ||
                             ReferenceEquals(element, closeTimer?.Tag)
                                 ? null!
@@ -139,7 +139,7 @@
                 UIElement.StylusOutOfRangeEvent,
                 new RoutedEventHandler((_, _) =>
                 {
-                    if (tapped.TryGetTarget(out var target))
+                    if (Tapped.TryGetTarget(out var target))
                     {
                         if (!ToolTipService.GetIsOpen(target))
                         {
@@ -147,7 +147,7 @@
                             ResetCloseTimer();
                         }
 
-                        tapped.SetTarget(null!);
+                        Tapped.SetTarget(null!);
                     }
                 }));
 
