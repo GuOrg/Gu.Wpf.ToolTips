@@ -45,13 +45,13 @@
                 <CheckBox Name="ToolTipServiceShowOnDisabled"
                           Content="ToolTipServiceShowOnDisabled"
                           IsChecked="True" />
-                <CheckBox Name="TouchToolTipServiceServiceIsEnabled"
-                          Content="TouchToolTipServiceServiceIsEnabled"
+                <CheckBox Name="TouchToolTipServicesEnabled"
+                          Content="TouchToolTipServicesEnabled"
                           IsChecked="True" />
             </StackPanel>
 
             <UniformGrid Grid.Row="2" Columns="2">
-                <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceServiceIsEnabled,
+                <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServicesEnabled,
                                                                          Path=IsChecked}"
                         Content="Button with touch tool tip"
                         IsEnabled="{Binding ElementName=IsElementEnabled,
@@ -65,7 +65,7 @@
                                              Path=IsChecked,
                                              Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceServiceIsEnabled,
+                <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServicesEnabled,
                                                                          Path=IsChecked}"
                         Content="Button with touch tool tip template"
                         IsEnabled="{Binding ElementName=IsElementEnabled,
@@ -94,7 +94,7 @@
                                              Path=IsChecked,
                                              Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceServiceIsEnabled,
+                <Button toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServicesEnabled,
                                                                          Path=IsChecked}"
                         Content="Button with touch tool tip from style"
                         IsEnabled="{Binding ElementName=IsElementEnabled,
@@ -109,7 +109,7 @@
                                              Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                 <Label VerticalAlignment="Top"
-                       toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceServiceIsEnabled,
+                       toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServicesEnabled,
                                                                         Path=IsChecked}"
                        Content="Label with TouchTooltip"
                        IsEnabled="{Binding ElementName=IsElementEnabled,
@@ -124,7 +124,7 @@
                                             Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                 <TextBlock VerticalAlignment="Top"
-                           toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServiceServiceIsEnabled,
+                           toolTips:TouchToolTipService.IsEnabled="{Binding ElementName=TouchToolTipServicesEnabled,
                                                                             Path=IsChecked}"
                            IsEnabled="{Binding ElementName=IsElementEnabled,
                                                Path=IsChecked}"
