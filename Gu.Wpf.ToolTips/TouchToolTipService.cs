@@ -58,9 +58,7 @@
         private static readonly WeakReference<UIElement> Tapped = new(null!);
         private static DispatcherTimer? closeTimer;
 
-#pragma warning disable CA1810 // Initialize reference type static fields inline, bug in the analyzer
         static TouchToolTipService()
-#pragma warning restore CA1810 // Initialize reference type static fields inline
         {
             if (typeof(ToolTipService).GetField("FindToolTipEvent", BindingFlags.NonPublic | BindingFlags.Static)?.GetValue(null) is RoutedEvent findToolTipEvent)
             {
