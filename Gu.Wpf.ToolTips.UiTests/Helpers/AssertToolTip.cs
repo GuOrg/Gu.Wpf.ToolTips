@@ -1,8 +1,11 @@
 ﻿namespace Gu.Wpf.ToolTips.UiTests
 {
     using System;
+    using System.IO;
     using System.Windows.Automation;
+
     using Gu.Wpf.UiAutomation;
+
     using NUnit.Framework;
 
     internal static class AssertToolTip
@@ -36,6 +39,9 @@
                     Wait.For(TimeSpan.FromMilliseconds(50));
                 }
 
+                var fullFileName = Path.Combine(Path.GetTempPath(), TestContext.CurrentContext.Test.MethodName + ".png");
+                Capture.ScreenToFile(fullFileName);
+                TestContext.AddTestAttachment(fullFileName);
                 Assert.Fail("Expected no ToolTip.");
             }
 
