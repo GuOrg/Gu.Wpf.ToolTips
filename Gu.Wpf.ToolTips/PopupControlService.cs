@@ -83,8 +83,10 @@
 
         private static void RaiseToolTipOpeningEvent(bool fromKeyboard) => RaiseToolTipOpeningEventMethod.Invoke(Service, new object[] { fromKeyboard });
 
-        private static MethodInfo GetMethod(string name) => Service.GetType().GetMethod(name, BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException($"Did not find method {name}");
+        private static MethodInfo GetMethod(string name) => Service.GetType().GetMethod(name, BindingFlags.NonPublic | BindingFlags.Instance)
+                                                            ?? throw new InvalidOperationException($"Did not find method {name}");
 
-        private static PropertyInfo GetProperty(string name) => Service.GetType().GetProperty(name, BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException($"Did not find method {name}");
+        private static PropertyInfo GetProperty(string name) => Service.GetType().GetProperty(name, BindingFlags.NonPublic | BindingFlags.Instance)
+                                                                ?? throw new InvalidOperationException($"Did not find method {name}");
     }
 }
