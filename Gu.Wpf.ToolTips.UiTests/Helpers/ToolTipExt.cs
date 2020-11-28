@@ -1,4 +1,4 @@
-namespace Gu.Wpf.ToolTips.UiTests
+﻿namespace Gu.Wpf.ToolTips.UiTests
 {
     using System;
     using Gu.Wpf.UiAutomation;
@@ -7,7 +7,7 @@ namespace Gu.Wpf.ToolTips.UiTests
     {
         internal static bool IsOpen(this ToolTip toolTip)
         {
-            Wait.For(TimeSpan.FromMilliseconds(100));
+            Wait.For(TimeSpan.FromMilliseconds(150));
             try
             {
                 return !toolTip.IsOffscreen;
