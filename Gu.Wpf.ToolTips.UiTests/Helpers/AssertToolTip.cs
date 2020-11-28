@@ -32,6 +32,8 @@
                         case null:
                             return;
                     }
+
+                    Wait.For(TimeSpan.FromMilliseconds(50));
                 }
 
                 Assert.Fail("Expected no ToolTip.");
