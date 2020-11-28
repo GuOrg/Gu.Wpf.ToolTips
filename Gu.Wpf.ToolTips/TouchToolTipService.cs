@@ -89,15 +89,17 @@
                 new RoutedEventHandler((_, e) =>
                 {
                     if (e is StylusSystemGestureEventArgs { SystemGesture: SystemGesture.Tap } tap &&
-                        HitTest(tap) is { AdornedElement: { Dispatcher: { } } element })
+                        HitTest(tap) is { AdornedElement: { Dispatcher: { } } element } &&
+                        !ToolTipService.GetIsOpen(element) &&
+                        !ReferenceEquals(element, closeTimer?.Tag))
                     {
                         // Deferring show to StylusOutOfRangeEvent as stylus input triggers synthetic mouse input.
-                        Tapped.SetTarget(
-                            ToolTipService.GetIsOpen(element) ||
-                            ReferenceEquals(element, closeTimer?.Tag)
-                                ? null!
-                                : element);
+                        Tapped.SetTarget(element);
                         e.Handled = true;
+                    }
+                    else
+                    {
+                        Tapped.SetTarget(null!);
                     }
 
                     static OverlayAdorner? HitTest(StylusSystemGestureEventArgs e)
@@ -139,12 +141,8 @@
                 {
                     if (Tapped.TryGetTarget(out var target))
                     {
-                        if (!ToolTipService.GetIsOpen(target))
-                        {
-                            PopupControlService.ShowToolTip(target);
-                            ResetCloseTimer();
-                        }
-
+                        PopupControlService.ShowToolTip(target);
+                        ResetCloseTimer();
                         Tapped.SetTarget(null!);
                     }
                 }));

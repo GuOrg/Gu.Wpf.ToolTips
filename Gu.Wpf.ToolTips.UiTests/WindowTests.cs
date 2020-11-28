@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.ToolTips.UiTests
+namespace Gu.Wpf.ToolTips.UiTests
 {
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
