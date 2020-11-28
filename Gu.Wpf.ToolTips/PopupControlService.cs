@@ -15,6 +15,7 @@
         private static readonly MethodInfo InspectElementForToolTipMethod = GetMethod("InspectElementForToolTip");
         private static readonly MethodInfo RaiseToolTipClosingEventMethod = GetMethod("RaiseToolTipClosingEvent");
         private static readonly MethodInfo RaiseToolTipOpeningEventMethod = GetMethod("RaiseToolTipOpeningEvent");
+        private static readonly MethodInfo ResetToolTipTimerMethod = GetMethod("ResetToolTipTimer");
         private static readonly PropertyInfo LastObjectWithToolTipProperty = GetProperty("LastObjectWithToolTip");
         private static readonly PropertyInfo LastMouseOverWithToolTipProperty = GetProperty("LastMouseOverWithToolTip");
         private static readonly PropertyInfo LastMouseDirectlyOverProperty = GetProperty("LastMouseDirectlyOver");
@@ -62,12 +63,12 @@
             {
                 RaiseToolTipClosingEvent(reset: true);
                 LastMouseOverWithToolTip = null;
-                LastMouseDirectlyOver = null;
             }
 
             LastChecked = o;
             LastObjectWithToolTip = o;
             LastMouseDirectlyOver = o;
+            ResetToolTipTimerMethod.Invoke(Service, null);
             RaiseToolTipOpeningEvent(fromKeyboard: false);
         }
 
