@@ -1,3 +1,7 @@
+####  0.4.0
+* BREAKING: Remove PopupControlService.HideToolTip()
+* BREAKING: Change parameter type in PopupControlService.ShowToolTip(UIElement element)
+
 #### 0.3.2
 * Check that ToolTip is not open before opening via touch. Issue 13
 
