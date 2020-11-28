@@ -1,4 +1,4 @@
-namespace Gu.Wpf.ToolTips.UiTests
+﻿namespace Gu.Wpf.ToolTips.UiTests
 {
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
@@ -114,7 +114,7 @@ namespace Gu.Wpf.ToolTips.UiTests
         [TestCase("Button 2")]
         [TestCase("TextBlock 1")]
         [TestCase("Label 1")]
-        public void TapThenMouseClick(string name)
+        public void TapThenClick(string name)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
             var window = app.MainWindow;
@@ -151,7 +151,7 @@ namespace Gu.Wpf.ToolTips.UiTests
         [TestCase("Button 2")]
         [TestCase("TextBlock 1")]
         [TestCase("Label 1")]
-        public void TapAdornerTwice(string name)
+        public void TapTwice(string name)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
             var window = app.MainWindow;
@@ -168,7 +168,7 @@ namespace Gu.Wpf.ToolTips.UiTests
         [TestCase("Button 2")]
         [TestCase("TextBlock 1")]
         [TestCase("Label 1")]
-        public void TapAdornerTwiceManyTimes(string name)
+        public void TapTwiceLoop(string name)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
             var window = app.MainWindow;
@@ -188,7 +188,7 @@ namespace Gu.Wpf.ToolTips.UiTests
         [TestCase("Button 2")]
         [TestCase("TextBlock 1")]
         [TestCase("Label 1")]
-        public void TapAdornerThenTapOther(string name)
+        public void TapThenTapOther(string name)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
             var window = app.MainWindow;

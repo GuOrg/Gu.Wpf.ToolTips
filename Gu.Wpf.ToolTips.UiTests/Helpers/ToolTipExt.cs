@@ -7,7 +7,7 @@
     {
         internal static bool IsOpen(this ToolTip toolTip)
         {
-            Wait.For(TimeSpan.FromMilliseconds(50));
+            Wait.For(TimeSpan.FromMilliseconds(100));
             try
             {
                 return !toolTip.IsOffscreen;
