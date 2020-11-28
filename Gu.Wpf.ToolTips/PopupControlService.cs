@@ -12,10 +12,10 @@
     {
         private static readonly object Service = typeof(FrameworkElement).GetProperty("PopupControlService", BindingFlags.NonPublic | BindingFlags.Static)?.GetValue(null) ?? throw new InvalidOperationException("Did not find property PopupControlService");
 #pragma warning disable REFL009, GU0006, INPC013 // The referenced member is not known to exist.
-        private static readonly MethodInfo InspectElementForToolTipMethod = GetMethod("InspectElementForToolTip");
         private static readonly MethodInfo RaiseToolTipClosingEventMethod = GetMethod("RaiseToolTipClosingEvent");
         private static readonly MethodInfo RaiseToolTipOpeningEventMethod = GetMethod("RaiseToolTipOpeningEvent");
         private static readonly MethodInfo ResetToolTipTimerMethod = GetMethod("ResetToolTipTimer");
+
         private static readonly PropertyInfo LastObjectWithToolTipProperty = GetProperty("LastObjectWithToolTip");
         private static readonly PropertyInfo LastMouseOverWithToolTipProperty = GetProperty("LastMouseOverWithToolTip");
         private static readonly PropertyInfo LastMouseDirectlyOverProperty = GetProperty("LastMouseDirectlyOver");
@@ -49,14 +49,14 @@
 #pragma warning restore IDE0052 // Remove unread private members
 
         /// <summary>
-        /// Shows the <see cref="ToolTip"/> for <paramref name="o"/> like if it was hovered with mouse.
+        /// Shows the <see cref="ToolTip"/> for <paramref name="element"/> like if it was hovered with mouse.
         /// </summary>
-        /// <param name="o">The <see cref="DependencyObject"/>.</param>
-        public static void ShowToolTip(DependencyObject o)
+        /// <param name="element">The <see cref="UIElement"/>.</param>
+        public static void ShowToolTip(UIElement element)
         {
-            if (o is null)
+            if (element is null)
             {
-                throw new ArgumentNullException(nameof(o));
+                throw new ArgumentNullException(nameof(element));
             }
 
             if (LastObjectWithToolTip is { })
@@ -65,20 +65,12 @@
                 LastMouseOverWithToolTip = null;
             }
 
-            LastChecked = o;
-            LastObjectWithToolTip = o;
-            LastMouseDirectlyOver = o;
+            LastMouseDirectlyOver = element;
+            LastChecked = element;
+            LastObjectWithToolTip = element;
             ResetToolTipTimerMethod.Invoke(Service, null);
             RaiseToolTipOpeningEvent(fromKeyboard: false);
         }
-
-        /// <summary>
-        /// Hides the <see cref="ToolTip"/> for <paramref name="o"/>.
-        /// </summary>
-        /// <param name="o">The <see cref="DependencyObject"/>.</param>
-        public static void HideToolTip(DependencyObject o) => InspectElementForToolTip(o, 0);
-
-        private static void InspectElementForToolTip(DependencyObject element, int triggerAction) => InspectElementForToolTipMethod.Invoke(Service, new object[] { element, triggerAction });
 
         private static void RaiseToolTipClosingEvent(bool reset) => RaiseToolTipClosingEventMethod.Invoke(Service, new object[] { reset });
 
