@@ -1,2 +1,1 @@
-﻿static Gu.Wpf.ToolTips.PopupControlService.HideToolTip(System.Windows.UIElement! element) -> void
-static Gu.Wpf.ToolTips.PopupControlService.ShowToolTip(System.Windows.UIElement! element) -> void
+﻿
