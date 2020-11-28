@@ -1,6 +1,7 @@
 ﻿#pragma warning disable GU0009 // Name the boolean parameter.
 namespace Gu.Wpf.ToolTips.UiTests
 {
+    using System;
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
@@ -157,6 +158,7 @@ namespace Gu.Wpf.ToolTips.UiTests
             Touch.Tap(element.Bounds.Center());
             AssertToolTip.IsOpen(true, element);
 
+            Wait.For(TimeSpan.FromMilliseconds(200));
             Touch.Tap(element.Bounds.Center());
             AssertToolTip.IsOpen(false, element);
         }
@@ -175,8 +177,11 @@ namespace Gu.Wpf.ToolTips.UiTests
                 Touch.Tap(element.Bounds.Center());
                 AssertToolTip.IsOpen(true, element);
 
+                Wait.For(TimeSpan.FromMilliseconds(200));
                 Touch.Tap(element.Bounds.Center());
                 AssertToolTip.IsOpen(false, element);
+
+                Wait.For(TimeSpan.FromMilliseconds(200));
             }
         }
 
