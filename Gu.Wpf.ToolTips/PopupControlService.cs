@@ -12,9 +12,9 @@
     {
         private static readonly object Service = typeof(FrameworkElement).GetProperty("PopupControlService", BindingFlags.NonPublic | BindingFlags.Static)?.GetValue(null) ?? throw new InvalidOperationException("Did not find property PopupControlService");
 #pragma warning disable REFL009, GU0006, INPC013 // The referenced member is not known to exist.
-        private static readonly MethodInfo RaiseToolTipClosingEventMethod = GetMethod("RaiseToolTipClosingEvent");
-        private static readonly MethodInfo RaiseToolTipOpeningEventMethod = GetMethod("RaiseToolTipOpeningEvent");
-        private static readonly MethodInfo ResetToolTipTimerMethod = GetMethod("ResetToolTipTimer");
+        private static readonly Delegates.RaiseToolTipClosingEvent RaiseToolTipClosingEvent = GetMethod<Delegates.RaiseToolTipClosingEvent>();
+        private static readonly Delegates.RaiseToolTipOpeningEvent RaiseToolTipOpeningEvent = GetMethod<Delegates.RaiseToolTipOpeningEvent>();
+        private static readonly Delegates.ResetToolTipTimer ResetToolTipTimer = GetMethod<Delegates.ResetToolTipTimer>();
 
         private static readonly PropertyInfo LastObjectWithToolTipProperty = GetProperty("LastObjectWithToolTip");
         private static readonly PropertyInfo LastMouseOverWithToolTipProperty = GetProperty("LastMouseOverWithToolTip");
@@ -68,18 +68,31 @@
             LastMouseDirectlyOver = element;
             LastChecked = element;
             LastObjectWithToolTip = element;
-            ResetToolTipTimerMethod.Invoke(Service, null);
+            ResetToolTipTimer();
             RaiseToolTipOpeningEvent(fromKeyboard: false);
         }
 
-        private static void RaiseToolTipClosingEvent(bool reset) => RaiseToolTipClosingEventMethod.Invoke(Service, new object[] { reset });
-
-        private static void RaiseToolTipOpeningEvent(bool fromKeyboard) => RaiseToolTipOpeningEventMethod.Invoke(Service, new object[] { fromKeyboard });
-
-        private static MethodInfo GetMethod(string name) => Service.GetType().GetMethod(name, BindingFlags.NonPublic | BindingFlags.Instance)
-                                                            ?? throw new InvalidOperationException($"Did not find method {name}");
+        private static T GetMethod<T>()
+            where T : Delegate
+        {
+            return (T?)Service.GetType().GetMethod(typeof(T).Name, BindingFlags.NonPublic | BindingFlags.Instance)
+                                       ?.CreateDelegate(typeof(T), Service)
+                   ?? throw new InvalidOperationException($"Did not find method {typeof(T).Name}");
+        }
 
         private static PropertyInfo GetProperty(string name) => Service.GetType().GetProperty(name, BindingFlags.NonPublic | BindingFlags.Instance)
                                                                 ?? throw new InvalidOperationException($"Did not find method {name}");
+
+        /// <summary>
+        /// This is just silly stuff.
+        /// </summary>
+        private static class Delegates
+        {
+            internal delegate void RaiseToolTipClosingEvent(bool reset);
+
+            internal delegate void RaiseToolTipOpeningEvent(bool fromKeyboard);
+
+            internal delegate void ResetToolTipTimer();
+        }
     }
 }
