@@ -1,4 +1,5 @@
-﻿namespace Gu.Wpf.ToolTips.UiTests
+﻿#pragma warning disable GU0009 // Name the boolean parameter.
+namespace Gu.Wpf.ToolTips.UiTests
 {
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
@@ -103,11 +104,10 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
             Mouse.Position = element.Bounds.Center();
-            var toolTip = element.FindToolTip();
-            Assert.AreEqual(true, toolTip.IsOpen());
+            AssertToolTip.IsOpen(true, element);
 
             window.FindButton("Lose focus").Click(moveMouse: true);
-            Assert.AreEqual(false, toolTip.IsOpen());
+            AssertToolTip.IsOpen(false, element);
         }
 
         [TestCase("Button 1")]
@@ -120,11 +120,10 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
             Touch.Tap(element.Bounds.Center());
-            var toolTip = element.FindToolTip();
-            Assert.AreEqual(true, toolTip.IsOpen());
+            AssertToolTip.IsOpen(true, element);
 
             Mouse.Click(MouseButton.Left, element.Bounds.Center());
-            Assert.AreEqual(false, toolTip.IsOpen());
+            AssertToolTip.IsOpen(false, element);
         }
 
         [TestCase("Button 1")]
@@ -137,14 +136,13 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
             Touch.Tap(element.Bounds.Center());
-            var toolTip = element.FindToolTip();
-            Assert.AreEqual(true, toolTip.IsOpen());
+            AssertToolTip.IsOpen(true, element);
 
             Mouse.MoveTo(element.Bounds.Center());
-            Assert.AreEqual(true, toolTip.IsOpen());
+            AssertToolTip.IsOpen(true, element);
 
             window.FindButton("Lose focus").Click(moveMouse: true);
-            Assert.AreEqual(false, toolTip.IsOpen());
+            AssertToolTip.IsOpen(false, element);
         }
 
         [TestCase("Button 1")]
@@ -157,11 +155,10 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
             Touch.Tap(element.Bounds.Center());
-            var toolTip = element.FindToolTip();
-            Assert.AreEqual(true, toolTip.IsOpen());
+            AssertToolTip.IsOpen(true, element);
 
             Touch.Tap(element.Bounds.Center());
-            Assert.AreEqual(false, toolTip.IsOpen());
+            AssertToolTip.IsOpen(false, element);
         }
 
         [TestCase("Button 1")]
@@ -176,11 +173,10 @@
             for (var i = 0; i < 4; i++)
             {
                 Touch.Tap(element.Bounds.Center());
-                var toolTip = element.FindToolTip();
-                Assert.AreEqual(true, toolTip.IsOpen());
+                AssertToolTip.IsOpen(true, element);
 
                 Touch.Tap(element.Bounds.Center());
-                Assert.AreEqual(false, toolTip.IsOpen());
+                AssertToolTip.IsOpen(false, element);
             }
         }
 
@@ -194,11 +190,10 @@
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
             Touch.Tap(element.Bounds.Center());
-            var toolTip = element.FindToolTip();
-            Assert.AreEqual(true, toolTip.IsOpen());
+            AssertToolTip.IsOpen(true, element);
 
             Touch.Tap(window.FindButton("Lose focus").Bounds.Center());
-            Assert.AreEqual(false, toolTip.IsOpen());
+            AssertToolTip.IsOpen(false, element);
         }
 
         [TestCase("Button 1")]
@@ -214,11 +209,10 @@
             for (var i = 0; i < 4; i++)
             {
                 Touch.Tap(element.Bounds.Center());
-                var toolTip = element.FindToolTip();
-                Assert.AreEqual(true, toolTip.IsOpen());
+                AssertToolTip.IsOpen(true, element);
 
                 Touch.Tap(window.FindButton("Lose focus").Bounds.Center());
-                Assert.AreEqual(false, toolTip.IsOpen());
+                AssertToolTip.IsOpen(false, element);
             }
         }
 
@@ -228,31 +222,33 @@
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
             var window = app.MainWindow;
             var button1 = window.FindButton("Button 1");
-            Touch.Tap(button1.Bounds.Center());
-            var button1ToolTip = button1.FindToolTip();
-            Assert.AreEqual(true, button1ToolTip.IsOpen());
-
             var button2 = window.FindButton("Button 2");
-            Touch.Tap(button2.Bounds.Center());
-            Assert.AreEqual(false, button1ToolTip.IsOpen());
-            var button2ToolTip = button2.FindToolTip();
-            Assert.AreEqual(true, button2ToolTip.IsOpen());
-
             var textBlock = window.FindTextBlock("TextBlock 1");
-            Touch.Tap(textBlock.Bounds.Center());
-            Assert.AreEqual(false, button1ToolTip.IsOpen());
-            Assert.AreEqual(false, button2ToolTip.IsOpen());
-            var textBlockToolTip = textBlock.FindToolTip();
-            Assert.AreEqual(true, textBlockToolTip.IsOpen());
-
             var label = window.FindLabel("Label 1");
-            Touch.Tap(label.Bounds.Center());
-            Assert.AreEqual(false, button1ToolTip.IsOpen());
-            Assert.AreEqual(false, button2ToolTip.IsOpen());
-            Assert.AreEqual(false, textBlockToolTip.IsOpen());
 
-            var labelToolTip = label.FindToolTip();
-            Assert.AreEqual(true, labelToolTip.IsOpen());
+            Touch.Tap(button1.Bounds.Center());
+            AssertToolTip.IsOpen(true, button1);
+            AssertToolTip.IsOpen(false, button2);
+            AssertToolTip.IsOpen(false, textBlock);
+            AssertToolTip.IsOpen(false, label);
+
+            Touch.Tap(button2.Bounds.Center());
+            AssertToolTip.IsOpen(false, button1);
+            AssertToolTip.IsOpen(true, button2);
+            AssertToolTip.IsOpen(false, textBlock);
+            AssertToolTip.IsOpen(false, label);
+
+            Touch.Tap(textBlock.Bounds.Center());
+            AssertToolTip.IsOpen(false, button1);
+            AssertToolTip.IsOpen(false, button2);
+            AssertToolTip.IsOpen(true, textBlock);
+            AssertToolTip.IsOpen(false, label);
+
+            Touch.Tap(label.Bounds.Center());
+            AssertToolTip.IsOpen(false, button1);
+            AssertToolTip.IsOpen(false, button2);
+            AssertToolTip.IsOpen(false, textBlock);
+            AssertToolTip.IsOpen(true, label);
         }
 
         [Test]
@@ -260,35 +256,36 @@
         {
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
             var window = app.MainWindow;
+            var button1 = window.FindButton("Button 1");
+            var button2 = window.FindButton("Button 2");
+            var textBlock = window.FindTextBlock("TextBlock 1");
+            var label = window.FindLabel("Label 1");
 
             for (var i = 0; i < 4; i++)
             {
-                var button1 = window.FindButton("Button 1");
                 Touch.Tap(button1.Bounds.Center());
-                var button1ToolTip = button1.FindToolTip();
-                Assert.AreEqual(true, button1ToolTip.IsOpen());
+                AssertToolTip.IsOpen(true, button1);
+                AssertToolTip.IsOpen(false, button2);
+                AssertToolTip.IsOpen(false, textBlock);
+                AssertToolTip.IsOpen(false, label);
 
-                var button2 = window.FindButton("Button 2");
                 Touch.Tap(button2.Bounds.Center());
-                Assert.AreEqual(false, button1ToolTip.IsOpen());
-                var button2ToolTip = button2.FindToolTip();
-                Assert.AreEqual(true, button2ToolTip.IsOpen());
+                AssertToolTip.IsOpen(false, button1);
+                AssertToolTip.IsOpen(true, button2);
+                AssertToolTip.IsOpen(false, textBlock);
+                AssertToolTip.IsOpen(false, label);
 
-                var textBlock = window.FindTextBlock("TextBlock 1");
                 Touch.Tap(textBlock.Bounds.Center());
-                Assert.AreEqual(false, button1ToolTip.IsOpen());
-                Assert.AreEqual(false, button2ToolTip.IsOpen());
-                var textBlockToolTip = textBlock.FindToolTip();
-                Assert.AreEqual(true, textBlockToolTip.IsOpen());
+                AssertToolTip.IsOpen(false, button1);
+                AssertToolTip.IsOpen(false, button2);
+                AssertToolTip.IsOpen(true, textBlock);
+                AssertToolTip.IsOpen(false, label);
 
-                var label = window.FindLabel("Label 1");
                 Touch.Tap(label.Bounds.Center());
-                Assert.AreEqual(false, button1ToolTip.IsOpen());
-                Assert.AreEqual(false, button2ToolTip.IsOpen());
-                Assert.AreEqual(false, textBlockToolTip.IsOpen());
-
-                var labelToolTip = label.FindToolTip();
-                Assert.AreEqual(true, labelToolTip.IsOpen());
+                AssertToolTip.IsOpen(false, button1);
+                AssertToolTip.IsOpen(false, button2);
+                AssertToolTip.IsOpen(false, textBlock);
+                AssertToolTip.IsOpen(true, label);
             }
         }
     }
