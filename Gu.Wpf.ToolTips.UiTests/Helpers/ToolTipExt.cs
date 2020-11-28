@@ -7,7 +7,7 @@
     {
         internal static bool IsOpen(this ToolTip toolTip)
         {
-            Wait.For(TimeSpan.FromMilliseconds(WindowsVersion.IsRunningOnCiServer ? 50 : 300));
+            Wait.For(TimeSpan.FromMilliseconds(50));
             try
             {
                 return !toolTip.IsOffscreen;
