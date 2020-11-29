@@ -65,7 +65,6 @@
                 LastMouseOverWithToolTip = null;
             }
 
-            //LastMouseDirectlyOver = element;
             LastChecked = element;
             LastObjectWithToolTip = element;
             ResetToolTipTimer();
