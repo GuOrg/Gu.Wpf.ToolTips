@@ -63,6 +63,7 @@
             {
                 RaiseToolTipClosingEvent(reset: true);
                 LastMouseOverWithToolTip = null;
+                LastMouseDirectlyOver = null;
             }
 
             LastMouseDirectlyOver = element;
