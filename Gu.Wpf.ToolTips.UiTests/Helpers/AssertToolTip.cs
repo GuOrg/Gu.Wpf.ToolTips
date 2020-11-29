@@ -1,4 +1,4 @@
-namespace Gu.Wpf.ToolTips.UiTests
+﻿namespace Gu.Wpf.ToolTips.UiTests
 {
     using System;
     using System.IO;
@@ -12,9 +12,10 @@ namespace Gu.Wpf.ToolTips.UiTests
     {
         internal static void IsOpen(bool expected, UiElement element)
         {
+            var startTime = DateTime.Now;
             if (expected)
             {
-                for (var i = 0; i < 3; i++)
+                while (!Retry.IsTimeouted(startTime, TimeSpan.FromSeconds(1)))
                 {
                     if (FindToolTip() is { IsOffscreen: false })
                     {
@@ -26,7 +27,7 @@ namespace Gu.Wpf.ToolTips.UiTests
             }
             else
             {
-                for (var i = 0; i < 6; i++)
+                while (!Retry.IsTimeouted(startTime, TimeSpan.FromSeconds(1)))
                 {
                     switch (FindToolTip())
                     {
@@ -35,8 +36,6 @@ namespace Gu.Wpf.ToolTips.UiTests
                         case null:
                             return;
                     }
-
-                    Wait.For(TimeSpan.FromMilliseconds(50));
                 }
 
                 var fullFileName = Path.Combine(Path.GetTempPath(), TestContext.CurrentContext.Test.MethodName + ".png");
@@ -47,7 +46,7 @@ namespace Gu.Wpf.ToolTips.UiTests
 
             ToolTip? FindToolTip()
             {
-                var retryTime = TimeSpan.FromMilliseconds(50);
+                var retryTime = TimeSpan.FromMilliseconds(10);
                 if (Desktop.Instance.TryFindFirst(TreeScope.Children, Conditions.Popup, x => new Popup(x), retryTime, out var popup) ||
                     element.Window.TryFindFirst(TreeScope.Children, Conditions.Popup, x => new Popup(x), retryTime, out popup))
                 {
