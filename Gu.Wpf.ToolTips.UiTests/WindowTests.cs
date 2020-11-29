@@ -184,7 +184,7 @@ namespace Gu.Wpf.ToolTips.UiTests
         [TestCase("Button 2")]
         [TestCase("TextBlock 1")]
         [TestCase("Label 1")]
-        public void TapThenTapOther(string name)
+        public void TapThenTapLoseFocus(string name)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
             var window = app.MainWindow;
@@ -200,7 +200,7 @@ namespace Gu.Wpf.ToolTips.UiTests
         [TestCase("Button 2")]
         [TestCase("TextBlock 1")]
         [TestCase("Label 1")]
-        public void TapAdornerThenTapOtherManyTimes(string name)
+        public void TapThenTapLoseFocusLoop(string name)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
             var window = app.MainWindow;
