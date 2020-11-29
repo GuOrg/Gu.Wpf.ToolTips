@@ -154,10 +154,11 @@ namespace Gu.Wpf.ToolTips.UiTests
             using var app = Application.AttachOrLaunch(ExeFileName, this.windowName);
             var window = app.MainWindow;
             var element = window.FindFirstChild(Conditions.ByName(name), x => new UiElement(x));
-            Touch.Tap(element.Bounds.Center());
+            var center = element.Bounds.Center();
+            Touch.Tap(center);
             AssertToolTip.IsOpen(true, element);
 
-            Touch.Tap(element.Bounds.Center());
+            Touch.Tap(center);
             AssertToolTip.IsOpen(false, element);
         }
 
