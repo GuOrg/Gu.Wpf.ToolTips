@@ -18,7 +18,6 @@
 
         private static readonly PropertyInfo LastObjectWithToolTipProperty = GetProperty("LastObjectWithToolTip");
         private static readonly PropertyInfo LastMouseOverWithToolTipProperty = GetProperty("LastMouseOverWithToolTip");
-        private static readonly PropertyInfo LastMouseDirectlyOverProperty = GetProperty("LastMouseDirectlyOver");
         private static readonly PropertyInfo LastCheckedProperty = GetProperty("LastChecked");
 #pragma warning restore REFL009, GU0006, INPC013  // The referenced member is not known to exist.
 
@@ -33,12 +32,6 @@
         {
             get => (DependencyObject?)LastMouseOverWithToolTipProperty.GetValue(Service);
             set => LastMouseOverWithToolTipProperty.SetValue(Service, value);
-        }
-
-        private static DependencyObject? LastMouseDirectlyOver
-        {
-            get => (DependencyObject?)LastMouseDirectlyOverProperty.GetValue(Service);
-            set => LastMouseDirectlyOverProperty.SetValue(Service, value);
         }
 
         private static DependencyObject? LastChecked
