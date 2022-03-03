@@ -266,7 +266,7 @@
 
         private sealed class IsOverlayVisibleConverter : IMultiValueConverter
         {
-            internal static readonly IsOverlayVisibleConverter Default = new IsOverlayVisibleConverter();
+            internal static readonly IsOverlayVisibleConverter Default = new();
 
             public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
             {

@@ -8,8 +8,8 @@
     [ValueConversion(typeof(bool?), typeof(Visibility))]
     public sealed class BoolToVisibilityConverter : IValueConverter
     {
-        public static readonly BoolToVisibilityConverter VisibleWhenTrueElseCollapsed = new BoolToVisibilityConverter(Visibility.Visible, Visibility.Collapsed);
-        public static readonly BoolToVisibilityConverter VisibleWhenTrueElseHidden = new BoolToVisibilityConverter(Visibility.Visible, Visibility.Hidden);
+        public static readonly BoolToVisibilityConverter VisibleWhenTrueElseCollapsed = new(Visibility.Visible, Visibility.Collapsed);
+        public static readonly BoolToVisibilityConverter VisibleWhenTrueElseHidden = new(Visibility.Visible, Visibility.Hidden);
 
         private readonly object whenTrue;
         private readonly object whenFalse;

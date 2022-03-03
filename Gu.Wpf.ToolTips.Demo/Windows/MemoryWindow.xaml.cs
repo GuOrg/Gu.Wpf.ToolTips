@@ -1,5 +1,4 @@
-﻿#pragma warning disable WPF0041 // Set mutable dependency properties using SetCurrentValue.
-namespace Gu.Wpf.ToolTips.Demo.Windows
+﻿namespace Gu.Wpf.ToolTips.Demo.Windows
 {
     using System;
     using System.Windows;
@@ -15,6 +14,7 @@ namespace Gu.Wpf.ToolTips.Demo.Windows
 
         private void OnGcClick(object sender, RoutedEventArgs e)
         {
+#pragma warning disable WPF0041 // Set mutable dependency properties using SetCurrentValue.
             this.TotalMemory.Text = $"TotalMemory {GC.GetTotalMemory(forceFullCollection: true)} B";
         }
 

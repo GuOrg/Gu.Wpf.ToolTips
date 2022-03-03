@@ -19,7 +19,7 @@
             {
                 if (args.StagingItem.Input is { } inputEventArgs &&
                     inputEventArgs.RoutedEvent.Name != "PreviewInputReport" &&
-                    !(inputEventArgs.Device is KeyboardDevice))
+                    inputEventArgs.Device is not KeyboardDevice)
                 {
                     Debug.WriteLine($"{name,-16} {inputEventArgs.GetType().Name,-28} {inputEventArgs.Device?.GetType().Name ?? "null",-21} {inputEventArgs.Device?.Target?.GetType().Name ?? "null",-15} {inputEventArgs.RoutedEvent.Name}");
                 }

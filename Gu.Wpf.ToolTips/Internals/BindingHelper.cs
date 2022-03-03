@@ -6,7 +6,7 @@
 
     internal static class BindingHelper
     {
-        private static readonly Dictionary<DependencyProperty, PropertyPath> PropertyPaths = new Dictionary<DependencyProperty, PropertyPath>();
+        private static readonly Dictionary<DependencyProperty, PropertyPath> PropertyPaths = new();
 
         internal static BindingBuilder Bind(this DependencyObject target, DependencyProperty targetProperty)
         {
@@ -25,7 +25,7 @@
             return path;
         }
 
-        internal struct BindingBuilder
+        internal readonly struct BindingBuilder
         {
             private readonly DependencyObject target;
             private readonly DependencyProperty targetProperty;
