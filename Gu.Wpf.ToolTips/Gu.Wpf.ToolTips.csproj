@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;netcoreapp3.1;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
     <OutputType>library</OutputType>
     <UseWpf>true</UseWpf>
     <LangVersion>latest</LangVersion>
@@ -33,6 +33,8 @@
     <RepositoryUrl>https://github.com/GuOrg/Gu.Wpf.ToolTips</RepositoryUrl>
     <PackageTags>wpf tooltip touch</PackageTags>
     <PackageReleaseNotes>
+      0.5.0
+      BREAKING: net48;net6.0-windows
       0.4.0
       BREAKING: Remove PopupControlService.HideToolTip()
       BREAKING: Change parameter type in PopupControlService.ShowToolTip(UIElement element)

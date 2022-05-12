@@ -1,4 +1,7 @@
-####  0.4.0
+#### 0.5.0
+* BREAKING: net48;net6.0-windows
+
+#### 0.4.0
 * BREAKING: Remove PopupControlService.HideToolTip()
 * BREAKING: Change parameter type in PopupControlService.ShowToolTip(UIElement element)
 
