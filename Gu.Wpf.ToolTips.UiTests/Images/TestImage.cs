@@ -20,12 +20,12 @@
 
             foreach (var file in Directory.EnumerateFiles(folder, oldName, SearchOption.AllDirectories))
             {
-                File.Move(file, file.Replace(oldName, newName, StringComparison.Ordinal));
+                File.Move(file, file.Replace(oldName, newName));
             }
 
             foreach (var file in Directory.EnumerateFiles(folder, "*.cs", SearchOption.AllDirectories))
             {
-                File.WriteAllText(file, File.ReadAllText(file).Replace(oldName, newName, StringComparison.Ordinal));
+                File.WriteAllText(file, File.ReadAllText(file).Replace(oldName, newName));
             }
         }
 
