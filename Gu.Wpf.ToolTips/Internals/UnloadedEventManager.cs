@@ -6,7 +6,7 @@
     /// <summary>
     /// Manager for the DependencyObject.Unloaded event.
     /// </summary>
-    internal class UnloadedEventManager : WeakEventManager
+    internal sealed class UnloadedEventManager : WeakEventManager
     {
         private UnloadedEventManager()
         {

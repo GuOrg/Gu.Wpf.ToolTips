@@ -6,7 +6,7 @@
     /// <summary>
     /// Manager for the DependencyObject.Loaded event.
     /// </summary>
-    internal class LoadedEventManager : WeakEventManager
+    internal sealed class LoadedEventManager : WeakEventManager
     {
         private LoadedEventManager()
         {

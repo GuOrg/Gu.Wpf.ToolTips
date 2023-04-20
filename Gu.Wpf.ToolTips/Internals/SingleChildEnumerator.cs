@@ -2,7 +2,7 @@
 {
     using System.Collections;
 
-    internal class SingleChildEnumerator : IEnumerator
+    internal sealed class SingleChildEnumerator : IEnumerator
     {
         private readonly object? child;
         private int index = -1;

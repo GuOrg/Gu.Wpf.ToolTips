@@ -6,7 +6,7 @@
     /// <summary>
     /// Manager for the DependencyObject.IsVisibleChanged event.
     /// </summary>
-    internal class IsVisibleChangedEventManager : WeakEventManager
+    internal sealed class IsVisibleChangedEventManager : WeakEventManager
     {
         private IsVisibleChangedEventManager()
         {
